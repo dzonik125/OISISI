@@ -6,7 +6,7 @@ public class OcenaNaIspitu {
 	private String studentPolozio;
 	private String predmet;
 	private int ocena;
-	private Date datumPolaganja = new Date();
+	private Date datumPolaganja;
 	
 	public void setOcena(int a) {
 		if (a >= 6 && a <= 10) {

@@ -9,17 +9,17 @@ enum Status{
 }
 
 public class Student {
-	private String prezime;
-	private String ime;
-	private Date datumRodj = new Date();
-	private String adresaStan;
-	private String kontaktTel;
+	private String surname;
+	private String name;
+	private Date birthDate;
+	private Adresa adress;
+	private String contact;
 	private String mail; 
-	private String brIndeksa;
-	private String godUpisa;
-	private String trenutnaGodStudija;
+	private String index;
+	private int enrollmentYear;
+	private int currentStudyYear;
 	private Status status;
-	private float prosecnaOcena;
-	private ArrayList<String> spisakOcena = new ArrayList<String>();
-	private ArrayList<String> spisakNepolozenihIspita = new ArrayList<String>();
+	private float avgGrade;
+	private ArrayList<String> gradeList = new ArrayList<String>();
+	private ArrayList<String> notPassed = new ArrayList<String>();
 }
