@@ -1,4 +1,4 @@
-package main;
+package model;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,7 +12,7 @@ public class Student {
 	private String surname;
 	private String name;
 	private Date birthDate;
-	private Adresa adress;
+	private Adress adress;
 	private String contact;
 	private String mail; 
 	private String index;
@@ -20,6 +20,6 @@ public class Student {
 	private int currentStudyYear;
 	private Status status;
 	private float avgGrade;
-	private ArrayList<String> gradeList = new ArrayList<String>();
-	private ArrayList<String> notPassed = new ArrayList<String>();
+	private ArrayList<ExamGrade> gradeList = new ArrayList<ExamGrade>();
+	private ArrayList<Subject> notPassed = new ArrayList<Subject>();
 }
