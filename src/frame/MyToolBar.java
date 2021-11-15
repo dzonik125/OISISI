@@ -1,6 +1,6 @@
 package frame;
 
-import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
@@ -8,9 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
-import java.awt.Toolkit;
-
-import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class MyToolBar extends JToolBar {
 	public MyToolBar() {
@@ -37,7 +35,7 @@ public class MyToolBar extends JToolBar {
 		pencilIcon = new ImageIcon(newimg2);
 		
 		JButton buttonChange = new JButton();
-		buttonChange.setToolTipText("New");
+		buttonChange.setToolTipText("change");
 		buttonChange.setIcon(pencilIcon);
 		add(buttonChange);
 		
@@ -50,14 +48,24 @@ public class MyToolBar extends JToolBar {
 		
 		
 		JButton buttonBin = new JButton();
-		buttonBin.setToolTipText("New");
+		buttonBin.setToolTipText("delete");
 		buttonBin.setIcon(deleteIcon);
 		add(buttonBin);
 		
 		addSeparator();
 		
+		
+		
+		
 		JTextField textField = new JTextField();
-		textField.setPreferredSize(new Dimension(30, 15));
+		textField.setToolTipText("pretraga");
+		textField.setColumns(9);
+		textField.getPreferredSize();
+		textField.setBounds(100,100,200,40);
+		
+
+
+		
 		
 		add(textField);
 		
@@ -68,10 +76,22 @@ public class MyToolBar extends JToolBar {
 		
 		
 		JButton buttonSearch=new JButton();
-		buttonSearch.setText("seach");
+		buttonSearch.setToolTipText("seach");
 		buttonSearch.setIcon(searchIcon);
 		
 		add(buttonSearch);
+		
+		JPanel panel = new JPanel();
+		panel.setLayout(new FlowLayout(RIGHT));
+		panel.add(textField);
+		panel.add(buttonSearch);
+		
+		add(panel);
+		
+		
+		
+		
+		
 		
 		setFloatable(false);
 		
