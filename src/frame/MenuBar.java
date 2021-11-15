@@ -32,6 +32,8 @@ public class MenuBar extends JMenuBar {
 		JRadioButtonMenuItem rmiProfs = new JRadioButtonMenuItem("Profesori");
 		JRadioButtonMenuItem rmiCathedra = new JRadioButtonMenuItem("Katedra");
 		
+		//Pokupljeno sa stackoverflowa, linije ispod za skaliranje slika, https://stackoverflow.com/questions/25593949/force-jmenuitem-size
+		
 		ImageIcon fileIcon = new ImageIcon("images/file.png");
 		Image image1 = fileIcon.getImage();
 		Image newimg1 = image1.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
@@ -61,11 +63,13 @@ public class MenuBar extends JMenuBar {
 		KeyStroke ctrlNKeyStroke = KeyStroke.getKeyStroke("control N");
 		miNew.setAccelerator(ctrlNKeyStroke);
 		miNew.setIcon(newIcon);
+		miNew.setMnemonic(KeyEvent.VK_W);
 		file.addSeparator();
 		file.add(miSave);
 		KeyStroke ctrlSKeyStroke = KeyStroke.getKeyStroke("control S");
 		miSave.setAccelerator(ctrlSKeyStroke);
 		miSave.setIcon(saveIcon);
+		miSave.setMnemonic(KeyEvent.VK_S);
 		file.addSeparator();
 		file.add(miOpen);
 		miOpen.setMnemonic(KeyEvent.VK_O);
@@ -75,6 +79,7 @@ public class MenuBar extends JMenuBar {
 		KeyStroke ctrCKeySTroke = KeyStroke.getKeyStroke("control C");
 		miClose.setAccelerator(ctrCKeySTroke);
 		miClose.setIcon(closeIcon);
+		miClose.setMnemonic(KeyEvent.VK_C);
 		
 		miOpen.add(rmiStudents);
 		miOpen.addSeparator();
@@ -108,21 +113,25 @@ public class MenuBar extends JMenuBar {
 		KeyStroke ctrlEKeyStroke = KeyStroke.getKeyStroke("control E");
 		miEdit.setAccelerator(ctrlEKeyStroke);
 		miEdit.setIcon(editIcon);
+		miEdit.setMnemonic(KeyEvent.VK_T);
 		edit.addSeparator();
 		edit.add(miDelete);
 		KeyStroke ctrlDKeyStroke = KeyStroke.getKeyStroke("control D");
 		miDelete.setAccelerator(ctrlDKeyStroke);
 		miDelete.setIcon(deleteIcon);
+		miDelete.setMnemonic(KeyEvent.VK_D);
 		
 		help.add(miHelp);
 		KeyStroke ctrlHKeyStroke = KeyStroke.getKeyStroke("control H");
 		miHelp.setAccelerator(ctrlHKeyStroke);
 		miHelp.setIcon(helpIcon);
+		miHelp.setMnemonic(KeyEvent.VK_L);
 		help.addSeparator();
 		help.add(miAbout);
 		KeyStroke ctrlAKeyStroke = KeyStroke.getKeyStroke("control A");
 		miAbout.setAccelerator(ctrlAKeyStroke);
 		miAbout.setIcon(aboutIcon);
+		miAbout.setMnemonic(KeyEvent.VK_A);
 		
 		
 		add(file);
