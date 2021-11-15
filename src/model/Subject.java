@@ -14,6 +14,6 @@ public class Subject {
 	private int studyYear;
 	private Professor subjectProfessor;
 	private int espb;
-	private ArrayList<String> passed = new ArrayList<String>();
-	private ArrayList<String> failed = new ArrayList<String>();
+	private ArrayList<Student> passed = new ArrayList<Student>();
+	private ArrayList<Student> failed = new ArrayList<Student>();
 }
