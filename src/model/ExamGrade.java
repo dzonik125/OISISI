@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class ExamGrade {
 	private String studentPassed;
-	private String subject;
+	private Subject subject;
 	private int grade;
 	private Date examDate;
 	

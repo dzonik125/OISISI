@@ -12,7 +12,7 @@ public class Subject {
 	private String subjectName;
 	private Semester semester;
 	private int studyYear;
-	private String subjectProfessor;
+	private Professor subjectProfessor;
 	private int espb;
 	private ArrayList<String> passed = new ArrayList<String>();
 	private ArrayList<String> failed = new ArrayList<String>();

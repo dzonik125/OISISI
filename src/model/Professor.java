@@ -7,12 +7,12 @@ public class Professor {
 	private String name;
 	private String surname;
 	private Date dateOfBirth = new Date();
-	private String adress;
+	private Adress adress;
 	private String phone;
 	private String mail;
 	private String office;
 	private String id;
 	private String title;
-	private String internshipYear;
-	private ArrayList<String> subjectList = new ArrayList<String>(); 
+	private int internshipYear;
+	private ArrayList<Subject> subjectList = new ArrayList<Subject>(); 
 }
