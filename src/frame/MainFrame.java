@@ -25,6 +25,9 @@ public class MainFrame extends JFrame {
 		MyToolBar tb = new MyToolBar();
 		add(tb, BorderLayout.NORTH);
 		
+		StatusBar status = new StatusBar();
+		add(status, BorderLayout.SOUTH);
+		
 	}
 	
 }
