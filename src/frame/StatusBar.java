@@ -2,6 +2,7 @@ package frame;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
