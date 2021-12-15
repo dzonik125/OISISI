@@ -28,6 +28,8 @@ public class MainFrame extends JFrame {
 		StatusBar status = new StatusBar();
 		add(status, BorderLayout.SOUTH);
 		
+		DialogStudent d1 = new DialogStudent(this);
+		
 	}
 	
 }
