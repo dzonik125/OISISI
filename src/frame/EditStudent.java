@@ -11,19 +11,20 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class DialogStudent extends JDialog {
+public class EditStudent extends JDialog {
 
-	public DialogStudent(MainFrame parent) {
+	public EditStudent(JFrame parent) {
 		Dimension frameSize = parent.getSize();
 		int frameHeight = frameSize.height;
 		int frameWidth = frameSize.width;
 		setSize(frameWidth / 2, frameHeight - 100);
 		setLocationRelativeTo(parent);
-		setTitle("Dodavanje studenta");
+		setTitle("Izmena studenta");
 		setModal(true);
 
 		JPanel bottomPanel = new JPanel();
@@ -94,7 +95,7 @@ public class DialogStudent extends JDialog {
 		gbcMail.gridy = 5;
 		gbcMail.insets = new Insets(20, 0, 0, 0);
 		centerPanel.add(mail, gbcMail);
-		
+
 		GridBagConstraints gbcIndex = new GridBagConstraints();
 		gbcIndex.gridx = 0;
 		gbcIndex.gridy = 6;
@@ -118,7 +119,7 @@ public class DialogStudent extends JDialog {
 		gbcStat.gridy = 10;
 		gbcStat.insets = new Insets(20, 10, 0, 0);
 		centerPanel.add(stat, gbcStat);
-		
+
 		GridBagConstraints gbcTxtName = new GridBagConstraints();
 		gbcTxtName.gridx = 1;
 		gbcTxtName.gridy = 0;
@@ -155,7 +156,7 @@ public class DialogStudent extends JDialog {
 		gbcTxtPhone.fill = GridBagConstraints.HORIZONTAL;
 		gbcTxtPhone.insets = new Insets(20, 20, 0, 20);
 		centerPanel.add(txtPhone, gbcTxtPhone);
-		
+
 		GridBagConstraints gbcTxtMail = new GridBagConstraints();
 		gbcTxtMail.gridx = 1;
 		gbcTxtMail.gridy = 5;
@@ -196,16 +197,15 @@ public class DialogStudent extends JDialog {
 		gbcS.fill = GridBagConstraints.HORIZONTAL;
 		gbcS.insets = new Insets(20, 20, 0, 20);
 		centerPanel.add(s, gbcS);
-		
+
 		abort.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent a) {
 				dispose();
 			}
-			
+
 		});
 		
-
 		setVisible(true);
 	}
 
