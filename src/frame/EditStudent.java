@@ -45,6 +45,13 @@ public class EditStudent extends JDialog {
 		JPanel centerPanel = new JPanel();
 		centerPanel.setLayout(new GridBagLayout());
 		add(centerPanel, BorderLayout.NORTH);
+		
+		JTabbedPane tp = new JTabbedPane();
+		add(tp);
+		tp.addTab("Informacije", centerPanel);
+		tp.addTab("Položeni", new JPanel());
+		tp.addTab("Nepoloženi", new JPanel());
+		
 
 		JLabel name = new JLabel("Ime*");
 		JLabel surname = new JLabel("Prezime*");
