@@ -7,8 +7,9 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 public class MainFrame extends JFrame {
+	private static MainFrame instance;
 	
-	public MainFrame() {
+	private MainFrame() {
 		super();
 		Toolkit kit = Toolkit.getDefaultToolkit();
 		Dimension screenSize = kit.getScreenSize();
@@ -27,8 +28,17 @@ public class MainFrame extends JFrame {
 		
 		StatusBar status = new StatusBar();
 		add(status, BorderLayout.SOUTH);
+		EditStudent e1 = new EditStudent(this);
 		
+		TabbedPane tp = new TabbedPane();
+		add(tp, BorderLayout.CENTER);
 		
+	}
+	
+	public static MainFrame getInstance() {
+		if(instance == null)
+			instance = new MainFrame();
+		return instance;
 	}
 	
 }

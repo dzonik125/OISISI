@@ -14,6 +14,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 
 public class DialogStudent extends JDialog {
 
@@ -25,6 +26,7 @@ public class DialogStudent extends JDialog {
 		setLocationRelativeTo(parent);
 		setTitle("Dodavanje studenta");
 		setModal(true);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
 		JPanel bottomPanel = new JPanel();
 		JButton confirm = new JButton("Potvrda");
