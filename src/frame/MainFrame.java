@@ -29,6 +29,9 @@ public class MainFrame extends JFrame {
 		add(status, BorderLayout.SOUTH);
 		EditStudent e1 = new EditStudent(this);
 		
+		TabbedPane tp = new TabbedPane();
+		add(tp, BorderLayout.CENTER);
+		
 	}
 	
 }
