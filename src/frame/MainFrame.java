@@ -27,7 +27,7 @@ public class MainFrame extends JFrame {
 		
 		StatusBar status = new StatusBar();
 		add(status, BorderLayout.SOUTH);
-		
+		EditStudent e1 = new EditStudent(this);
 		
 	}
 	
