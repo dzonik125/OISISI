@@ -5,9 +5,12 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class MainFrame extends JFrame {
 	private static MainFrame instance;
+	private JTable studentTable;
 	
 	private MainFrame() {
 		super();
@@ -28,11 +31,20 @@ public class MainFrame extends JFrame {
 		
 		StatusBar status = new StatusBar();
 		add(status, BorderLayout.SOUTH);
-		EditStudent e1 = new EditStudent(this);
 		
 		TabbedPane tp = new TabbedPane();
 		add(tp, BorderLayout.CENTER);
 		
+		studentTable = new StudentTable();
+		JScrollPane scrollPane = new JScrollPane(studentTable);
+		tp.add(scrollPane);
+		this.refresh();
+	}
+	
+	public void refresh() {
+		AbstractTableModelStudents model = (AbstractTableModelStudents) studentTable.getModel();
+		model.fireTableDataChanged();
+		validate();
 	}
 	
 	public static MainFrame getInstance() {

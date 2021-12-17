@@ -3,12 +3,12 @@ package model;
 import java.util.ArrayList;
 import java.util.Date;
 
-enum Status{
-	B,
-	S
-}
 
 public class Student {
+	public enum Status{
+		B,
+		S
+	}
 	private String surname;
 	private String name;
 	private Date birthDate;
@@ -22,4 +22,98 @@ public class Student {
 	private float avgGrade;
 	private ArrayList<ExamGrade> gradeList = new ArrayList<ExamGrade>();
 	private ArrayList<Subject> notPassed = new ArrayList<Subject>();
+	
+	public Student() {
+		super();
+	}
+	public Student(String index, String name, String surname, int currentStudyYear, Status s, float avgGrade) {
+		super();
+		this.surname = surname;
+		this.name = name;
+		this.index = index;
+		this.currentStudyYear = currentStudyYear;
+		this.status = s;
+		this.avgGrade = avgGrade;
+	}
+	public String getSurname() {
+		return surname;
+	}
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Date getBirthDate() {
+		return birthDate;
+	}
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
+	}
+	public Adress getAdress() {
+		return adress;
+	}
+	public void setAdress(Adress adress) {
+		this.adress = adress;
+	}
+	public String getContact() {
+		return contact;
+	}
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
+	public String getMail() {
+		return mail;
+	}
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+	public String getIndex() {
+		return index;
+	}
+	public void setIndex(String index) {
+		this.index = index;
+	}
+	public int getEnrollmentYear() {
+		return enrollmentYear;
+	}
+	public void setEnrollmentYear(int enrollmentYear) {
+		this.enrollmentYear = enrollmentYear;
+	}
+	public int getCurrentStudyYear() {
+		return currentStudyYear;
+	}
+	public void setCurrentStudyYear(int currentStudyYear) {
+		this.currentStudyYear = currentStudyYear;
+	}
+	public Status getStatus() {
+		return status;
+	}
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+	public float getAvgGrade() {
+		return avgGrade;
+	}
+	public void setAvgGrade(float avgGrade) {
+		this.avgGrade = avgGrade;
+	}
+	public ArrayList<ExamGrade> getGradeList() {
+		return gradeList;
+	}
+	public void setGradeList(ArrayList<ExamGrade> gradeList) {
+		this.gradeList = gradeList;
+	}
+	public ArrayList<Subject> getNotPassed() {
+		return notPassed;
+	}
+	public void setNotPassed(ArrayList<Subject> notPassed) {
+		this.notPassed = notPassed;
+	}
+	
+	
+	
 }
