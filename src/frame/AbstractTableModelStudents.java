@@ -12,13 +12,13 @@ public class AbstractTableModelStudents extends AbstractTableModel{
 	@Override
 	public int getRowCount() {
 		// TODO Auto-generated method stub
-		return 0;
+		return StudentBase.getInstance().getStudents().size();
 	}
 
 	@Override
 	public int getColumnCount() {
 		// TODO Auto-generated method stub
-		return 0;
+		return 6;
 	}
 	
 	//Nazivi kolona u zaglavlju

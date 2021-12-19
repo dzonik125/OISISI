@@ -2,6 +2,8 @@ package frame;
 
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
@@ -17,6 +19,15 @@ public class MenuBar extends JMenuBar {
 		
 		JMenu file = new JMenu("File");
 		JMenuItem miNew = new JMenuItem("New");
+		miNew.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				//Dodati if za tab!!!
+				DialogStudent ds = new DialogStudent(MainFrame.getInstance());
+			}
+
+		});
 		JMenuItem miSave = new JMenuItem("Save");
 		JMenu miOpen = new JMenu("Open");
 		JMenuItem miClose = new JMenuItem("Close");

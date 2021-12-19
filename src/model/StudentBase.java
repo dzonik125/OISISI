@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Student.Status;
+
 public class StudentBase {
 
 	private static StudentBase instance = null;
@@ -26,6 +28,7 @@ public class StudentBase {
 		this.columns.add("Status");
 		this.columns.add("Prosek");
 		this.students = new ArrayList<Student>();
+		students.add(new Student("ra-132-2019", "Nikola", "Kolarov", 3, Status.B, (float)7.11));
 	}
 
 	public List<Student> getStudents() {
@@ -45,25 +48,7 @@ public class StudentBase {
 	}
 
 	public String getValueAt(int row, int column) {
-		if (row == 0) {
-			switch (column) {
-			case 0:
-				return "Indeks";
-			case 1:
-				return "Ime";
-			case 2:
-				return "Prezime";
-			case 3:
-				return "Godina studija";
-			case 4:
-				return "Status";
-			case 5:
-				return "Prosek";
-			default:
-				return null;
-			}
-
-		} else {
+		
 			Student s = this.students.get(row);
 			switch (column) {
 			case 0:
@@ -81,8 +66,6 @@ public class StudentBase {
 			default:
 				return null;
 			}
-		}
-
 	}
 
 }

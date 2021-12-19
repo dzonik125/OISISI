@@ -31,6 +31,7 @@ public class MyToolBar extends JToolBar {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				//Dodati if za tabove!!
 				DialogStudent ds = new DialogStudent(MainFrame.getInstance());
 			}
 
