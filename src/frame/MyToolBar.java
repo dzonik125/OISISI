@@ -31,10 +31,11 @@ public class MyToolBar extends JToolBar {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				//Dodati if za tabove!!
-				DialogStudent ds = new DialogStudent(MainFrame.getInstance());
+				// Dodati if za tabove!!
+				if (MainFrame.getInstance().tp.getSelectedIndex() == 0) {
+					DialogStudent ds = new DialogStudent(MainFrame.getInstance());
+				}
 			}
-
 		});
 
 		addSeparator();
@@ -48,6 +49,17 @@ public class MyToolBar extends JToolBar {
 		buttonChange.setToolTipText("change");
 		buttonChange.setIcon(pencilIcon);
 		add(buttonChange);
+		buttonChange.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if (MainFrame.getInstance().tp.getSelectedIndex() == 0) {
+					EditStudent es = new EditStudent(MainFrame.getInstance());
+				}
+			}
+
+		});
 
 		addSeparator();
 
@@ -60,6 +72,15 @@ public class MyToolBar extends JToolBar {
 		buttonBin.setToolTipText("delete");
 		buttonBin.setIcon(deleteIcon);
 		add(buttonBin);
+		buttonBin.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if (MainFrame.getInstance().tp.getSelectedIndex() == 0) {
+					DeleteStudent dels = new DeleteStudent(MainFrame.getInstance());
+				}
+			}
+		});
 
 		addSeparator();
 
