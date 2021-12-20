@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import model.Student;
+
 public class MainFrame extends JFrame {
 	private static MainFrame instance;
 	public JTable studentTable;
@@ -42,6 +44,14 @@ public class MainFrame extends JFrame {
 		JScrollPane scrollPane = new JScrollPane(studentTable);
 		tp.addTab("Studenti", scrollPane);
 		this.refresh();
+	}
+	
+	public int getDataFromSelectedRow() {
+		if(studentTable.getSelectedRow() != -1) {
+			return studentTable.convertRowIndexToModel(studentTable.getSelectedRow());
+		}else {
+			return -1;
+		}
 	}
 	
 	public void refresh() {

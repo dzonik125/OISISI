@@ -28,9 +28,8 @@ public class StudentBase {
 		this.columns.add("Status");
 		this.columns.add("Prosek");
 		this.students = new ArrayList<Student>();
-		students.add(new Student("ra-132-2019", "Nikola", "Kolarov", 3, Status.B, (float)7.11));
 	}
-
+	
 	public List<Student> getStudents() {
 		return students;
 	}

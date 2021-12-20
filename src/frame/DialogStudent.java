@@ -1,13 +1,15 @@
 package frame;
 
 import java.awt.BorderLayout;
-
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,17 +23,20 @@ import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 import controllers.StudentController;
+import model.Adress;
 import model.Student;
-import model.Student.Status;
-
+import model.StudentBase;
 
 public class DialogStudent extends JDialog {
+
+	private Student.Status stats;
+	private int yr;
 
 	public DialogStudent(MainFrame parent) {
 		Dimension frameSize = parent.getSize();
 		int frameHeight = frameSize.height;
 		int frameWidth = frameSize.width;
-		setSize(frameWidth / 2, frameHeight - 100);
+		setSize(frameWidth / 2, frameHeight - 30);
 		setLocationRelativeTo(parent);
 		setTitle("Dodavanje studenta");
 		setModal(true);
@@ -53,7 +58,10 @@ public class DialogStudent extends JDialog {
 		JLabel name = new JLabel("Ime*");
 		JLabel surname = new JLabel("Prezime*");
 		JLabel birthday = new JLabel("Datum rođenja*");
-		JLabel adress = new JLabel("Adresa stanovanja* ");
+		JLabel adress = new JLabel("Ulica stanovanja* ");
+		JLabel adressNum = new JLabel("Broj ulice*");
+		JLabel adressCity = new JLabel("Mesto*");
+		JLabel adressState = new JLabel("Država*");
 		JLabel phone = new JLabel("Broj telefona* ");
 		JLabel index = new JLabel("Broj indeksa* ");
 		JLabel currentYear = new JLabel("Trenutna godina studija* ");
@@ -65,6 +73,9 @@ public class DialogStudent extends JDialog {
 		JTextField txtSurname = new JTextField();
 		JTextField txtBirthday = new JTextField();
 		JTextField txtAdress = new JTextField();
+		JTextField txtAdressNumber = new JTextField();
+		JTextField txtAdressCity = new JTextField();
+		JTextField txtAdressState = new JTextField();
 		JTextField txtPhone = new JTextField();
 		JTextField txtIndex = new JTextField();
 		JTextField txtMail = new JTextField();
@@ -94,39 +105,57 @@ public class DialogStudent extends JDialog {
 		gbcAdress.insets = new Insets(20, 0, 0, 0);
 		centerPanel.add(adress, gbcAdress);
 
+		GridBagConstraints gbcAdressNumber = new GridBagConstraints();
+		gbcAdressNumber.gridx = 0;
+		gbcAdressNumber.gridy = 4;
+		gbcAdressNumber.insets = new Insets(20, 0, 0, 0);
+		centerPanel.add(adressNum, gbcAdressNumber);
+
+		GridBagConstraints gbcAdressCity = new GridBagConstraints();
+		gbcAdressCity.gridx = 0;
+		gbcAdressCity.gridy = 5;
+		gbcAdressCity.insets = new Insets(20, 0, 0, 0);
+		centerPanel.add(adressCity, gbcAdressCity);
+
+		GridBagConstraints gbcAdressState = new GridBagConstraints();
+		gbcAdressState.gridx = 0;
+		gbcAdressState.gridy = 6;
+		gbcAdress.insets = new Insets(20, 0, 0, 0);
+		centerPanel.add(adressState, gbcAdressState);
+
 		GridBagConstraints gbcPhone = new GridBagConstraints();
 		gbcPhone.gridx = 0;
-		gbcPhone.gridy = 4;
+		gbcPhone.gridy = 7;
 		gbcPhone.insets = new Insets(20, 0, 0, 0);
 		centerPanel.add(phone, gbcPhone);
 
 		GridBagConstraints gbcMail = new GridBagConstraints();
 		gbcMail.gridx = 0;
-		gbcMail.gridy = 5;
+		gbcMail.gridy = 8;
 		gbcMail.insets = new Insets(20, 0, 0, 0);
 		centerPanel.add(mail, gbcMail);
 
 		GridBagConstraints gbcIndex = new GridBagConstraints();
 		gbcIndex.gridx = 0;
-		gbcIndex.gridy = 6;
+		gbcIndex.gridy = 9;
 		gbcIndex.insets = new Insets(20, 0, 0, 0);
 		centerPanel.add(index, gbcIndex);
 
 		GridBagConstraints gbcEnrollmentDate = new GridBagConstraints();
 		gbcEnrollmentDate.gridx = 0;
-		gbcEnrollmentDate.gridy = 7;
+		gbcEnrollmentDate.gridy = 10;
 		gbcEnrollmentDate.insets = new Insets(20, 0, 0, 0);
 		centerPanel.add(enrollmentDate, gbcEnrollmentDate);
 
 		GridBagConstraints gbcCurrentYear = new GridBagConstraints();
 		gbcCurrentYear.gridx = 0;
-		gbcCurrentYear.gridy = 9;
+		gbcCurrentYear.gridy = 11;
 		gbcCurrentYear.insets = new Insets(20, 10, 0, 0);
 		centerPanel.add(currentYear, gbcCurrentYear);
 
 		GridBagConstraints gbcStat = new GridBagConstraints();
 		gbcStat.gridx = 0;
-		gbcStat.gridy = 10;
+		gbcStat.gridy = 12;
 		gbcStat.insets = new Insets(20, 10, 0, 0);
 		centerPanel.add(stat, gbcStat);
 
@@ -160,30 +189,51 @@ public class DialogStudent extends JDialog {
 		gbcTxtAdress.insets = new Insets(20, 20, 0, 20);
 		centerPanel.add(txtAdress, gbcTxtAdress);
 
+		GridBagConstraints gbcTxtAdressNumber = new GridBagConstraints();
+		gbcTxtAdressNumber.gridx = 1;
+		gbcTxtAdressNumber.gridy = 4;
+		gbcTxtAdressNumber.fill = GridBagConstraints.HORIZONTAL;
+		gbcTxtAdressNumber.insets = new Insets(20, 20, 0, 20);
+		centerPanel.add(txtAdressNumber, gbcTxtAdressNumber);
+
+		GridBagConstraints gbcTxtAdressCity = new GridBagConstraints();
+		gbcTxtAdressCity.gridx = 1;
+		gbcTxtAdressCity.gridy = 5;
+		gbcTxtAdressCity.fill = GridBagConstraints.HORIZONTAL;
+		gbcTxtAdressCity.insets = new Insets(20, 20, 0, 20);
+		centerPanel.add(txtAdressCity, gbcTxtAdressCity);
+
+		GridBagConstraints gbcTxtAdressState = new GridBagConstraints();
+		gbcTxtAdressState.gridx = 1;
+		gbcTxtAdressState.gridy = 6;
+		gbcTxtAdressState.fill = GridBagConstraints.HORIZONTAL;
+		gbcTxtAdressState.insets = new Insets(20, 20, 0, 20);
+		centerPanel.add(txtAdressState, gbcTxtAdressState);
+
 		GridBagConstraints gbcTxtPhone = new GridBagConstraints();
 		gbcTxtPhone.gridx = 1;
-		gbcTxtPhone.gridy = 4;
+		gbcTxtPhone.gridy = 7;
 		gbcTxtPhone.fill = GridBagConstraints.HORIZONTAL;
 		gbcTxtPhone.insets = new Insets(20, 20, 0, 20);
 		centerPanel.add(txtPhone, gbcTxtPhone);
 
 		GridBagConstraints gbcTxtMail = new GridBagConstraints();
 		gbcTxtMail.gridx = 1;
-		gbcTxtMail.gridy = 5;
+		gbcTxtMail.gridy = 8;
 		gbcTxtMail.fill = GridBagConstraints.HORIZONTAL;
 		gbcTxtMail.insets = new Insets(20, 20, 0, 20);
 		centerPanel.add(txtMail, gbcTxtMail);
 
 		GridBagConstraints gbcTxtIndex = new GridBagConstraints();
 		gbcTxtIndex.gridx = 1;
-		gbcTxtIndex.gridy = 6;
+		gbcTxtIndex.gridy = 9;
 		gbcTxtIndex.fill = GridBagConstraints.HORIZONTAL;
 		gbcTxtIndex.insets = new Insets(20, 20, 0, 20);
 		centerPanel.add(txtIndex, gbcTxtIndex);
 
 		GridBagConstraints gbcTxtEnrollmentDate = new GridBagConstraints();
 		gbcTxtEnrollmentDate.gridx = 1;
-		gbcTxtEnrollmentDate.gridy = 7;
+		gbcTxtEnrollmentDate.gridy = 10;
 		gbcTxtEnrollmentDate.fill = GridBagConstraints.HORIZONTAL;
 		gbcTxtEnrollmentDate.insets = new Insets(20, 20, 0, 20);
 		centerPanel.add(txtEnrollmentDate, gbcTxtEnrollmentDate);
@@ -193,7 +243,7 @@ public class DialogStudent extends JDialog {
 
 		GridBagConstraints gbcCY = new GridBagConstraints();
 		gbcCY.gridx = 1;
-		gbcCY.gridy = 9;
+		gbcCY.gridy = 11;
 		gbcCY.fill = GridBagConstraints.HORIZONTAL;
 		gbcCY.insets = new Insets(20, 20, 0, 20);
 		centerPanel.add(cY, gbcCY);
@@ -203,7 +253,7 @@ public class DialogStudent extends JDialog {
 
 		GridBagConstraints gbcS = new GridBagConstraints();
 		gbcS.gridx = 1;
-		gbcS.gridy = 10;
+		gbcS.gridy = 12;
 		gbcS.fill = GridBagConstraints.HORIZONTAL;
 		gbcS.insets = new Insets(20, 20, 0, 20);
 		centerPanel.add(s, gbcS);
@@ -215,7 +265,7 @@ public class DialogStudent extends JDialog {
 			}
 
 		});
-		
+
 		confirm.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -234,12 +284,26 @@ public class DialogStudent extends JDialog {
 				Matcher m2 = p2.matcher(txtBirthday.getText());
 				boolean b2 = m2.matches();
 
-				// Adresa
-				Pattern p3 = Pattern.compile(
-						"^([A-ZÄÖÜ][a-zäöüß]+(([.] )|( )|([-])))+[1-9][0-9]{0,3}[a-z]?\\,\\s[A-z]+\\s*[A-z]*$");
+				// Adresa(Ulica)
+				Pattern p3 = Pattern.compile("[A-z]+\\s*[A-z]*\\s*[A-z]*\\s*");
 				Matcher m3 = p3.matcher(txtAdress.getText());
 				boolean b3 = m3.matches();
-
+				
+				//Broj ulice
+				Pattern p8 = Pattern.compile("\\d+[A-z]*");
+				Matcher m8 = p8.matcher(txtAdressNumber.getText());
+				boolean b8 = m8.matches();
+				
+				//Grad
+				Pattern p9 = Pattern.compile("[A-z]+\\s*[A-z]*");
+				Matcher m9 = p9.matcher(txtAdressCity.getText());
+				boolean b9 = m9.matches();
+				
+				//Drzava
+				Pattern p10 = Pattern.compile("[A-z]+\\s*[A-z]*\\s*[A-z]*");
+				Matcher m10 = p10.matcher(txtAdressState.getText());
+				boolean b10 = m10.matches();
+				
 				// Broj telefona
 				Pattern p4 = Pattern.compile("\\d{9,11}");
 				Matcher m4 = p4.matcher(txtPhone.getText());
@@ -260,11 +324,45 @@ public class DialogStudent extends JDialog {
 				Pattern p7 = Pattern.compile("\\d{4}");
 				Matcher m7 = p7.matcher(txtEnrollmentDate.getText());
 				boolean b7 = m7.matches();
+				
+				boolean sameIndex = false;
+				for(Student std : StudentBase.getInstance().getStudents()) {
+					if(std.getIndex().equals(txtIndex.getText())) {
+						sameIndex = true;
+					}
+				}
+			
 
-				if (b & b1 & b2 & b3 & b4 & b5 & b6 & b7) {
-					double d = 7.52;
-					float f = (float)d;
-					Student s = new Student(txtIndex.getText(), txtName.getText(), txtSurname.getText(), 3, Status.S, f);
+				if (b & b1 & b2 & b3 & b4 & b5 & b6 & b7 & b8 & b9 & b10 & !sameIndex) {
+					double d = 0.0;
+					String status = s.getSelectedItem().toString();
+					if (status.equals("Budžet")) {
+						stats = Student.Status.B;
+					} else {
+						stats = Student.Status.S;
+					}
+
+					String year = cY.getSelectedItem().toString();
+					if (year.equals("I (prva)")) {
+						yr = 1;
+					} else if (year.equals("II (druga)")) {
+						yr = 2;
+					} else if (year.equals("III (treća)")) {
+						yr = 3;
+					} else if (year.equals("IV (četvrta)")) {
+						yr = 4;
+					}
+					float f = (float) d;
+					SimpleDateFormat formatter1 = new SimpleDateFormat("dd.MM.yyyy.");
+					Date dt = null;
+					try {
+						dt = formatter1.parse(txtBirthday.getText());
+					} catch (ParseException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					Adress a = new Adress(txtAdress.getText(), txtAdressCity.getText(), txtAdressNumber.getText(), txtAdressState.getText()); // Laze Kostica 77, Kovilj
+					Student s = new Student(txtIndex.getText(), txtName.getText(), txtSurname.getText(), dt, a, yr, stats, f, txtPhone.getText(), txtMail.getText(), Integer.valueOf(txtEnrollmentDate.getText()));
 					StudentController.getInstance().addStudent(s);
 					dispose();
 				} else {
@@ -277,7 +375,7 @@ public class DialogStudent extends JDialog {
 					error.setSize(frameWidth2, frameHeight2);
 					error.setLocationRelativeTo(null);
 					error.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-					JLabel err = new JLabel("Niste uneli odgovarajuće vrednosti!");
+					JLabel err = new JLabel("Niste uneli odgovarajuće vrednosti ili ste uneli već postojeći indeks!");
 					JPanel up = new JPanel();
 					up.setBorder(new EmptyBorder(20, 0, 0, 0));
 					up.add(err);
