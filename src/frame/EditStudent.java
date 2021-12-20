@@ -281,7 +281,7 @@ public class EditStudent extends JDialog {
 		txtPhone.setText(st.getContact());
 		txtMail.setText(st.getMail());
 		txtIndex.setText(st.getIndex());
-		txtEnrollmentDate.setText(Integer.toString(st.getEnrollmentYear()));
+		txtEnrollmentDate.setText(String.valueOf(st.getEnrollmentYear()));
 
 		confirm.addActionListener(new ActionListener() {
 			@Override

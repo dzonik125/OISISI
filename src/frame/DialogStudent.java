@@ -364,6 +364,8 @@ public class DialogStudent extends JDialog {
 					Adress a = new Adress(txtAdress.getText(), txtAdressCity.getText(), txtAdressNumber.getText(), txtAdressState.getText()); // Laze Kostica 77, Kovilj
 					Student s = new Student(txtIndex.getText(), txtName.getText(), txtSurname.getText(), dt, a, yr, stats, f, txtPhone.getText(), txtMail.getText(), Integer.valueOf(txtEnrollmentDate.getText()));
 					StudentController.getInstance().addStudent(s);
+					System.out.println(Integer.valueOf(txtEnrollmentDate.getText()));
+					System.out.println(String.valueOf(s.getEnrollmentYear()));
 					dispose();
 				} else {
 					JDialog error = new JDialog();
