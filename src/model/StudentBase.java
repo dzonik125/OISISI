@@ -47,6 +47,15 @@ public class StudentBase {
 		students.add(s);
 	}
 
+	public void deleteStudent(String index) {
+		for(Student s: students) {
+			if(s.getIndex().equals(index)) {
+				students.remove(s);
+				break;
+			}
+		}
+	}
+
 	public String getValueAt(int row, int column) {
 		
 			Student s = this.students.get(row);

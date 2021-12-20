@@ -23,4 +23,15 @@ public class StudentController {
 		MainFrame.getInstance().refresh();
 	}
 	
+	public void deleteStudent(int rowSelectedIndex) {
+		if (rowSelectedIndex < 0) {
+			return;
+		}
+		//izmena modela
+		Student student = StudentBase.getInstance().getRow(rowSelectedIndex);
+		StudentBase.getInstance().deleteStudent(student.getIndex());
+		//azuriranje prikaza
+		MainFrame.getInstance().refresh();
+	}
+	
 }

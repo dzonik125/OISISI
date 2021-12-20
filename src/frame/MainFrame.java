@@ -11,7 +11,7 @@ import javax.swing.JTable;
 
 public class MainFrame extends JFrame {
 	private static MainFrame instance;
-	private JTable studentTable;
+	public JTable studentTable;
 	
 	public TabbedPane tp;
 	
@@ -56,6 +56,4 @@ public class MainFrame extends JFrame {
 		return instance;
 	}
 
-	
-	
 }
