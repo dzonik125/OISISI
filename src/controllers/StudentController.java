@@ -23,6 +23,16 @@ public class StudentController {
 		MainFrame.getInstance().refresh();
 	}
 	
+	public void editStudent(int rowSelectedIndex, Student s) {
+		if(rowSelectedIndex < 0) {
+			return;
+		}
+		//izmena moedla
+		StudentBase.getInstance().editStudent(rowSelectedIndex, s);
+		//azuriranje prikaza
+		MainFrame.getInstance().refresh();
+	}
+	
 	public void deleteStudent(int rowSelectedIndex) {
 		if (rowSelectedIndex < 0) {
 			return;

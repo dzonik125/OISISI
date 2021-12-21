@@ -29,7 +29,7 @@ public class StudentBase {
 		this.columns.add("Prosek");
 		this.students = new ArrayList<Student>();
 	}
-	
+
 	public List<Student> getStudents() {
 		return students;
 	}
@@ -46,9 +46,24 @@ public class StudentBase {
 		students.add(s);
 	}
 
+	public void editStudent(int rowIndex, Student s) {
+		Student s1 = students.get(rowIndex);
+		s1.setName(s.getName());
+		s1.setSurname(s.getSurname());
+		s1.setIndex(s.getIndex());
+		s1.setBirthDate(s.getBirthDate());
+		s1.setAdress(s.getAdress());
+		s1.setContact(s.getContact());
+		s1.setMail(s.getMail());
+		s1.setEnrollmentYear(s.getEnrollmentYear());
+		s1.setCurrentStudyYear(s.getCurrentStudyYear());
+		s1.setStatus(s.getStatus());
+		s1.setAvgGrade(s.getAvgGrade());
+	}
+
 	public void deleteStudent(String index) {
-		for(Student s: students) {
-			if(s.getIndex().equals(index)) {
+		for (Student s : students) {
+			if (s.getIndex().equals(index)) {
 				students.remove(s);
 				break;
 			}
@@ -56,24 +71,32 @@ public class StudentBase {
 	}
 
 	public String getValueAt(int row, int column) {
-		
-			Student s = this.students.get(row);
-			switch (column) {
-			case 0:
-				return s.getIndex();
-			case 1:
-				return s.getName();
-			case 2:
-				return s.getSurname();
-			case 3:
-				return String.valueOf(s.getCurrentStudyYear());
-			case 4:
-				return String.valueOf(s.getStatus());
-			case 5:
-				return String.valueOf(s.getAvgGrade());
-			default:
-				return null;
-			}
+
+		Student s = this.students.get(row);
+		switch (column) {
+		case 0:
+			return s.getIndex();
+		case 1:
+			return s.getName();
+		case 2:
+			return s.getSurname();
+		case 3:
+			return String.valueOf(s.getCurrentStudyYear());
+		case 4:
+			return String.valueOf(s.getStatus());
+		case 5:
+			return String.valueOf(s.getAvgGrade());
+		default:
+			return null;
+		}
 	}
 
+	public boolean findByIndex(String ind) {
+		for (Student s1 : students) {
+			if (ind.equals(s1.getIndex()))
+
+				return true;
+		}
+		return false;
+	}
 }

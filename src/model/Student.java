@@ -54,6 +54,7 @@ public class Student {
 		this.adress = s.getAdress();
 		this.mail = s.getMail();
 		this.contact = s.getContact();
+		this.enrollmentYear = s.getEnrollmentYear();
 	}
 
 	public String getSurname() {

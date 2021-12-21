@@ -55,7 +55,7 @@ public class MainFrame extends JFrame {
 	}
 	
 	public void refresh() {
-		AbstractTableModelStudents model = (AbstractTableModelStudents) studentTable.getModel();
+		AbstractTableModelStudents model = (AbstractTableModelStudents)studentTable.getModel();
 		model.fireTableDataChanged();
 		validate();
 	}

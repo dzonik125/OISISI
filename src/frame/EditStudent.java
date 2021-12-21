@@ -7,8 +7,10 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,16 +20,22 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
+import controllers.StudentController;
+import model.Adress;
 import model.Student;
 import model.StudentBase;
 
 public class EditStudent extends JDialog {
+
+	private Student.Status stats;
+	private int yr;
 
 	public EditStudent(JFrame parent) {
 		Dimension frameSize = parent.getSize();
@@ -267,7 +275,7 @@ public class EditStudent extends JDialog {
 				dispose();
 			}
 		});
-		
+
 		Student st = new Student(StudentBase.getInstance().getRow(MainFrame.getInstance().getDataFromSelectedRow()));
 		txtName.setText(st.getName());
 		txtSurname.setText(st.getSurname());
@@ -281,7 +289,22 @@ public class EditStudent extends JDialog {
 		txtPhone.setText(st.getContact());
 		txtMail.setText(st.getMail());
 		txtIndex.setText(st.getIndex());
+		String check = st.getIndex();
 		txtEnrollmentDate.setText(String.valueOf(st.getEnrollmentYear()));
+		if (st.getStatus() == Student.Status.B) {
+			s.setSelectedItem("Budžet");
+		} else {
+			s.setSelectedItem("Samofinansiranje");
+		}
+		if (st.getCurrentStudyYear() == 1) {
+			cY.setSelectedIndex(0);
+		} else if (st.getCurrentStudyYear() == 2) {
+			cY.setSelectedIndex(1);
+		} else if (st.getCurrentStudyYear() == 3) {
+			cY.setSelectedIndex(2);
+		} else if (st.getCurrentStudyYear() == 4) {
+			cY.setSelectedIndex(3);
+		}
 
 		confirm.addActionListener(new ActionListener() {
 			@Override
@@ -301,11 +324,25 @@ public class EditStudent extends JDialog {
 				Matcher m2 = p2.matcher(txtBirthday.getText());
 				boolean b2 = m2.matches();
 
-				// Adresa
-				Pattern p3 = Pattern.compile(
-						"^([A-ZÄÖÜ][a-zäöüß]+(([.] )|( )|([-])))+[1-9][0-9]{0,3}[a-z]?\\,\\s[A-z]+\\s*[A-z]*$");
+				// Adresa(Ulica)
+				Pattern p3 = Pattern.compile("[A-z]+\\s*[A-z]*\\s*[A-z]*\\s*");
 				Matcher m3 = p3.matcher(txtAdress.getText());
 				boolean b3 = m3.matches();
+
+				// Broj ulice
+				Pattern p8 = Pattern.compile("\\d+[A-z]*");
+				Matcher m8 = p8.matcher(txtAdressNumber.getText());
+				boolean b8 = m8.matches();
+
+				// Grad
+				Pattern p9 = Pattern.compile("[A-z]+\\s*[A-z]*");
+				Matcher m9 = p9.matcher(txtAdressCity.getText());
+				boolean b9 = m9.matches();
+
+				// Drzava
+				Pattern p10 = Pattern.compile("[A-z]+\\s*[A-z]*\\s*[A-z]*");
+				Matcher m10 = p10.matcher(txtAdressState.getText());
+				boolean b10 = m10.matches();
 
 				// Broj telefona
 				Pattern p4 = Pattern.compile("\\d{9,11}");
@@ -327,8 +364,53 @@ public class EditStudent extends JDialog {
 				Pattern p7 = Pattern.compile("\\d{4}");
 				Matcher m7 = p7.matcher(txtEnrollmentDate.getText());
 				boolean b7 = m7.matches();
+				
+				//Provera indeksa
+				boolean sameIndex = false;
+				for(Student std : StudentBase.getInstance().getStudents()) {
+					if(std.getIndex().equals(txtIndex.getText())) {
+						if(std.getIndex().equals(check)) {
+							sameIndex = false;
+						}else {
+							sameIndex = true;
+						}
+					}
+				}
+				
+				if (b & b1 & b2 & b3 & b4 & b5 & b6 & b7 & b8 & b9 & b10 & !sameIndex) {
+					double d = 0.0;
+					String status = s.getSelectedItem().toString();
+					if (status.equals("Budžet")) {
+						stats = Student.Status.B;
+					} else {
+						stats = Student.Status.S;
+					}
 
-				if (b & b1 & b2 & b3 & b4 & b5 & b6 & b7) {
+					String year = cY.getSelectedItem().toString();
+					if (year.equals("I (prva)")) {
+						yr = 1;
+					} else if (year.equals("II (druga)")) {
+						yr = 2;
+					} else if (year.equals("III (treća)")) {
+						yr = 3;
+					} else if (year.equals("IV (četvrta)")) {
+						yr = 4;
+					}
+					float f = (float) d;
+					SimpleDateFormat formatter1 = new SimpleDateFormat("dd.MM.yyyy.");
+					Date dt = null;
+					try {
+						dt = formatter1.parse(txtBirthday.getText());
+					} catch (ParseException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					Adress a = new Adress(txtAdress.getText(), txtAdressCity.getText(), txtAdressNumber.getText(),
+							txtAdressState.getText());
+					Student s = new Student(txtIndex.getText(), txtName.getText(), txtSurname.getText(), dt, a, yr,
+							stats, f, txtPhone.getText(), txtMail.getText(),
+							Integer.valueOf(txtEnrollmentDate.getText()));
+					StudentController.getInstance().editStudent(MainFrame.getInstance().studentTable.getSelectedRow(), s);
 					dispose();
 				} else {
 					JDialog error = new JDialog();
@@ -340,7 +422,7 @@ public class EditStudent extends JDialog {
 					error.setSize(frameWidth2, frameHeight2);
 					error.setLocationRelativeTo(null);
 					error.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-					JLabel err = new JLabel("Niste uneli odgovarajuće vrednosti!");
+					JLabel err = new JLabel("Niste uneli odgovarajuće vrednosti ili ste uneli već postojeći indeks!");
 					JPanel up = new JPanel();
 					up.setBorder(new EmptyBorder(20, 0, 0, 0));
 					up.add(err);
@@ -360,6 +442,7 @@ public class EditStudent extends JDialog {
 				}
 			}
 		});
+
 		setVisible(true);
 	}
 
