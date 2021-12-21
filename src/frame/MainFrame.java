@@ -43,6 +43,8 @@ public class MainFrame extends JFrame {
 		studentTable = new StudentTable();
 		JScrollPane scrollPane = new JScrollPane(studentTable);
 		tp.addTab("Studenti", scrollPane);
+		tp.addTab("Profesori", new JPanel());
+		tp.addTab("Predmeti", new JPanel());
 		this.refresh();
 	}
 	

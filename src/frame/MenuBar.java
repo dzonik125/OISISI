@@ -1,11 +1,11 @@
 package frame;
 
-import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -39,7 +39,8 @@ public class MenuBar extends JMenuBar {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				if (MainFrame.getInstance().tp.getSelectedIndex() == 0 & MainFrame.getInstance().getInstance().studentTable.getSelectedRowCount() != 0) {
+				if (MainFrame.getInstance().tp.getSelectedIndex() == 0
+						& MainFrame.getInstance().getInstance().studentTable.getSelectedRowCount() != 0) {
 					EditStudent es = new EditStudent(MainFrame.getInstance());
 				}
 			}
@@ -64,6 +65,43 @@ public class MenuBar extends JMenuBar {
 		JRadioButtonMenuItem rmiSubjects = new JRadioButtonMenuItem("Predmeti");
 		JRadioButtonMenuItem rmiProfs = new JRadioButtonMenuItem("Profesori");
 		JRadioButtonMenuItem rmiCathedra = new JRadioButtonMenuItem("Katedra");
+		ButtonGroup group = new ButtonGroup();
+		group.add(rmiStudents);
+		group.add(rmiSubjects);
+		group.add(rmiProfs);
+		group.add(rmiCathedra);
+		rmiStudents.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+
+				MainFrame.getInstance().tp.setSelectedIndex(0);
+			}
+
+		});
+
+		rmiSubjects.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+
+				MainFrame.getInstance().tp.setSelectedIndex(2);
+			}
+
+		});
+
+		rmiProfs.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+
+				MainFrame.getInstance().tp.setSelectedIndex(1);
+			}
+
+		});
 
 		// Pokupljeno sa stackoverflowa, linije ispod za skaliranje slika,
 		// https://stackoverflow.com/questions/25593949/force-jmenuitem-size
