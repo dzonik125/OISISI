@@ -5,9 +5,17 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
+import model.Student;
 
 public class MainFrame extends JFrame {
 	private static MainFrame instance;
+	public JTable studentTable;
+	
+	public TabbedPane tp;
 	
 	private MainFrame() {
 		super();
@@ -28,11 +36,30 @@ public class MainFrame extends JFrame {
 		
 		StatusBar status = new StatusBar();
 		add(status, BorderLayout.SOUTH);
-		EditStudent e1 = new EditStudent(this);
 		
-		TabbedPane tp = new TabbedPane();
+		tp = new TabbedPane();
 		add(tp, BorderLayout.CENTER);
 		
+		studentTable = new StudentTable();
+		JScrollPane scrollPane = new JScrollPane(studentTable);
+		tp.addTab("Studenti", scrollPane);
+		tp.addTab("Profesori", new JPanel());
+		tp.addTab("Predmeti", new JPanel());
+		this.refresh();
+	}
+	
+	public int getDataFromSelectedRow() {
+		if(studentTable.getSelectedRow() != -1) {
+			return studentTable.convertRowIndexToModel(studentTable.getSelectedRow());
+		}else {
+			return -1;
+		}
+	}
+	
+	public void refresh() {
+		AbstractTableModelStudents model = (AbstractTableModelStudents)studentTable.getModel();
+		model.fireTableDataChanged();
+		validate();
 	}
 	
 	public static MainFrame getInstance() {
@@ -40,5 +67,5 @@ public class MainFrame extends JFrame {
 			instance = new MainFrame();
 		return instance;
 	}
-	
+
 }

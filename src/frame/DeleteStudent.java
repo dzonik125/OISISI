@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
+import controllers.StudentController;
+
 public class DeleteStudent extends JDialog {
 
 	public DeleteStudent(JFrame parent) {
@@ -39,6 +41,17 @@ public class DeleteStudent extends JDialog {
 		JButton no = new JButton("Ne");
 		lower.add(yes, FlowLayout.LEFT);
 		lower.add(no);
+
+		yes.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				StudentController.getInstance().deleteStudent(MainFrame.getInstance().studentTable.getSelectedRow());
+				dispose();
+			}
+
+		});
 
 		no.addActionListener(new ActionListener() {
 
