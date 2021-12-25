@@ -25,8 +25,13 @@ public class MenuBar extends JMenuBar {
 				// TODO Auto-generated method stub
 				// Dodati if za tab!!!
 				if (MainFrame.getInstance().tp.getSelectedIndex() == 0) {
-					DialogStudent ds = new DialogStudent(MainFrame.getInstance());
+					DialogStudent ds = new DialogStudent(MainFrame.getInstance());}
+					
+				else  if(MainFrame.getInstance().tp.getSelectedIndex()==1){
+					DialogProfesor dp = new DialogProfesor(MainFrame.getInstance());
 				}
+				
+				
 			}
 
 		});
@@ -42,6 +47,10 @@ public class MenuBar extends JMenuBar {
 				if (MainFrame.getInstance().tp.getSelectedIndex() == 0
 						& MainFrame.getInstance().getInstance().studentTable.getSelectedRowCount() != 0) {
 					EditStudent es = new EditStudent(MainFrame.getInstance());
+				}
+				else if (MainFrame.getInstance().tp.getSelectedIndex() == 1
+						& MainFrame.getInstance().getInstance().studentTable.getSelectedRowCount() != 1) {
+					EditProfesor ep = new EditProfesor(MainFrame.getInstance());
 				}
 			}
 		});

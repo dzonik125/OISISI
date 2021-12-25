@@ -9,11 +9,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import model.Student;
-
 public class MainFrame extends JFrame {
 	private static MainFrame instance;
 	public JTable studentTable;
+	public JTable professorTable;
 	
 	public TabbedPane tp;
 	
@@ -41,10 +40,15 @@ public class MainFrame extends JFrame {
 		add(tp, BorderLayout.CENTER);
 		
 		studentTable = new StudentTable();
+		professorTable= new ProfessorTable();
 		JScrollPane scrollPane = new JScrollPane(studentTable);
+		JScrollPane scrollPane1= new JScrollPane(professorTable);
 		tp.addTab("Studenti", scrollPane);
-		tp.addTab("Profesori", new JPanel());
+		tp.addTab("Profesori", scrollPane1);
 		tp.addTab("Predmeti", new JPanel());
+		
+		
+		
 		this.refresh();
 	}
 	
