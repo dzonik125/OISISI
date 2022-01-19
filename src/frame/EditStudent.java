@@ -36,6 +36,7 @@ public class EditStudent extends JDialog {
 	private Student.Status stats;
 	private int yr;
 	public JTable passedExamsTable;
+	public JTable notPassedExamsTable;
 
 	public EditStudent(JFrame parent) {
 		Dimension frameSize = parent.getSize();
@@ -99,11 +100,47 @@ public class EditStudent extends JDialog {
 		
 		JPanel notPassedPanel = new JPanel();
 		notPassedPanel.setLayout(new GridBagLayout());
+		notPassedExamsTable = new NotPassedExamsTable();
+		JScrollPane scrollPane1 = new JScrollPane(notPassedExamsTable);
+		JButton addExam = new JButton();
+		addExam.setText("Dodaj");
+		JButton deleteExam = new JButton();
+		deleteExam.setText("Obriši");
+		JButton tryExam = new JButton();
+		tryExam.setText("Polaganje");
+		scrollPane1.setPreferredSize(new Dimension(500, 500));
 		
+		GridBagConstraints gbcAddExam = new GridBagConstraints();
+		gbcAddExam.anchor = GridBagConstraints.FIRST_LINE_START;
+		gbcAddExam.gridx = 0;
+		gbcAddExam.gridy = 0;
+		gbcAddExam.insets = new Insets(0, 0, 15, 0);
+		notPassedPanel.add(addExam, gbcAddExam);
+		
+		GridBagConstraints gbcDeleteExam = new GridBagConstraints();
+		gbcDeleteExam.gridx = 1;
+		gbcDeleteExam.gridy = 0;
+		gbcDeleteExam.insets = new Insets(0, 0, 15, 0);
+		notPassedPanel.add(addExam, gbcAddExam);
+		
+		GridBagConstraints gbcTryExam = new GridBagConstraints();
+		gbcTryExam.gridx = 1;
+		gbcTryExam.gridy = 0;
+		gbcTryExam.weighty = 1.0;
+		gbcTryExam.insets = new Insets(0, 0, 15, 0);
+		notPassedPanel.add(tryExam, gbcTryExam);
+
+//		GridBagConstraints gbcTable1 = new GridBagConstraints();
+//		gbcTable1.gridx = 0;
+//		gbcTable1.gridy = 1;
+//		gbcTable1.weightx = 1.0;
+//		gbcTable1.weighty = 1.0;
+//		gbcTable1.insets = new Insets(0, 0, 0, 0);
+//		notPassedPanel.add(notPassedExamsTable, gbcTable1);
 		
 		tp.addTab("Informacije", centerPanel);
 		tp.addTab("Položeni", passedPanel);
-		tp.addTab("Nepoloženi", new JPanel());
+		tp.addTab("Nepoloženi", notPassedPanel);
 
 		JLabel name = new JLabel("Ime*");
 		JLabel surname = new JLabel("Prezime*");
