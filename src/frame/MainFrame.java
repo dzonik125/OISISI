@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -13,6 +12,7 @@ public class MainFrame extends JFrame {
 	private static MainFrame instance;
 	public JTable studentTable;
 	public JTable professorTable;
+	public JTable subjectTable;
 	
 	public TabbedPane tp;
 	
@@ -41,15 +41,16 @@ public class MainFrame extends JFrame {
 		
 		studentTable = new StudentTable();
 		professorTable= new ProfessorTable();
+		subjectTable = new SubjectTable();
 		JScrollPane scrollPane = new JScrollPane(studentTable);
 		JScrollPane scrollPane1= new JScrollPane(professorTable);
+		JScrollPane scrollPane2 = new JScrollPane(subjectTable);
 		tp.addTab("Studenti", scrollPane);
 		tp.addTab("Profesori", scrollPane1);
-		tp.addTab("Predmeti", new JPanel());
-		
-		
+		tp.addTab("Predmeti", scrollPane2);
 		
 		this.refresh();
+		this.refresh1();
 	}
 	
 	public int getDataFromSelectedRow() {
@@ -60,8 +61,22 @@ public class MainFrame extends JFrame {
 		}
 	}
 	
+	public int getDataFromSelectedRow1() {
+		if(subjectTable.getSelectedRow() != -1) {
+			return subjectTable.convertRowIndexToModel(subjectTable.getSelectedRow());
+		}else {
+			return -1;
+		}
+	}
+	
 	public void refresh() {
 		AbstractTableModelStudents model = (AbstractTableModelStudents)studentTable.getModel();
+		model.fireTableDataChanged();
+		validate();
+	}
+	
+	public void refresh1() {
+		AbstractTableModelSubjects model = (AbstractTableModelSubjects)subjectTable.getModel();
 		model.fireTableDataChanged();
 		validate();
 	}

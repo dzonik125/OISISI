@@ -17,8 +17,6 @@ public class Professor {
 	private String title;
 	private int internshipYear;
 	private ArrayList<Subject> subjectList = new ArrayList<Subject>(); 
-
-	
 	
 	public String getName() {
 		return name;

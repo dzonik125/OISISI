@@ -7,8 +7,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,9 +18,10 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
@@ -36,6 +35,7 @@ public class EditStudent extends JDialog {
 
 	private Student.Status stats;
 	private int yr;
+	public JTable passedExamsTable;
 
 	public EditStudent(JFrame parent) {
 		Dimension frameSize = parent.getSize();
@@ -60,10 +60,49 @@ public class EditStudent extends JDialog {
 		centerPanel.setLayout(new GridBagLayout());
 		add(centerPanel, BorderLayout.NORTH);
 
+		
+		JPanel passedPanel = new JPanel();
+		passedPanel.setLayout(new GridBagLayout());
 		JTabbedPane tp = new JTabbedPane();
 		add(tp);
+		passedExamsTable = new PassedExamsTable();
+		JScrollPane scrollPane = new JScrollPane(passedExamsTable);
+		JButton cancelGrade = new JButton();
+		cancelGrade.setText("Poništi ocenu");
+		JLabel averageGrade = new JLabel("Prosečna ocena:");
+		JLabel summESPB = new JLabel("Ukupno ESPB:");
+		scrollPane.setPreferredSize(new Dimension(500, 500));
+		
+		GridBagConstraints gbcCancelGrade = new GridBagConstraints();
+		gbcCancelGrade.gridx = 0;
+		gbcCancelGrade.gridy = 0;
+		gbcCancelGrade.insets = new Insets(0, 0, 15, 300);
+		passedPanel.add(cancelGrade, gbcCancelGrade);
+
+		GridBagConstraints gbcTable = new GridBagConstraints();
+		gbcTable.gridx = 0;
+		gbcTable.gridy = 1;
+		gbcTable.insets = new Insets(0, 0, 0, 0);
+		passedPanel.add(scrollPane, gbcTable);
+		
+		GridBagConstraints gbcAverageGrade = new GridBagConstraints();
+		gbcAverageGrade.gridx = 0;
+		gbcAverageGrade.gridy = 2;
+		gbcAverageGrade.insets = new Insets(15, 200, 0, 0);
+		passedPanel.add(averageGrade, gbcAverageGrade);
+		
+		GridBagConstraints gbcSummESPB = new GridBagConstraints();
+		gbcSummESPB.gridx = 0;
+		gbcSummESPB.gridy = 3;
+		gbcSummESPB.insets = new Insets(10, 200, 0, 0);
+		passedPanel.add(summESPB, gbcSummESPB);
+		
+		JPanel notPassedPanel = new JPanel();
+		notPassedPanel.setLayout(new GridBagLayout());
+		
+		
 		tp.addTab("Informacije", centerPanel);
-		tp.addTab("Položeni", new JPanel());
+		tp.addTab("Položeni", passedPanel);
 		tp.addTab("Nepoloženi", new JPanel());
 
 		JLabel name = new JLabel("Ime*");

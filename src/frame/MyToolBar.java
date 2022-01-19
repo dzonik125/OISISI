@@ -38,6 +38,8 @@ public class MyToolBar extends JToolBar {
 				else if(MainFrame.getInstance().tp.getSelectedIndex() == 1) {
 					DialogProfesor dp = new DialogProfesor(MainFrame.getInstance());
 					
+				}else if(MainFrame.getInstance().tp.getSelectedIndex() == 2){
+					DialogSubject sd = new DialogSubject(MainFrame.getInstance());
 				}
 			}
 		});
@@ -69,11 +71,13 @@ public class MyToolBar extends JToolBar {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				if (MainFrame.getInstance().tp.getSelectedIndex() == 0 & MainFrame.getInstance().getInstance().studentTable.getSelectedRowCount() != 0){
+				if (MainFrame.getInstance().tp.getSelectedIndex() == 0){
 					EditStudent es = new EditStudent(MainFrame.getInstance());
 				}
-				else if(MainFrame.getInstance().tp.getSelectedIndex() == 1 & MainFrame.getInstance().getInstance().studentTable.getSelectedRowCount() != 1) {
+				else if(MainFrame.getInstance().tp.getSelectedIndex() == 1) {
 					EditProfesor ep = new EditProfesor(MainFrame.getInstance());
+			}else if(MainFrame.getInstance().tp.getSelectedIndex() == 2) {
+				EditSubject es1 = new EditSubject(MainFrame.getInstance());
 			}
 			}
 
