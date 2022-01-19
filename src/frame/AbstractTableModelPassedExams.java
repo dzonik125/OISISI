@@ -2,7 +2,6 @@ package frame;
 
 import javax.swing.table.AbstractTableModel;
 
-import model.PassedExamsBase;
 import model.StudentBase;
 
 public class AbstractTableModelPassedExams extends AbstractTableModel{
