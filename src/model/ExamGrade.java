@@ -15,4 +15,34 @@ public class ExamGrade {
 			throw new IllegalArgumentException("Number out of range!");
 		} 
 	}
+
+	public String getStudentPassed() {
+		return studentPassed;
+	}
+
+	public void setStudentPassed(String studentPassed) {
+		this.studentPassed = studentPassed;
+	}
+
+	public Subject getSubject() {
+		return subject;
+	}
+
+	public void setSubject(Subject subject) {
+		this.subject = subject;
+	}
+
+	public Date getExamDate() {
+		return examDate;
+	}
+
+	public void setExamDate(Date examDate) {
+		this.examDate = examDate;
+	}
+
+	public int getGrade() {
+		return grade;
+	}
+	
+	
 }

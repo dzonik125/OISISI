@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -50,9 +49,8 @@ public class MainFrame extends JFrame {
 		tp.addTab("Profesori", scrollPane1);
 		tp.addTab("Predmeti", scrollPane2);
 		
-		
-		
 		this.refresh();
+		this.refresh1();
 	}
 	
 	public int getDataFromSelectedRow() {
@@ -63,8 +61,22 @@ public class MainFrame extends JFrame {
 		}
 	}
 	
+	public int getDataFromSelectedRow1() {
+		if(subjectTable.getSelectedRow() != -1) {
+			return subjectTable.convertRowIndexToModel(subjectTable.getSelectedRow());
+		}else {
+			return -1;
+		}
+	}
+	
 	public void refresh() {
 		AbstractTableModelStudents model = (AbstractTableModelStudents)studentTable.getModel();
+		model.fireTableDataChanged();
+		validate();
+	}
+	
+	public void refresh1() {
+		AbstractTableModelSubjects model = (AbstractTableModelSubjects)subjectTable.getModel();
 		model.fireTableDataChanged();
 		validate();
 	}

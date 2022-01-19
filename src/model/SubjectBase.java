@@ -22,7 +22,6 @@ public class SubjectBase {
 		this.columns.add("Naziv predmeta");
 		this.columns.add("Semestar");
 		this.columns.add("Godina studija u kojoj se predmet izvodi");
-		this.columns.add("Predmetni profesor");
 		this.columns.add("ESPB");
 		this.subjects = new ArrayList<Subject>();
 	}
@@ -35,9 +34,26 @@ public class SubjectBase {
 		subjects.add(s);
 	}
 	
+	public void editSubject(int rowIndex, Subject s) {
+		Subject s1 = subjects.get(rowIndex);
+		s1.setSubjectName(s.getSubjectName());
+		s1.setSubjectID(s.getSubjectID());
+		s1.setEspb(s.getEspb());
+		s1.setFailed(s.getFailed());
+		s1.setPassed(s.getPassed());
+		s1.setSemester(s.getSemester());
+		s1.setStudyYear(s.getStudyYear());
+		s1.setSubjectProfessor(s.getSubjectProfessor());
+	}
+	
 	public String getColumnName(int index) {
 		return this.columns.get(index);
 	}
+	
+	public Subject getRow(int rowIndex) {
+		return this.subjects.get(rowIndex);
+	}
+
 	
 	public String getValueAt(int row, int column) {
 
@@ -52,8 +68,6 @@ public class SubjectBase {
 		case 3:
 			return String.valueOf(s.getStudyYear());
 		case 4:
-			return String.valueOf(s.getSubjectProfessor());
-		case 5:
 			return String.valueOf(s.getEspb());
 		default:
 			return null;

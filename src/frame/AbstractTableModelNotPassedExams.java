@@ -2,19 +2,18 @@ package frame;
 
 import javax.swing.table.AbstractTableModel;
 
-import model.SubjectBase;
+import model.NotPassedExamsBase;
 
+public class AbstractTableModelNotPassedExams extends AbstractTableModel {
 
+	public AbstractTableModelNotPassedExams() {
+	}
 
-public class AbstractTableModelSubjects extends AbstractTableModel{
-
-	public AbstractTableModelSubjects() {}
-
-	//broj redova
+	// broj redova
 	@Override
 	public int getRowCount() {
 		// TODO Auto-generated method stub
-		return SubjectBase.getInstance().getSubjects().size();
+		return NotPassedExamsBase.getInstance().getNotPassedExams().size();
 	}
 
 	@Override
@@ -22,17 +21,17 @@ public class AbstractTableModelSubjects extends AbstractTableModel{
 		// TODO Auto-generated method stub
 		return 5;
 	}
-	
-	//Nazivi kolona u zaglavlju
+
+	// Nazivi kolona u zaglavlju
 	@Override
 	public String getColumnName(int column) {
-		return SubjectBase.getInstance().getColumnName(column);
+		return NotPassedExamsBase.getInstance().getColumnName(column);
 	}
 
 	// sadrzaj celije
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		// TODO Auto-generated method stub
-		return SubjectBase.getInstance().getValueAt(rowIndex, columnIndex);
+		return NotPassedExamsBase.getInstance().getValueAt(rowIndex, columnIndex);
 	}
 }

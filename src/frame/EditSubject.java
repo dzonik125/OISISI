@@ -20,15 +20,17 @@ import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 import controllers.SubjectController;
+import model.Student;
+import model.StudentBase;
 import model.Subject;
 import model.SubjectBase;
 
-public class DialogSubject extends JDialog {
+public class EditSubject extends JDialog {
 
 	private Subject.Semester semms;
 	private int yr;
 
-	public DialogSubject(MainFrame parent) {
+	public EditSubject(MainFrame parent) {
 		Dimension frameSize = parent.getSize();
 		int frameHeight = frameSize.height;
 		int frameWidth = frameSize.width;
@@ -61,7 +63,15 @@ public class DialogSubject extends JDialog {
 		JTextField txtScode = new JTextField();
 		JTextField txtYr = new JTextField();
 		JTextField txtEspb = new JTextField();
-
+		
+		Subject sb = new Subject(SubjectBase.getInstance().getRow(MainFrame.getInstance().getDataFromSelectedRow1()));
+		
+		txtName.setText(sb.getSubjectName());
+		txtScode.setText(String.valueOf(sb.getSubjectID()));
+		txtYr.setText(String.valueOf(sb.getStudyYear()));
+		txtEspb.setText(String.valueOf(sb.getEspb()));
+		int check = sb.getSubjectID();
+		
 		GridBagConstraints gbcName = new GridBagConstraints();
 		gbcName.gridx = 0;
 		gbcName.gridy = 0;
@@ -106,8 +116,8 @@ public class DialogSubject extends JDialog {
 		gbcTxtScode.fill = GridBagConstraints.HORIZONTAL;
 		gbcTxtScode.insets = new Insets(20, 20, 0, 20);
 		centerPanel.add(txtScode, gbcTxtScode);
-
-		String semester[] = { "Letnji", "Zimski" };
+		
+		String semester[] = {"Letnji", "Zimski"};
 		JComboBox<String> semCB = new JComboBox<>(semester);
 
 		GridBagConstraints gbcTxtSem = new GridBagConstraints();
@@ -156,32 +166,35 @@ public class DialogSubject extends JDialog {
 				Pattern p2 = Pattern.compile("\\d+");
 				Matcher m2 = p2.matcher(txtYr.getText());
 				boolean b2 = m2.matches();
-
-				// ESPB
+				
+				//ESPB
 				Pattern p8 = Pattern.compile("\\d+");
 				Matcher m8 = p8.matcher(txtEspb.getText());
 				boolean b4 = m8.matches();
-
-				// Provera sife predmeta
-				boolean notSameID = true;
-				for (Subject sb : SubjectBase.getInstance().getSubjects()) {
-					if (sb.getSubjectID() == (Integer.parseInt(txtScode.getText()))) {
-						notSameID = false;
+				
+				//Provera sifre predmeta
+				boolean sameID = false;
+				for(Subject sb : SubjectBase.getInstance().getSubjects()) {
+					if(sb.getSubjectID() == (Integer.parseInt(txtScode.getText()))) {
+						if(sb.getSubjectID() == (check)) {
+							sameID = false;
+						}else {
+							sameID = true;
+						}
 					}
 				}
-
-				// Dodati chProf u proveru kada se odradi dodavanje profesora
-				if (b & b1 & b2 & b4 & notSameID) {
+			
+				//Dodati chProf u proveru kada se odradi dodavanje profesora
+				if (b & b1 & b2 & b4 & !sameID) {
 					String semm = semCB.getSelectedItem().toString();
 					if (semm.equals("Letnji")) {
 						semms = Subject.Semester.Letnji;
 					} else {
 						semms = Subject.Semester.Zimski;
 					}
-
-					Subject s = new Subject(Integer.parseInt(txtScode.getText()), txtName.getText(), semms,
-							Integer.parseInt(txtYr.getText()), Integer.parseInt(txtEspb.getText()));
-					SubjectController.getInstance().addSubject(s);
+					
+					Subject s = new Subject(Integer.parseInt(txtScode.getText()), txtName.getText(), semms, Integer.parseInt(txtYr.getText()), Integer.parseInt(txtEspb.getText()));
+					SubjectController.getInstance().editSubject(MainFrame.getInstance().subjectTable.getSelectedRow(), s);
 					dispose();
 				} else {
 					JDialog error = new JDialog();

@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 public class Subject {
 	public enum Semester{
-		WINTER,
-		SUMMER
+		Letnji,
+		Zimski
 	}
 	private int subjectID;
 	private String subjectName;
@@ -27,6 +27,18 @@ public class Subject {
 		this.espb = espb;
 	}
 
+	public Subject(Subject s) {
+		super();
+		this.subjectID = s.subjectID;
+		this.subjectName = s.subjectName;
+		this.semester = s.semester;
+		this.studyYear = s.studyYear;
+		this.subjectProfessor = s.subjectProfessor;
+		this.espb = s.espb;
+		this.passed = s.passed;
+		this.failed = s.failed;
+	}
+	
 	public Subject(int subjectID, String subjectName, Semester semester, int studyYear, Professor subjectProfessor,
 			int espb, ArrayList<Student> passed, ArrayList<Student> failed) {
 		super();
