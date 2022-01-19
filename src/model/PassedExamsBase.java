@@ -17,7 +17,6 @@ public class PassedExamsBase {
 	private List<ExamGrade> grades;
 	private List<String> columns;
 	
-	
 	private PassedExamsBase() {
 		this.columns = new ArrayList<String>();
 		this.columns.add("Šifra predmeta");

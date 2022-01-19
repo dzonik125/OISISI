@@ -13,7 +13,7 @@ public class AbstractTableModelPassedExams extends AbstractTableModel{
 	@Override
 	public int getRowCount() {
 		// TODO Auto-generated method stub
-		return PassedExamsBase.getInstance().getGrades().size();
+		return StudentBase.getInstance().getGrades().size();
 	}
 
 	@Override
@@ -25,13 +25,13 @@ public class AbstractTableModelPassedExams extends AbstractTableModel{
 	//Nazivi kolona u zaglavlju
 	@Override
 	public String getColumnName(int column) {
-		return PassedExamsBase.getInstance().getColumnName(column);
+		return StudentBase.getInstance().getColumnName1(column);
 	}
 
 	// sadrzaj celije
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		// TODO Auto-generated method stub
-		return PassedExamsBase.getInstance().getValueAt(rowIndex, columnIndex);
+		return StudentBase.getInstance().getValueAt1(rowIndex, columnIndex);
 	}
 }
