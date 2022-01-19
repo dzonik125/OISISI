@@ -2,6 +2,7 @@ package frame;
 
 import javax.swing.table.AbstractTableModel;
 
+import model.Student;
 import model.StudentBase;
 
 public class AbstractTableModelNotPassedExams extends AbstractTableModel {
@@ -13,7 +14,8 @@ public class AbstractTableModelNotPassedExams extends AbstractTableModel {
 	@Override
 	public int getRowCount() {
 		// TODO Auto-generated method stub
-		return StudentBase.getInstance().getNotPassedExams().size();
+		Student st = new Student(StudentBase.getInstance().getRow(MainFrame.getInstance().getDataFromSelectedRow()));
+		return StudentBase.getInstance().getNotPassedExams(st).size();
 	}
 
 	@Override
