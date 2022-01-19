@@ -1,7 +1,9 @@
 package frame;
 
 import java.awt.BorderLayout;
+import java.awt.ComponentOrientation;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -110,34 +112,38 @@ public class EditStudent extends JDialog {
 		tryExam.setText("Polaganje");
 		scrollPane1.setPreferredSize(new Dimension(500, 500));
 		
-		GridBagConstraints gbcAddExam = new GridBagConstraints();
-		gbcAddExam.anchor = GridBagConstraints.FIRST_LINE_START;
-		gbcAddExam.gridx = 0;
-		gbcAddExam.gridy = 0;
-		gbcAddExam.insets = new Insets(0, 0, 15, 0);
-		notPassedPanel.add(addExam, gbcAddExam);
+		JPanel npTop = new JPanel();
+		npTop.setLayout(new FlowLayout());
+		npTop.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		
-		GridBagConstraints gbcDeleteExam = new GridBagConstraints();
-		gbcDeleteExam.gridx = 1;
-		gbcDeleteExam.gridy = 0;
-		gbcDeleteExam.insets = new Insets(0, 0, 15, 0);
-		notPassedPanel.add(addExam, gbcAddExam);
+		npTop.add(addExam);
+		npTop.add(deleteExam);
+		npTop.add(tryExam);
 		
-		GridBagConstraints gbcTryExam = new GridBagConstraints();
-		gbcTryExam.gridx = 1;
-		gbcTryExam.gridy = 0;
-		gbcTryExam.weighty = 1.0;
-		gbcTryExam.insets = new Insets(0, 0, 15, 0);
-		notPassedPanel.add(tryExam, gbcTryExam);
+		GridBagConstraints gbcPanel = new GridBagConstraints();
+		gbcPanel.gridx = 0;
+		gbcPanel.gridy = 0;
+		gbcPanel.weightx = 1.0;
+		notPassedPanel.add(npTop, gbcPanel);
+		
+		GridBagConstraints gbcTable1 = new GridBagConstraints();
+		gbcTable1.gridx = 0;
+		gbcTable1.gridy = 1;
+		gbcTable1.weightx = 1.0;
+		gbcTable.weighty = 1.0;
+		gbcTable1.insets = new Insets(0, 0, 0, 0);
+		notPassedPanel.add(scrollPane1, gbcTable1);
+		
+		addExam.addActionListener(new ActionListener() {
 
-//		GridBagConstraints gbcTable1 = new GridBagConstraints();
-//		gbcTable1.gridx = 0;
-//		gbcTable1.gridy = 1;
-//		gbcTable1.weightx = 1.0;
-//		gbcTable1.weighty = 1.0;
-//		gbcTable1.insets = new Insets(0, 0, 0, 0);
-//		notPassedPanel.add(notPassedExamsTable, gbcTable1);
-		
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+	
 		tp.addTab("Informacije", centerPanel);
 		tp.addTab("Položeni", passedPanel);
 		tp.addTab("Nepoloženi", notPassedPanel);

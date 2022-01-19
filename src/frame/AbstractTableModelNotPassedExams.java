@@ -2,7 +2,7 @@ package frame;
 
 import javax.swing.table.AbstractTableModel;
 
-import model.NotPassedExamsBase;
+import model.StudentBase;
 
 public class AbstractTableModelNotPassedExams extends AbstractTableModel {
 
@@ -13,7 +13,7 @@ public class AbstractTableModelNotPassedExams extends AbstractTableModel {
 	@Override
 	public int getRowCount() {
 		// TODO Auto-generated method stub
-		return NotPassedExamsBase.getInstance().getNotPassedExams().size();
+		return StudentBase.getInstance().getNotPassedExams().size();
 	}
 
 	@Override
@@ -25,13 +25,13 @@ public class AbstractTableModelNotPassedExams extends AbstractTableModel {
 	// Nazivi kolona u zaglavlju
 	@Override
 	public String getColumnName(int column) {
-		return NotPassedExamsBase.getInstance().getColumnName(column);
+		return StudentBase.getInstance().getColumnName2(column);
 	}
 
 	// sadrzaj celije
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		// TODO Auto-generated method stub
-		return NotPassedExamsBase.getInstance().getValueAt(rowIndex, columnIndex);
+		return StudentBase.getInstance().getValueAt2(rowIndex, columnIndex);
 	}
 }
