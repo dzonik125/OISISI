@@ -41,11 +41,11 @@ import model.SubjectBase;
 
 public class EditStudent extends JDialog {
 
-	private static EditStudent instance;
 	private Student.Status stats;
 	private int yr;
 	public JTable passedExamsTable;
 	public JTable notPassedExamsTable;
+	private JList available;
 
 	public EditStudent(JFrame parent) {
 		Dimension frameSize = parent.getSize();
@@ -162,10 +162,14 @@ public class EditStudent extends JDialog {
 		gbcTable1.insets = new Insets(0, 0, 0, 0);
 		notPassedPanel.add(scrollPane1, gbcTable1);
 
-		Student st = new Student(StudentBase.getInstance().getRow(MainFrame.getInstance().getDataFromSelectedRow()));
+		Student st = StudentBase.getInstance().getStudents().get(MainFrame.getInstance().studentTable.convertRowIndexToModel(MainFrame.getInstance().getDataFromSelectedRow()));
+		List<Subject> subb = new ArrayList<Subject>();
+		subb.add(new Subject());
+		subb.add(new Subject());
 
 		addExam.addActionListener(new ActionListener() {
 
+			@SuppressWarnings({ "unchecked", "rawtypes" })
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -214,10 +218,11 @@ public class EditStudent extends JDialog {
 						String second = sbt.getSubjectName();
 						String fise = first.concat(" ").concat(second);
 						data.add(fise);
+						subb.add(sbt);
 					}
 				}
 
-				JList available = new JList(data.toArray());
+				available = new JList(data.toArray());
 				available.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 				addSubj.add(available, BorderLayout.CENTER);
 				JPanel bot = new JPanel();
@@ -234,6 +239,10 @@ public class EditStudent extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
 						// METODA ZA DODAVANJE PREDMETA U NEPOLOZENE
+						Subject subjc = new Subject();
+						subjc = subb.get(available.getSelectedIndex());
+						StudentController.getInstance().addSubjectToNotPassed(st, subjc);
+						refresh();
 						addSubj.dispose();
 					}
 
@@ -250,6 +259,20 @@ public class EditStudent extends JDialog {
 
 				addSubj.setVisible(true);
 			}
+		});
+		
+		deleteExam.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(available != null) {
+					StudentController.getInstance().deleteExam(available.getSelectedIndex(), (subb.get(available.getSelectedIndex()).getSubjectID()));
+
+					refresh();					
+				}
+			}
+			
 		});
 
 		tp.addTab("Informacije", centerPanel);
@@ -636,9 +659,15 @@ public class EditStudent extends JDialog {
 		setVisible(true);
 	}
 
-	public static EditStudent getInstance() {
-		if(instance == null)
-			instance = new EditStudent(MainFrame.getInstance());
-		return instance;
+	public JTable getNotPassedExamsTable() {
+		return notPassedExamsTable;
+	}	
+
+	public void refresh() {
+		AbstractTableModelNotPassedExams model = (AbstractTableModelNotPassedExams)notPassedExamsTable.getModel();
+		model.fireTableDataChanged();
+		validate();
+		notPassedExamsTable.repaint();
 	}
+	
 }
