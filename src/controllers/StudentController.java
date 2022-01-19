@@ -1,9 +1,12 @@
 package controllers;
 
+import frame.EditStudent;
 import frame.MainFrame;
+import model.NotPassedExamsBase;
 import model.Student;
 import model.StudentBase;
 import model.Subject;
+import model.SubjectBase;
 
 public class StudentController {
 	private static StudentController instance = null;
@@ -43,6 +46,14 @@ public class StudentController {
 		StudentBase.getInstance().deleteStudent(student.getIndex());
 		//azuriranje prikaza
 		MainFrame.getInstance().refresh();
+	}
+	
+	public void deleteExam(int rowSelectedIndex, int id) {
+		if(rowSelectedIndex < 0) {
+			return;
+		}
+		//izmena modela
+		StudentBase.getInstance().deleteExam(id);
 	}
 	
 	public void addSubjectToNotPassed(Student st, Subject s) {

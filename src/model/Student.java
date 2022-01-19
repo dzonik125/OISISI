@@ -39,6 +39,8 @@ public class Student {
 		this.mail = email;
 		this.contact = cont;
 		this.enrollmentYear =  ey;
+		this.gradeList = new ArrayList<ExamGrade>();
+		this.notPassed = new ArrayList<Subject>();
 	}
 
 	public Student(Student s) {
@@ -55,6 +57,8 @@ public class Student {
 		this.mail = s.getMail();
 		this.contact = s.getContact();
 		this.enrollmentYear = s.getEnrollmentYear();
+		this.gradeList = new ArrayList<ExamGrade>();
+		this.notPassed = new ArrayList<Subject>();
 	}
 
 	public String getSurname() {
@@ -65,6 +69,10 @@ public class Student {
 		this.surname = surname;
 	}
 
+	public void deleteSubjectFromNotPassed(Subject s) {
+		notPassed.remove(s);
+	}
+	
 	public String getName() {
 		return name;
 	}

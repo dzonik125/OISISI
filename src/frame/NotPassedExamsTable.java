@@ -26,4 +26,12 @@ public class NotPassedExamsTable extends JTable {
 		}
 		return c;
 	}
+	
+	
+	public void refresh() {
+		AbstractTableModelNotPassedExams model = (AbstractTableModelNotPassedExams)this.getModel();
+		model.fireTableDataChanged();
+		repaint();
+	}
+	
 }

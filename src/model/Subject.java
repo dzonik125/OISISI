@@ -2,12 +2,11 @@ package model;
 
 import java.util.ArrayList;
 
-
 public class Subject {
-	public enum Semester{
-		Letnji,
-		Zimski
+	public enum Semester {
+		Letnji, Zimski
 	}
+
 	private int subjectID;
 	private String subjectName;
 	private Semester semester;
@@ -16,14 +15,19 @@ public class Subject {
 	private int espb;
 	private ArrayList<Student> passed = new ArrayList<Student>();
 	private ArrayList<Student> failed = new ArrayList<Student>();
-	
-	public Subject(int subjectID, String subjectName, Semester semester, int studyYear, int espb) { //DODATI PROFESORA!!
+
+	public Subject() {
+		super();
+	}
+
+	public Subject(int subjectID, String subjectName, Semester semester, int studyYear, int espb) { // DODATI
+																									// PROFESORA!!
 		super();
 		this.subjectID = subjectID;
 		this.subjectName = subjectName;
 		this.semester = semester;
 		this.studyYear = studyYear;
-		//this.subjectProfessor = subjectProfessor;
+		// this.subjectProfessor = subjectProfessor;
 		this.espb = espb;
 	}
 
@@ -38,7 +42,7 @@ public class Subject {
 		this.passed = s.passed;
 		this.failed = s.failed;
 	}
-	
+
 	public Subject(int subjectID, String subjectName, Semester semester, int studyYear, Professor subjectProfessor,
 			int espb, ArrayList<Student> passed, ArrayList<Student> failed) {
 		super();
@@ -115,5 +119,5 @@ public class Subject {
 	public void setFailed(ArrayList<Student> failed) {
 		this.failed = failed;
 	}
-	
+
 }

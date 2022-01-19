@@ -24,6 +24,7 @@ public class SubjectBase {
 		this.columns.add("Godina studija u kojoj se predmet izvodi");
 		this.columns.add("ESPB");
 		this.subjects = new ArrayList<Subject>();
+		subjects.add(new Subject(12, "Algebra", Subject.Semester.Letnji, 1, 8));
 	}
 
 	public List<Subject> getSubjects() {
