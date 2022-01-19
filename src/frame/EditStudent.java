@@ -11,15 +11,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -32,9 +36,12 @@ import controllers.StudentController;
 import model.Adress;
 import model.Student;
 import model.StudentBase;
+import model.Subject;
+import model.SubjectBase;
 
 public class EditStudent extends JDialog {
 
+	private static EditStudent instance;
 	private Student.Status stats;
 	private int yr;
 	public JTable passedExamsTable;
@@ -63,9 +70,9 @@ public class EditStudent extends JDialog {
 		centerPanel.setLayout(new GridBagLayout());
 		add(centerPanel, BorderLayout.NORTH);
 
-		
 		JPanel passedPanel = new JPanel();
-		passedPanel.setLayout(new GridBagLayout());
+		passedPanel.setLayout(new BorderLayout());
+//		passedPanel.setLayout(new GridBagLayout());
 		JTabbedPane tp = new JTabbedPane();
 		add(tp);
 		passedExamsTable = new PassedExamsTable();
@@ -75,31 +82,52 @@ public class EditStudent extends JDialog {
 		JLabel averageGrade = new JLabel("Prosečna ocena:");
 		JLabel summESPB = new JLabel("Ukupno ESPB:");
 		scrollPane.setPreferredSize(new Dimension(500, 500));
-		
-		GridBagConstraints gbcCancelGrade = new GridBagConstraints();
-		gbcCancelGrade.gridx = 0;
-		gbcCancelGrade.gridy = 0;
-		gbcCancelGrade.insets = new Insets(0, 0, 15, 300);
-		passedPanel.add(cancelGrade, gbcCancelGrade);
-
-		GridBagConstraints gbcTable = new GridBagConstraints();
-		gbcTable.gridx = 0;
-		gbcTable.gridy = 1;
-		gbcTable.insets = new Insets(0, 0, 0, 0);
-		passedPanel.add(scrollPane, gbcTable);
+		JPanel ttt = new JPanel();
+		ttt.setLayout(new FlowLayout());
+		ttt.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		ttt.add(cancelGrade, FlowLayout.LEFT);
+		JPanel bbb = new JPanel();
+		bbb.setLayout(new GridBagLayout());
 		
 		GridBagConstraints gbcAverageGrade = new GridBagConstraints();
 		gbcAverageGrade.gridx = 0;
-		gbcAverageGrade.gridy = 2;
-		gbcAverageGrade.insets = new Insets(15, 200, 0, 0);
-		passedPanel.add(averageGrade, gbcAverageGrade);
+		gbcAverageGrade.gridy = 0;
+		gbcAverageGrade.insets = new Insets(10, 250, 0, 0);
+		bbb.add(averageGrade, gbcAverageGrade);
 		
-		GridBagConstraints gbcSummESPB = new GridBagConstraints();
-		gbcSummESPB.gridx = 0;
-		gbcSummESPB.gridy = 3;
-		gbcSummESPB.insets = new Insets(10, 200, 0, 0);
-		passedPanel.add(summESPB, gbcSummESPB);
+		GridBagConstraints gbcSumESPB = new GridBagConstraints();
+		gbcSumESPB.gridx = 0;
+		gbcSumESPB.gridy = 1;
+		gbcSumESPB.insets = new Insets(5, 250, 0, 0);
+		bbb.add(summESPB, gbcSumESPB);
 		
+
+//		GridBagConstraints gbcCancelGrade = new GridBagConstraints();
+//		gbcCancelGrade.gridx = 0;
+//		gbcCancelGrade.gridy = 0;
+//		gbcCancelGrade.insets = new Insets(0, 0, 15, 300);
+//		passedPanel.add(cancelGrade, gbcCancelGrade);
+
+//		GridBagConstraints gbcTable = new GridBagConstraints();
+//		gbcTable.gridx = 0;
+//		gbcTable.gridy = 1;
+//		gbcTable.insets = new Insets(0, 0, 0, 0);
+		passedPanel.add(scrollPane, BorderLayout.CENTER);
+		passedPanel.add(ttt, BorderLayout.NORTH);
+		passedPanel.add(bbb, BorderLayout.SOUTH);
+
+//		GridBagConstraints gbcAverageGrade = new GridBagConstraints();
+//		gbcAverageGrade.gridx = 0;
+//		gbcAverageGrade.gridy = 2;
+//		gbcAverageGrade.insets = new Insets(15, 200, 0, 0);
+//		passedPanel.add(averageGrade, gbcAverageGrade);
+//
+//		GridBagConstraints gbcSummESPB = new GridBagConstraints();
+//		gbcSummESPB.gridx = 0;
+//		gbcSummESPB.gridy = 3;
+//		gbcSummESPB.insets = new Insets(10, 200, 0, 0);
+//		passedPanel.add(summESPB, gbcSummESPB);
+
 		JPanel notPassedPanel = new JPanel();
 		notPassedPanel.setLayout(new GridBagLayout());
 		notPassedExamsTable = new NotPassedExamsTable();
@@ -111,39 +139,119 @@ public class EditStudent extends JDialog {
 		JButton tryExam = new JButton();
 		tryExam.setText("Polaganje");
 		scrollPane1.setPreferredSize(new Dimension(500, 500));
-		
+
 		JPanel npTop = new JPanel();
 		npTop.setLayout(new FlowLayout());
 		npTop.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-		
+
 		npTop.add(addExam);
 		npTop.add(deleteExam);
 		npTop.add(tryExam);
-		
+
 		GridBagConstraints gbcPanel = new GridBagConstraints();
 		gbcPanel.gridx = 0;
 		gbcPanel.gridy = 0;
 		gbcPanel.weightx = 1.0;
 		notPassedPanel.add(npTop, gbcPanel);
-		
+
 		GridBagConstraints gbcTable1 = new GridBagConstraints();
 		gbcTable1.gridx = 0;
 		gbcTable1.gridy = 1;
 		gbcTable1.weightx = 1.0;
-		gbcTable.weighty = 1.0;
+		gbcTable1.weighty = 1.0;
 		gbcTable1.insets = new Insets(0, 0, 0, 0);
 		notPassedPanel.add(scrollPane1, gbcTable1);
-		
+
+		Student st = new Student(StudentBase.getInstance().getRow(MainFrame.getInstance().getDataFromSelectedRow()));
+
 		addExam.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+				JDialog addSubj = new JDialog();
+				addSubj.setModal(true);
+				addSubj.setTitle("Dodavanje predmeta");
+				Dimension frameSize3 = parent.getSize();
+				int frameHeight3 = frameSize3.height / 3;
+				int frameWidth3 = frameSize3.width / 3;
+				addSubj.setSize(frameWidth3, frameHeight3);
+				addSubj.setLocationRelativeTo(null);
+				addSubj.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+				boolean passed = true;
+				addSubj.setLayout(new BorderLayout());
+
+				List<String> data = new ArrayList<String>();
+				data.add("Šifra" + " Naziv");
+				data.add(" ");
+				for (Subject sbt : SubjectBase.getInstance().getSubjects()) {
+					if (sbt.getStudyYear() <= st.getCurrentStudyYear()) {
+						for (int i = 0; i < st.getGradeList().size(); i++) {
+							if (sbt.getSubjectID() != st.getGradeList().get(i).getSubject().getSubjectID()) {
+								passed = true;
+							} else {
+								passed = false;
+							}
+							if (passed == false) {
+								break;
+							}
+						}
+						for (int j = 0; j < st.getNotPassed().size(); j++) {
+							if (sbt.getSubjectID() != st.getNotPassed().get(j).getSubjectID()) {
+								passed = true;
+							} else {
+								passed = false;
+							}
+							if (passed == false) {
+								break;
+							}
+						}
+					} else {
+						passed = false;
+					}
+					if (passed) {
+						String first = String.valueOf(sbt.getSubjectID());
+						String second = sbt.getSubjectName();
+						String fise = first.concat(" ").concat(second);
+						data.add(fise);
+					}
+				}
+
+				JList available = new JList(data.toArray());
+				available.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+				addSubj.add(available, BorderLayout.CENTER);
+				JPanel bot = new JPanel();
+				addSubj.add(bot, BorderLayout.SOUTH);
+				bot.setLayout(new FlowLayout());
+				bot.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+				JButton conf = new JButton("Dodaj");
+				JButton abor = new JButton("Odustani");
+				bot.add(conf);
+				bot.add(abor);
+				conf.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						// METODA ZA DODAVANJE PREDMETA U NEPOLOZENE
+						addSubj.dispose();
+					}
+
+				});
+				abor.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						addSubj.dispose();
+					}
+
+				});
+
+				addSubj.setVisible(true);
 			}
-			
 		});
-	
+
 		tp.addTab("Informacije", centerPanel);
 		tp.addTab("Položeni", passedPanel);
 		tp.addTab("Nepoloženi", notPassedPanel);
@@ -358,7 +466,6 @@ public class EditStudent extends JDialog {
 			}
 		});
 
-		Student st = new Student(StudentBase.getInstance().getRow(MainFrame.getInstance().getDataFromSelectedRow()));
 		txtName.setText(st.getName());
 		txtSurname.setText(st.getSurname());
 		SimpleDateFormat formatter1 = new SimpleDateFormat("dd.MM.yyyy.");
@@ -446,19 +553,19 @@ public class EditStudent extends JDialog {
 				Pattern p7 = Pattern.compile("\\d{4}");
 				Matcher m7 = p7.matcher(txtEnrollmentDate.getText());
 				boolean b7 = m7.matches();
-				
-				//Provera indeksa
+
+				// Provera indeksa
 				boolean sameIndex = false;
-				for(Student std : StudentBase.getInstance().getStudents()) {
-					if(std.getIndex().equals(txtIndex.getText())) {
-						if(std.getIndex().equals(check)) {
+				for (Student std : StudentBase.getInstance().getStudents()) {
+					if (std.getIndex().equals(txtIndex.getText())) {
+						if (std.getIndex().equals(check)) {
 							sameIndex = false;
-						}else {
+						} else {
 							sameIndex = true;
 						}
 					}
 				}
-				
+
 				if (b & b1 & b2 & b3 & b4 & b5 & b6 & b7 & b8 & b9 & b10 & !sameIndex) {
 					double d = 0.0;
 					String status = s.getSelectedItem().toString();
@@ -492,7 +599,8 @@ public class EditStudent extends JDialog {
 					Student s = new Student(txtIndex.getText(), txtName.getText(), txtSurname.getText(), dt, a, yr,
 							stats, f, txtPhone.getText(), txtMail.getText(),
 							Integer.valueOf(txtEnrollmentDate.getText()));
-					StudentController.getInstance().editStudent(MainFrame.getInstance().studentTable.getSelectedRow(), s);
+					StudentController.getInstance().editStudent(MainFrame.getInstance().studentTable.getSelectedRow(),
+							s);
 					dispose();
 				} else {
 					JDialog error = new JDialog();
@@ -528,4 +636,9 @@ public class EditStudent extends JDialog {
 		setVisible(true);
 	}
 
+	public static EditStudent getInstance() {
+		if(instance == null)
+			instance = new EditStudent(MainFrame.getInstance());
+		return instance;
+	}
 }

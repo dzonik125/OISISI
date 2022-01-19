@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import frame.MainFrame;
 import model.Student.Status;
 
 public class StudentBase {
@@ -21,8 +22,6 @@ public class StudentBase {
 	private List<String> columns;
 	private List<String> columns1; // Polozeni
 	private List<String> columns2; // Nepolozeni
-	private List<ExamGrade> grades; // Polozeni
-	private List<Subject> exams; // Nepolozeni
 
 	private StudentBase() {
 		this.columns = new ArrayList<String>();
@@ -45,16 +44,14 @@ public class StudentBase {
 		this.columns2.add("Godina studija");
 		this.columns2.add("Semestar");
 		this.students = new ArrayList<Student>();
-		this.grades = new ArrayList<ExamGrade>();
-		this.exams = new ArrayList<Subject>();
 	}
 
-	public List<Subject> getNotPassedExams() {
-		return exams;
+	public List<Subject> getNotPassedExams(Student s) {
+		return s.getNotPassed();
 	}
-
-	public List<ExamGrade> getGrades() {
-		return grades;
+	
+	public List<ExamGrade> getGrades(Student s){
+		return s.getGradeList();
 	}
 
 	public List<Student> getStudents() {
@@ -87,14 +84,6 @@ public class StudentBase {
 
 	public Student getRow(int rowIndex) {
 		return this.students.get(rowIndex);
-	}
-
-	public ExamGrade getRow1(int rowIndex) {
-		return this.grades.get(rowIndex);
-	}
-
-	public Subject getRow2(int rowIndex) {
-		return this.exams.get(rowIndex);
 	}
 
 	public void addStudent(Student s) {
@@ -147,7 +136,8 @@ public class StudentBase {
 	}
 
 	public String getValueAt1(int row, int column) {
-		ExamGrade g = this.grades.get(row);
+		Student st = new Student(StudentBase.getInstance().getRow(MainFrame.getInstance().getDataFromSelectedRow()));
+		ExamGrade g = st.getGradeList().get(row);
 		SimpleDateFormat formatter1 = new SimpleDateFormat("dd.MM.yyyy.");
 		String dt = formatter1.format(g.getExamDate());
 		switch (column) {
@@ -167,7 +157,8 @@ public class StudentBase {
 	}
 
 	public String getValueAt2(int row, int column) {
-		Subject s = this.exams.get(row);
+		Student st = new Student(StudentBase.getInstance().getRow(MainFrame.getInstance().getDataFromSelectedRow()));
+		Subject s = st.getNotPassed().get(row);
 
 		switch (column) {
 		case 0:

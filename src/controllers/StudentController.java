@@ -3,6 +3,7 @@ package controllers;
 import frame.MainFrame;
 import model.Student;
 import model.StudentBase;
+import model.Subject;
 
 public class StudentController {
 	private static StudentController instance = null;
@@ -42,6 +43,13 @@ public class StudentController {
 		StudentBase.getInstance().deleteStudent(student.getIndex());
 		//azuriranje prikaza
 		MainFrame.getInstance().refresh();
+	}
+	
+	public void addSubjectToNotPassed(Student st, Subject s) {
+		// izmena modela
+		st.getNotPassed().add(s);
+		// azuriranje prikaza
+		
 	}
 	
 }
