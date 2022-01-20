@@ -88,7 +88,7 @@ public class MyToolBar extends JToolBar {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				if (MainFrame.getInstance().tp.getSelectedIndex() == 0) {
+				if (MainFrame.getInstance().tp.getSelectedIndex() == 0 & MainFrame.getInstance().studentTable.getSelectedRowCount() != 0) {
 					if (counter == 0) {
 
 						EditStudent es = new EditStudent(MainFrame.getInstance());
