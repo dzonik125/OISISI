@@ -16,10 +16,11 @@ import javax.swing.border.EmptyBorder;
 
 import controllers.ProfessorController;
 import controllers.StudentController;
+import controllers.SubjectController;
 
-public class DeleteProfesor extends JDialog {
+public class DeleteSubject extends JDialog {
 
-	public DeleteProfesor(JFrame parent) {
+	public DeleteSubject(JFrame parent) {
 		Dimension frameSize = parent.getSize();
 		int frameHeight = frameSize.height;
 		int frameWidth = frameSize.width;
@@ -31,7 +32,7 @@ public class DeleteProfesor extends JDialog {
 
 		JPanel upper = new JPanel();
 		this.add(upper, BorderLayout.NORTH);
-		JLabel sure = new JLabel("Da li ste sigurni da želite da obrišete profesora?");
+		JLabel sure = new JLabel("Da li ste sigurni da želite da obrišete predmet?");
 		sure.setBorder(new EmptyBorder(20, 0, 0, 0));
 		upper.add(sure);
 
@@ -48,7 +49,7 @@ public class DeleteProfesor extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				ProfessorController.getInstance().deleteProfesor(MainFrame.getInstance().professorTable.getSelectedRow());
+				SubjectController.getInstance().deleteSubject(MainFrame.getInstance().subjectTable.getSelectedRow());
 				dispose();
 			}
 

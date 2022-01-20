@@ -3,7 +3,46 @@ package model;
 import java.util.ArrayList;
 import java.util.Date;
 
+
+
 public class Professor {
+	
+	
+	public Professor(String name, String surname, Date dateOfBirth, Adress adress, String phone, String mail,
+			String office, String id, String title, int internshipYear) {
+		super();
+		this.name = name;
+		this.surname = surname;
+		this.dateOfBirth = dateOfBirth;
+		this.adress = adress;
+		this.phone = phone;
+		this.mail = mail;
+		this.office = office;
+		this.id = id;
+		this.title = title;
+		this.internshipYear = internshipYear;
+	
+	}
+	
+	
+	public Professor(Professor prof) {
+		// TODO Auto-generated constructor stub
+		super();
+		this.name = prof.getName();
+		this.surname = prof.getSurname();
+		this.dateOfBirth = prof.getDateOfBirth();
+		this.adress = prof.getAdress();
+		this.phone = prof.getPhone();
+		this.mail = prof.getMail();
+		this.office = prof.getOffice();
+		this.id = prof.getId();
+		this.title = prof.getTitle();
+		this.internshipYear = prof.getInternshipYear();
+		
+		}
+	
+	
+	
 	
 	
 	private String name;
@@ -17,6 +56,10 @@ public class Professor {
 	private String title;
 	private int internshipYear;
 	private ArrayList<Subject> subjectList = new ArrayList<Subject>(); 
+	
+	
+	
+	
 	
 	public String getName() {
 		return name;

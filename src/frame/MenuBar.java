@@ -30,6 +30,9 @@ public class MenuBar extends JMenuBar {
 				else  if(MainFrame.getInstance().tp.getSelectedIndex()==1){
 					DialogProfesor dp = new DialogProfesor(MainFrame.getInstance());
 				}
+				else  if(MainFrame.getInstance().tp.getSelectedIndex()==2){
+					DialogSubject dsu = new DialogSubject(MainFrame.getInstance());
+				}
 				
 				
 			}
@@ -52,6 +55,10 @@ public class MenuBar extends JMenuBar {
 						& MainFrame.getInstance().getInstance().studentTable.getSelectedRowCount() != 1) {
 					EditProfesor ep = new EditProfesor(MainFrame.getInstance());
 				}
+				else if (MainFrame.getInstance().tp.getSelectedIndex() == 2
+						& MainFrame.getInstance().getInstance().subjectTable.getSelectedRowCount() != 2) {
+					EditSubject es = new EditSubject(MainFrame.getInstance());
+				}
 			}
 		});
 		JMenuItem miDelete = new JMenuItem("Delete");
@@ -62,6 +69,14 @@ public class MenuBar extends JMenuBar {
 				// TODO Auto-generated method stub
 				if (MainFrame.getInstance().tp.getSelectedIndex() == 0) {
 					DeleteStudent dels = new DeleteStudent(MainFrame.getInstance());
+				}else if(MainFrame.getInstance().tp.getSelectedIndex()==1) {
+					DeleteProfesor delp=new DeleteProfesor(MainFrame.getInstance());
+				}else if(MainFrame.getInstance().tp.getSelectedIndex()==2) {
+					DeleteSubject delsu=new DeleteSubject(MainFrame.getInstance());
+					
+					
+					
+				
 				}
 			}
 

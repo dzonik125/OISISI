@@ -76,6 +76,7 @@ public class MyToolBar extends JToolBar {
 				}
 				else if(MainFrame.getInstance().tp.getSelectedIndex() == 1) {
 					EditProfesor ep = new EditProfesor(MainFrame.getInstance());
+					
 			}else if(MainFrame.getInstance().tp.getSelectedIndex() == 2) {
 				EditSubject es1 = new EditSubject(MainFrame.getInstance());
 			}
@@ -100,7 +101,15 @@ public class MyToolBar extends JToolBar {
 				// TODO Auto-generated method stub
 				if (MainFrame.getInstance().tp.getSelectedIndex() == 0) {
 					DeleteStudent dels = new DeleteStudent(MainFrame.getInstance());
+				}else if(MainFrame.getInstance().tp.getSelectedIndex()==1) {
+					DeleteProfesor delp=new DeleteProfesor(MainFrame.getInstance());
+				}else if(MainFrame.getInstance().tp.getSelectedIndex()==2) {
+					DeleteSubject delsu=new DeleteSubject(MainFrame.getInstance());
+					
+					
+					
 				}
+				
 			}
 		});
 

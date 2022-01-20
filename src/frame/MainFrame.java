@@ -61,9 +61,18 @@ public class MainFrame extends JFrame {
 		}
 	}
 	
+	
 	public int getDataFromSelectedRow1() {
 		if(subjectTable.getSelectedRow() != -1) {
 			return subjectTable.convertRowIndexToModel(subjectTable.getSelectedRow());
+		}else {
+			return -1;
+		}
+	}
+	
+	public int getDataFromSelectedRow2() {
+		if(professorTable.getSelectedRow() != -1) {
+			return professorTable.convertRowIndexToModel(professorTable.getSelectedRow());
 		}else {
 			return -1;
 		}
@@ -77,6 +86,12 @@ public class MainFrame extends JFrame {
 	
 	public void refresh1() {
 		AbstractTableModelSubjects model = (AbstractTableModelSubjects)subjectTable.getModel();
+		model.fireTableDataChanged();
+		validate();
+	}
+	
+	public void refresh2() {
+		AbstractTableModelProfessors model = (AbstractTableModelProfessors)professorTable.getModel();
 		model.fireTableDataChanged();
 		validate();
 	}
