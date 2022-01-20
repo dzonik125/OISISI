@@ -35,6 +35,21 @@ public class SubjectBase {
 		subjects.add(s);
 	}
 	
+	public void deleteSubject(int subjectID) {
+		for(Subject s:subjects) {
+			if(s.getSubjectID()==subjectID) {
+				subjects.remove(s);
+				break;
+				
+			}
+			
+			
+		}
+		
+		
+		
+	}
+	
 	public void editSubject(int rowIndex, Subject s) {
 		Subject s1 = subjects.get(rowIndex);
 		s1.setSubjectName(s.getSubjectName());

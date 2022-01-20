@@ -22,8 +22,10 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
+import controllers.ProfessorController;
 import controllers.StudentController;
 import model.Adress;
+import model.Professor;
 import model.Student;
 import model.StudentBase;
 
@@ -67,7 +69,6 @@ public class DialogProfesor extends JDialog {
 		JLabel office = new JLabel("Katedra* ");
 		JLabel mail = new JLabel("Email adresa*");
 		JLabel intershipyear = new JLabel("Godine rada*");
-		JLabel subject = new JLabel("Predmet");
 		JLabel id = new JLabel("Broj licne karte");
 		JLabel title=new JLabel("Zvanje");
 		
@@ -82,7 +83,7 @@ public class DialogProfesor extends JDialog {
 		JTextField txtPhone = new JTextField();
 		JTextField txtMail = new JTextField();
 		JTextField txtInterShipYear = new JTextField();
-		JTextField txtSubject = new JTextField();
+
 		JTextField txtOffice = new JTextField();
 		JTextField txtId = new JTextField();
 		JTextField txtTitle= new JTextField();
@@ -150,27 +151,23 @@ public class DialogProfesor extends JDialog {
 		centerPanel.add(intershipyear, gbcInterShipYear);
 		
 
-		GridBagConstraints gbcSubject = new GridBagConstraints();
-		gbcSubject.gridx = 0;
-		gbcSubject.gridy = 10;
-		gbcSubject.insets = new Insets(20, 0, 0, 0);
-		centerPanel.add(subject, gbcSubject);
+	
 		
 		GridBagConstraints gbcOffice = new GridBagConstraints();
 		gbcOffice.gridx = 0;
-		gbcOffice.gridy = 11;
+		gbcOffice.gridy = 10;
 		gbcOffice.insets = new Insets(20, 0, 0, 0);
 		centerPanel.add(office, gbcOffice);
 		
 		GridBagConstraints gbcId = new GridBagConstraints();
 		gbcId.gridx = 0;
-		gbcId.gridy = 12;
+		gbcId.gridy = 11;
 		gbcId.insets = new Insets(20, 0, 0, 0);
 		centerPanel.add(id, gbcId);
 		
 		GridBagConstraints gbcTitle= new GridBagConstraints();
 		gbcTitle.gridx = 0;
-		gbcTitle.gridy = 13;
+		gbcTitle.gridy = 12;
 		gbcTitle.insets = new Insets(20, 0, 0, 0);
 		centerPanel.add(title, gbcTitle);
 		
@@ -253,17 +250,12 @@ public class DialogProfesor extends JDialog {
 		centerPanel.add(txtInterShipYear, gbcTxtInterShipYear);
 		
 		
-		GridBagConstraints gbcTxtSubject = new GridBagConstraints();
-		gbcTxtSubject.gridx = 1;
-		gbcTxtSubject.gridy = 10;
-		gbcTxtSubject.fill = GridBagConstraints.HORIZONTAL;
-		gbcTxtSubject.insets = new Insets(20, 20, 0, 20);
-		centerPanel.add(txtSubject, gbcTxtSubject);
+	
 		
 		
 		GridBagConstraints gbcTxtOffice = new GridBagConstraints();
 		 gbcTxtOffice .gridx = 1;
-		 gbcTxtOffice .gridy = 11;
+		 gbcTxtOffice .gridy = 10;
 		 gbcTxtOffice .fill = GridBagConstraints.HORIZONTAL;
 		 gbcTxtOffice .insets = new Insets(20, 20, 0, 20);
 		centerPanel.add(txtOffice,  gbcTxtOffice );
@@ -271,98 +263,50 @@ public class DialogProfesor extends JDialog {
 		
 		GridBagConstraints gbcTxtId = new GridBagConstraints();
 		gbcTxtId  .gridx = 1;
-		gbcTxtId  .gridy = 12;
+		gbcTxtId  .gridy = 11;
 		gbcTxtId .fill = GridBagConstraints.HORIZONTAL;
 		gbcTxtId  .insets = new Insets(20, 20, 0, 20);
 		centerPanel.add(txtId,  gbcTxtId  );
 		
 		GridBagConstraints gbcTxtTitle = new GridBagConstraints();
 		 gbcTxtTitle.gridx = 1;
-		 gbcTxtTitle.gridy = 13;
+		 gbcTxtTitle.gridy = 12;
 		 gbcTxtTitle.fill = GridBagConstraints.HORIZONTAL;
 		 gbcTxtTitle  .insets = new Insets(20, 20, 0, 20);
 		centerPanel.add(txtTitle,  gbcTxtTitle  );
 		
+		abort.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent a) {
+				dispose();
+			}
+
+		});
 		
 		confirm.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				// Ime i prezime
-				Pattern p = Pattern.compile("\\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+");
-				Matcher m = p.matcher(txtName.getText());
-				boolean b = m.matches();
+		
+				SimpleDateFormat formatter1 = new SimpleDateFormat("dd.MM.yyyy.");
+				Date dt = null;
+				try {
+					dt = formatter1.parse(txtBirthday.getText());
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 
-				Pattern p1 = Pattern.compile("\\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+");
-				Matcher m1 = p1.matcher(txtSurname.getText());
-				boolean b1 = m1.matches();
-
-				// Rodjendan
-				Pattern p2 = Pattern.compile("^([0-2][0-9]|(3)[0-1])(\\.)(((0)[0-9])|((1)[0-2]))(\\.)\\d{4}(\\.)$");
-				Matcher m2 = p2.matcher(txtBirthday.getText());
-				boolean b2 = m2.matches();
-
-				// Adresa(Ulica)
-				Pattern p3 = Pattern.compile("[A-z]+\\s*[A-z]*\\s*[A-z]*\\s*");
-				Matcher m3 = p3.matcher(txtAdress.getText());
-				boolean b3 = m3.matches();
-				
-				//Broj ulice
-				Pattern p4 = Pattern.compile("\\d+[A-z]*");
-				Matcher m4 = p4.matcher(txtAdressNumber.getText());
-				boolean b4 = m4.matches();
-				
-				//Grad
-				Pattern p5 = Pattern.compile("[A-z]+\\s*[A-z]*");
-				Matcher m5 = p5.matcher(txtAdressCity.getText());
-				boolean b5 = m5.matches();
-				
-				//Drzava
-				Pattern p6 = Pattern.compile("[A-z]+\\s*[A-z]*\\s*[A-z]*");
-				Matcher m6 = p6.matcher(txtAdressState.getText());
-				boolean b6 =m6.matches();
-				
-				// Broj telefona
-				Pattern p7 = Pattern.compile("\\d{9,11}");
-				Matcher m7 = p7.matcher(txtPhone.getText());
-				boolean b7 = m7.matches();
-
-				// Mejl
-				Pattern p8 = Pattern.compile(
-						"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\\\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\\\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])");
-				Matcher m8 = p8.matcher(txtMail.getText());
-				boolean b8 = m8.matches();
-
-				// predmet
-				Pattern p9 = Pattern.compile("[A-z]+\\s*[A-z]*\\s*[A-z]*");
-				Matcher m9 = p9.matcher(txtSubject.getText());
-				boolean b9 = m9.matches();
-
-				// godina staza
-				Pattern p10 = Pattern.compile("\\d{9,11}");
-				Matcher m10= p10.matcher(txtInterShipYear.getText());
-				boolean b10 = m10.matches();
-				
-				//id
-				Pattern p11 = Pattern.compile("\\d{9,11}");
-				Matcher m11 = p11.matcher(txtId.getText());
-				boolean b11 = m11.matches();
-				
-				//office
-				Pattern p12 = Pattern.compile("[A-z]+\\s*[A-z]*\\s*[A-z]*");
-				Matcher m12 = p12.matcher(txtSubject.getText());
-				boolean b12 = m12.matches();
-	
-				Pattern p13 = Pattern.compile("[A-z]+\\s*[A-z]*\\s*[A-z]*");
-				Matcher m13 = p12.matcher(txtTitle.getText());
-				boolean b13 = m12.matches();
-				
+				Adress a = new Adress(txtAdress.getText(), txtAdressCity.getText(), txtAdressNumber.getText(), txtAdressState.getText()); // Laze Kostica 77, Kovilj
+				Professor p = new Professor( txtName.getText(), txtSurname.getText(), dt, a, txtPhone.getText(), txtMail.getText(),txtOffice.getText(),
+				txtId.getText(),txtTitle.getText(),Integer.valueOf(txtInterShipYear.getText()));
+				ProfessorController.getInstance().addProfessor(p);
+				dispose();
 			}
 		});
-
 		setVisible(true);
-	}
+	
 
+}
 }
 
 

@@ -14,13 +14,13 @@ public class AbstractTableModelProfessors extends AbstractTableModel  {
 	// broj redova
 	@Override
 	public int getRowCount() {
-		return 10;
+		return BazaProfesora.getInstance().getProfessors().size();
 	}
 	
 	// broj kolona
 	@Override
 	public int getColumnCount() {
-		return BazaProfesora.getInstance().getColumnCount();
+		return 5;
 	}
 
 	// nazivi kolona u zaglavlju

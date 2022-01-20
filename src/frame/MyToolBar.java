@@ -196,5 +196,6 @@ public class MyToolBar extends JToolBar {
 		setFloatable(false);
 
 	}
-
 }
+
+
