@@ -99,7 +99,7 @@ public class MenuBar extends JMenuBar {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				if (MainFrame.getInstance().tp.getSelectedIndex() == 0) {
+				if (MainFrame.getInstance().tp.getSelectedIndex() == 0 & MainFrame.getInstance().studentTable.getSelectedRowCount() != 0) {
 					if (MyToolBar.getInstance().counter == 0) {
 
 						DeleteStudent dels = new DeleteStudent(MainFrame.getInstance());
