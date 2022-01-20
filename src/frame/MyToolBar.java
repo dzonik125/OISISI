@@ -4,6 +4,7 @@ import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -12,7 +13,24 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
+import model.Student;
+import model.StudentBase;
+import search.SearchStudents;
+
 public class MyToolBar extends JToolBar {
+
+	private static MyToolBar instance = null;
+
+	public static MyToolBar getInstance() {
+		if (instance == null) {
+			instance = new MyToolBar();
+		}
+		return instance;
+	}
+
+	public int counter = 0;
+	public ArrayList<Student> helpList = new ArrayList<Student>(StudentBase.getInstance().getStudents());
+
 	public MyToolBar() {
 
 		super(SwingConstants.HORIZONTAL);
@@ -33,27 +51,27 @@ public class MyToolBar extends JToolBar {
 				// TODO Auto-generated method stub
 				// Dodati if za tabove!!
 				if (MainFrame.getInstance().tp.getSelectedIndex() == 0) {
-					DialogStudent ds = new DialogStudent(MainFrame.getInstance());
-				}
-				else if(MainFrame.getInstance().tp.getSelectedIndex() == 1) {
+					if (counter == 0) {
+
+						DialogStudent ds = new DialogStudent(MainFrame.getInstance());
+						helpList = new ArrayList<Student>(StudentBase.getInstance().getStudents());
+
+					} else {
+						if (SearchStudents.getInstance().flag == true) {
+							DialogStudent ds = new DialogStudent(MainFrame.getInstance());
+							helpList = new ArrayList<Student>(StudentBase.getInstance().getStudents());
+						} else {
+							return;
+						}
+					}
+				} else if (MainFrame.getInstance().tp.getSelectedIndex() == 1) {
 					DialogProfesor dp = new DialogProfesor(MainFrame.getInstance());
-					
-				}else if(MainFrame.getInstance().tp.getSelectedIndex() == 2){
+
+				} else if (MainFrame.getInstance().tp.getSelectedIndex() == 2) {
 					DialogSubject sd = new DialogSubject(MainFrame.getInstance());
 				}
 			}
 		});
-		
-		
-
-		
-		
-		
-		
-		
-		
-		
-		
 
 		addSeparator();
 
@@ -67,18 +85,28 @@ public class MyToolBar extends JToolBar {
 		buttonChange.setIcon(pencilIcon);
 		add(buttonChange);
 		buttonChange.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				if (MainFrame.getInstance().tp.getSelectedIndex() == 0){
-					EditStudent es = new EditStudent(MainFrame.getInstance());
-				}
-				else if(MainFrame.getInstance().tp.getSelectedIndex() == 1) {
+				if (MainFrame.getInstance().tp.getSelectedIndex() == 0) {
+					if (counter == 0) {
+
+						EditStudent es = new EditStudent(MainFrame.getInstance());
+						helpList = new ArrayList<Student>(StudentBase.getInstance().getStudents());
+
+					} else {
+						if (SearchStudents.getInstance().flag == true) {
+							EditStudent es = new EditStudent(MainFrame.getInstance());
+							helpList = new ArrayList<Student>(StudentBase.getInstance().getStudents());
+						} else {
+							return;
+						}
+					}
+				} else if (MainFrame.getInstance().tp.getSelectedIndex() == 1) {
 					EditProfesor ep = new EditProfesor(MainFrame.getInstance());
-			}else if(MainFrame.getInstance().tp.getSelectedIndex() == 2) {
-				EditSubject es1 = new EditSubject(MainFrame.getInstance());
-			}
+				} else if (MainFrame.getInstance().tp.getSelectedIndex() == 2) {
+					EditSubject es1 = new EditSubject(MainFrame.getInstance());
+				}
 			}
 
 		});
@@ -99,7 +127,19 @@ public class MyToolBar extends JToolBar {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				if (MainFrame.getInstance().tp.getSelectedIndex() == 0) {
-					DeleteStudent dels = new DeleteStudent(MainFrame.getInstance());
+					if (counter == 0) {
+
+						DeleteStudent dels = new DeleteStudent(MainFrame.getInstance());
+						helpList = new ArrayList<Student>(StudentBase.getInstance().getStudents());
+
+					} else {
+						if (SearchStudents.getInstance().flag == true) {
+							DeleteStudent dels = new DeleteStudent(MainFrame.getInstance());
+							helpList = new ArrayList<Student>(StudentBase.getInstance().getStudents());
+						} else {
+							return;
+						}
+					}
 				}
 			}
 		});
@@ -122,6 +162,28 @@ public class MyToolBar extends JToolBar {
 		JButton buttonSearch = new JButton();
 		buttonSearch.setToolTipText("seach");
 		buttonSearch.setIcon(searchIcon);
+		SearchStudents ss = new SearchStudents();
+
+		buttonSearch.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if (MainFrame.getInstance().tp.getSelectedIndex() == 0) {
+					String srch = textField.getText();
+					counter = counter + 1;
+					if (counter > 1 & textField.getText().isEmpty()) {
+						StudentBase.getInstance().setStudents(helpList);
+						MainFrame.getInstance().refresh();
+					} else if (counter > 1 & !textField.getText().isEmpty()) {
+						StudentBase.getInstance().setStudents(helpList);
+					}
+
+					SearchStudents.getInstance().searchStudents(srch);
+					System.out.print(SearchStudents.getInstance().flag);
+				}
+			}
+		});
 
 		add(buttonSearch);
 
