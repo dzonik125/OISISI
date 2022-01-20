@@ -41,7 +41,7 @@ public class SubjectController {
 		}
 		//izmena modela
 		Subject subject = SubjectBase.getInstance().getRow(rowSelectedIndex);
-		//SubjectBase.getInstance().deleteSubject();
+		SubjectBase.getInstance().deleteSubject(subject.getSubjectID());
 		//azuriranje prikaza
 		MainFrame.getInstance().refresh1();
 	}

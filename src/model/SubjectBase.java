@@ -12,10 +12,10 @@ public class SubjectBase {
 		}
 		return instance;
 	}
-	
+
 	private List<Subject> subjects;
 	private List<String> columns;
-	
+
 	private SubjectBase() {
 		this.columns = new ArrayList<String>();
 		this.columns.add("Šifra predmeta");
@@ -34,22 +34,19 @@ public class SubjectBase {
 	public void addSubject(Subject s) {
 		subjects.add(s);
 	}
-	
+
 	public void deleteSubject(int subjectID) {
-		for(Subject s:subjects) {
-			if(s.getSubjectID()==subjectID) {
+		for (Subject s : subjects) {
+			if (s.getSubjectID() == subjectID) {
 				subjects.remove(s);
 				break;
-				
+
 			}
-			
-			
+
 		}
-		
-		
-		
+
 	}
-	
+
 	public void editSubject(int rowIndex, Subject s) {
 		Subject s1 = subjects.get(rowIndex);
 		s1.setSubjectName(s.getSubjectName());
@@ -61,16 +58,15 @@ public class SubjectBase {
 		s1.setStudyYear(s.getStudyYear());
 		s1.setSubjectProfessor(s.getSubjectProfessor());
 	}
-	
+
 	public String getColumnName(int index) {
 		return this.columns.get(index);
 	}
-	
+
 	public Subject getRow(int rowIndex) {
 		return this.subjects.get(rowIndex);
 	}
 
-	
 	public String getValueAt(int row, int column) {
 
 		Subject s = this.subjects.get(row);
@@ -89,5 +85,5 @@ public class SubjectBase {
 			return null;
 		}
 	}
-	
+
 }
