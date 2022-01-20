@@ -15,7 +15,6 @@ public class AbstractTableModelNotPassedExams extends AbstractTableModel {
 	public int getRowCount() {
 		// TODO Auto-generated method stub
 		Student st = StudentBase.getInstance().getRow(MainFrame.getInstance().getDataFromSelectedRow());
-		System.out.println(st.getName());
 		return StudentBase.getInstance().getNotPassedExams(st).size();
 	}
 

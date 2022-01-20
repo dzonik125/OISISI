@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -12,6 +13,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.KeyStroke;
+
+import model.Student;
+import model.StudentBase;
+import search.SearchStudents;
 
 public class MenuBar extends JMenuBar {
 
@@ -25,16 +30,29 @@ public class MenuBar extends JMenuBar {
 				// TODO Auto-generated method stub
 				// Dodati if za tab!!!
 				if (MainFrame.getInstance().tp.getSelectedIndex() == 0) {
-					DialogStudent ds = new DialogStudent(MainFrame.getInstance());}
-					
-				else  if(MainFrame.getInstance().tp.getSelectedIndex()==1){
+					if (MyToolBar.getInstance().counter == 0) {
+
+						DialogStudent ds = new DialogStudent(MainFrame.getInstance());
+						MyToolBar.getInstance().helpList = new ArrayList<Student>(StudentBase.getInstance().getStudents());
+
+					} else {
+						if (SearchStudents.getInstance().flag == true) {
+							DialogStudent ds = new DialogStudent(MainFrame.getInstance());
+							MyToolBar.getInstance().helpList = new ArrayList<Student>(StudentBase.getInstance().getStudents());
+						} else {
+							return;
+						}
+					}
+				}
+
+				else if (MainFrame.getInstance().tp.getSelectedIndex() == 1) {
 					DialogProfesor dp = new DialogProfesor(MainFrame.getInstance());
 				}
-				else  if(MainFrame.getInstance().tp.getSelectedIndex()==2){
-					DialogSubject dsu = new DialogSubject(MainFrame.getInstance());
-				}
+
+		
 				
 				
+
 			}
 
 		});
@@ -48,11 +66,22 @@ public class MenuBar extends JMenuBar {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				if (MainFrame.getInstance().tp.getSelectedIndex() == 0
-						& MainFrame.getInstance().getInstance().studentTable.getSelectedRowCount() != 0) {
-					EditStudent es = new EditStudent(MainFrame.getInstance());
-				}
-				else if (MainFrame.getInstance().tp.getSelectedIndex() == 1
-						& MainFrame.getInstance().getInstance().studentTable.getSelectedRowCount() != 1) {
+						& MainFrame.getInstance().studentTable.getSelectedRowCount() != 0) {
+					if (MyToolBar.getInstance().counter == 0) {
+
+						EditStudent es = new EditStudent(MainFrame.getInstance());
+						MyToolBar.getInstance().helpList = new ArrayList<Student>(StudentBase.getInstance().getStudents());
+
+					} else {
+						if (SearchStudents.getInstance().flag == true) {
+							EditStudent es = new EditStudent(MainFrame.getInstance());
+							MyToolBar.getInstance().helpList = new ArrayList<Student>(StudentBase.getInstance().getStudents());
+						} else {
+							return;
+						}
+					}
+				} else if (MainFrame.getInstance().tp.getSelectedIndex() == 1
+						& MainFrame.getInstance().studentTable.getSelectedRowCount() != 1) {
 					EditProfesor ep = new EditProfesor(MainFrame.getInstance());
 				}
 				else if (MainFrame.getInstance().tp.getSelectedIndex() == 2
@@ -68,6 +97,7 @@ public class MenuBar extends JMenuBar {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				if (MainFrame.getInstance().tp.getSelectedIndex() == 0) {
+
 					DeleteStudent dels = new DeleteStudent(MainFrame.getInstance());
 				}else if(MainFrame.getInstance().tp.getSelectedIndex()==1) {
 					DeleteProfesor delp=new DeleteProfesor(MainFrame.getInstance());
@@ -77,6 +107,21 @@ public class MenuBar extends JMenuBar {
 					
 					
 				
+
+					if (MyToolBar.getInstance().counter == 0) {
+
+						DeleteStudent dels = new DeleteStudent(MainFrame.getInstance());
+						MyToolBar.getInstance().helpList = new ArrayList<Student>(StudentBase.getInstance().getStudents());
+
+					} else {
+						if (SearchStudents.getInstance().flag == true) {
+							DeleteStudent dels = new DeleteStudent(MainFrame.getInstance());
+							MyToolBar.getInstance().helpList = new ArrayList<Student>(StudentBase.getInstance().getStudents());
+						} else {
+							return;
+						}
+					}
+
 				}
 			}
 
