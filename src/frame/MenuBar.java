@@ -33,12 +33,14 @@ public class MenuBar extends JMenuBar {
 					if (MyToolBar.getInstance().counter == 0) {
 
 						DialogStudent ds = new DialogStudent(MainFrame.getInstance());
-						MyToolBar.getInstance().helpList = new ArrayList<Student>(StudentBase.getInstance().getStudents());
+						MyToolBar.getInstance().helpList = new ArrayList<Student>(
+								StudentBase.getInstance().getStudents());
 
 					} else {
 						if (SearchStudents.getInstance().flag == true) {
 							DialogStudent ds = new DialogStudent(MainFrame.getInstance());
-							MyToolBar.getInstance().helpList = new ArrayList<Student>(StudentBase.getInstance().getStudents());
+							MyToolBar.getInstance().helpList = new ArrayList<Student>(
+									StudentBase.getInstance().getStudents());
 						} else {
 							return;
 						}
@@ -47,6 +49,10 @@ public class MenuBar extends JMenuBar {
 
 				else if (MainFrame.getInstance().tp.getSelectedIndex() == 1) {
 					DialogProfesor dp = new DialogProfesor(MainFrame.getInstance());
+				}
+
+				else if (MainFrame.getInstance().tp.getSelectedIndex() == 2) {
+					DialogSubject sd = new DialogSubject(MainFrame.getInstance());
 				}
 
 			}
@@ -66,12 +72,14 @@ public class MenuBar extends JMenuBar {
 					if (MyToolBar.getInstance().counter == 0) {
 
 						EditStudent es = new EditStudent(MainFrame.getInstance());
-						MyToolBar.getInstance().helpList = new ArrayList<Student>(StudentBase.getInstance().getStudents());
+						MyToolBar.getInstance().helpList = new ArrayList<Student>(
+								StudentBase.getInstance().getStudents());
 
 					} else {
 						if (SearchStudents.getInstance().flag == true) {
 							EditStudent es = new EditStudent(MainFrame.getInstance());
-							MyToolBar.getInstance().helpList = new ArrayList<Student>(StudentBase.getInstance().getStudents());
+							MyToolBar.getInstance().helpList = new ArrayList<Student>(
+									StudentBase.getInstance().getStudents());
 						} else {
 							return;
 						}
@@ -79,7 +87,10 @@ public class MenuBar extends JMenuBar {
 				} else if (MainFrame.getInstance().tp.getSelectedIndex() == 1
 						& MainFrame.getInstance().studentTable.getSelectedRowCount() != 1) {
 					EditProfesor ep = new EditProfesor(MainFrame.getInstance());
+				} else if (MainFrame.getInstance().tp.getSelectedIndex() == 2 & MainFrame.getInstance().subjectTable.getSelectedRowCount() != 0) {
+					EditSubject es1 = new EditSubject(MainFrame.getInstance());
 				}
+
 			}
 		});
 		JMenuItem miDelete = new JMenuItem("Delete");
@@ -92,12 +103,14 @@ public class MenuBar extends JMenuBar {
 					if (MyToolBar.getInstance().counter == 0) {
 
 						DeleteStudent dels = new DeleteStudent(MainFrame.getInstance());
-						MyToolBar.getInstance().helpList = new ArrayList<Student>(StudentBase.getInstance().getStudents());
+						MyToolBar.getInstance().helpList = new ArrayList<Student>(
+								StudentBase.getInstance().getStudents());
 
 					} else {
 						if (SearchStudents.getInstance().flag == true) {
 							DeleteStudent dels = new DeleteStudent(MainFrame.getInstance());
-							MyToolBar.getInstance().helpList = new ArrayList<Student>(StudentBase.getInstance().getStudents());
+							MyToolBar.getInstance().helpList = new ArrayList<Student>(
+									StudentBase.getInstance().getStudents());
 						} else {
 							return;
 						}
