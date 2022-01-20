@@ -81,7 +81,8 @@ public class MenuBar extends JMenuBar {
 				} else if (MainFrame.getInstance().tp.getSelectedIndex() == 1
 						& MainFrame.getInstance().studentTable.getSelectedRowCount() != 1) {
 					EditProfesor ep = new EditProfesor(MainFrame.getInstance());
-				} else if (MainFrame.getInstance().tp.getSelectedIndex() == 2 & MainFrame.getInstance().subjectTable.getSelectedRowCount() != 0) {
+				} else if (MainFrame.getInstance().tp.getSelectedIndex() == 2
+						& MainFrame.getInstance().subjectTable.getSelectedRowCount() != 0) {
 					EditSubject es1 = new EditSubject(MainFrame.getInstance());
 				}
 
@@ -93,37 +94,17 @@ public class MenuBar extends JMenuBar {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+
 				if (MainFrame.getInstance().tp.getSelectedIndex() == 0) {
 
 					DeleteStudent dels = new DeleteStudent(MainFrame.getInstance());
-				}else if(MainFrame.getInstance().tp.getSelectedIndex()==1) {
-					DeleteProfesor delp=new DeleteProfesor(MainFrame.getInstance());
-				}else if(MainFrame.getInstance().tp.getSelectedIndex()==2) {
-					DeleteSubject delsu=new DeleteSubject(MainFrame.getInstance());
-					
-					
-					
-				
-
-					if (MyToolBar.getInstance().counter == 0) {
-
-						DeleteStudent dels = new DeleteStudent(MainFrame.getInstance());
-						MyToolBar.getInstance().helpList = new ArrayList<Student>(
-								StudentBase.getInstance().getStudents());
-
-					} else {
-						if (SearchStudents.getInstance().flag == true) {
-							DeleteStudent dels = new DeleteStudent(MainFrame.getInstance());
-							MyToolBar.getInstance().helpList = new ArrayList<Student>(
-									StudentBase.getInstance().getStudents());
-						} else {
-							return;
-						}
-					}
+				} else if (MainFrame.getInstance().tp.getSelectedIndex() == 1) {
+					DeleteProfesor delp = new DeleteProfesor(MainFrame.getInstance());
+				} else if (MainFrame.getInstance().tp.getSelectedIndex() == 2) {
+					DeleteSubject delsu = new DeleteSubject(MainFrame.getInstance());
 
 				}
 			}
-
 		});
 		JMenu help = new JMenu("Help");
 		JMenuItem miHelp = new JMenuItem("Help");

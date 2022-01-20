@@ -33,7 +33,6 @@ public class SearchStudents {
 		searchList = new ArrayList<Student>(StudentBase.getInstance().getStudents());
 		remove = new ArrayList<Student>();
 		String[] splitted = search.split(", ");
-		System.out.print(splitted.length);
 		
 		if(splitted[0].isBlank()) {
 			flag = true;

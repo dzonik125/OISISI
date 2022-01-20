@@ -180,7 +180,6 @@ public class MyToolBar extends JToolBar {
 					}
 
 					SearchStudents.getInstance().searchStudents(srch);
-					System.out.print(SearchStudents.getInstance().flag);
 				}
 			}
 		});
