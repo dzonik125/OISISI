@@ -49,6 +49,8 @@ public class MenuBar extends JMenuBar {
 
 				else if (MainFrame.getInstance().tp.getSelectedIndex() == 1) {
 					DialogProfesor dp = new DialogProfesor(MainFrame.getInstance());
+				} else if (MainFrame.getInstance().tp.getSelectedIndex() == 2) {
+					DialogSubject sd = new DialogSubject(MainFrame.getInstance());
 				}
 			}
 		});
@@ -79,7 +81,7 @@ public class MenuBar extends JMenuBar {
 						}
 					}
 				} else if (MainFrame.getInstance().tp.getSelectedIndex() == 1
-						& MainFrame.getInstance().studentTable.getSelectedRowCount() != 1) {
+						& MainFrame.getInstance().professorTable.getSelectedRowCount() != 1) {
 					EditProfesor ep = new EditProfesor(MainFrame.getInstance());
 				} else if (MainFrame.getInstance().tp.getSelectedIndex() == 2
 						& MainFrame.getInstance().subjectTable.getSelectedRowCount() != 0) {
@@ -95,12 +97,13 @@ public class MenuBar extends JMenuBar {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 
-				if (MainFrame.getInstance().tp.getSelectedIndex() == 0) {
-
+				if (MainFrame.getInstance().tp.getSelectedIndex() == 0
+						& MainFrame.getInstance().studentTable.getSelectedRowCount() != 0) {
 					DeleteStudent dels = new DeleteStudent(MainFrame.getInstance());
 				} else if (MainFrame.getInstance().tp.getSelectedIndex() == 1) {
 					DeleteProfesor delp = new DeleteProfesor(MainFrame.getInstance());
-				} else if (MainFrame.getInstance().tp.getSelectedIndex() == 2) {
+				} else if (MainFrame.getInstance().tp.getSelectedIndex() == 2
+						& MainFrame.getInstance().subjectTable.getSelectedRowCount() != 0) {
 					DeleteSubject delsu = new DeleteSubject(MainFrame.getInstance());
 
 				}

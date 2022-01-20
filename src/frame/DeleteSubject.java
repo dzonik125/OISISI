@@ -26,7 +26,7 @@ public class DeleteSubject extends JDialog {
 		int frameWidth = frameSize.width;
 		setSize(frameWidth / 3, frameHeight / 3);
 		setLocationRelativeTo(parent);
-		setTitle("Brisanje studenta");
+		setTitle("Brisanje predmeta");
 		setModal(true);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 

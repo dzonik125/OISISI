@@ -36,7 +36,7 @@ public class EditSubject extends JDialog {
 		int frameWidth = frameSize.width;
 		setSize(frameWidth / 2, frameHeight / 2);
 		setLocationRelativeTo(parent);
-		setTitle("Dodavanje predmeta");
+		setTitle("Izmena predmeta");
 		setModal(true);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -154,7 +154,7 @@ public class EditSubject extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				// Ime i sifra predmeta
-				Pattern p = Pattern.compile("\\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+");
+				Pattern p = Pattern.compile("\\b([A-ZÃ€-Ã¿][-,a-z. ']+[ ]*)+");
 				Matcher m = p.matcher(txtName.getText());
 				boolean b = m.matches();
 
