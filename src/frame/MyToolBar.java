@@ -140,8 +140,15 @@ public class MyToolBar extends JToolBar {
 							return;
 						}
 					}
+				}else if(MainFrame.getInstance().tp.getSelectedIndex()==1
+						&MainFrame.getInstance().professorTable.getSelectedRowCount()!=1){
+					DeleteProfesor delp = new DeleteProfesor(MainFrame.getInstance());
+					
+				}else if(MainFrame.getInstance().tp.getSelectedIndex()==2
+						&MainFrame.getInstance().subjectTable.getSelectedRowCount()!=2){
+					DeleteSubject delsp = new DeleteSubject(MainFrame.getInstance());
 				}
-			}
+				}
 		});
 
 		addSeparator();
