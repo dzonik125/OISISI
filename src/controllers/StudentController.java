@@ -48,12 +48,12 @@ public class StudentController {
 		MainFrame.getInstance().refresh();
 	}
 	
-	public void deleteExam(int rowSelectedIndex, int id) {
+	public void deleteExam(int rowSelectedIndex) {
 		if(rowSelectedIndex < 0) {
 			return;
 		}
 		//izmena modela
-		StudentBase.getInstance().deleteExam(id);
+		StudentBase.getInstance().deleteExam(rowSelectedIndex);
 	}
 	
 	public void addSubjectToNotPassed(Student st, Subject s) {

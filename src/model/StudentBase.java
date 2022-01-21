@@ -125,16 +125,8 @@ public class StudentBase {
 		}
 	}
 
-	public void deleteExam(int id) {
-		for (Subject sbj : StudentBase.getInstance().getRow(MainFrame.getInstance().getDataFromSelectedRow())
-				.getNotPassed()) {
-			if (sbj.getSubjectID() == id) {
-				StudentBase.getInstance().getRow(MainFrame.getInstance().getDataFromSelectedRow())
-						.deleteSubjectFromNotPassed(sbj);
-				;
-				break;
-			}
-		}
+	public void deleteExam(int index) {
+		StudentBase.getInstance().getRow(MainFrame.getInstance().getDataFromSelectedRow()).deleteSubjectFromNotPassed(index);
 	}
 
 	public String getValueAt(int row, int column) {
@@ -182,7 +174,6 @@ public class StudentBase {
 	public String getValueAt2(int row, int column) {
 		Subject s = StudentBase.getInstance().getRow(MainFrame.getInstance().getDataFromSelectedRow()).getNotPassed()
 				.get(row);
-		System.out.println(s.getSubjectName());
 		switch (column) {
 		case 0:
 			return String.valueOf(s.getSubjectID());

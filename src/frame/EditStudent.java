@@ -18,6 +18,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -78,8 +79,8 @@ public class EditStudent extends JDialog {
 		passedExamsTable = new PassedExamsTable();
 		JScrollPane scrollPane = new JScrollPane(passedExamsTable);
 		JButton cancelGrade = new JButton();
-		cancelGrade.setText("PoniÅ¡ti ocenu");
-		JLabel averageGrade = new JLabel("ProseÄ�na ocena:");
+		cancelGrade.setText("Poništi ocenu");
+		JLabel averageGrade = new JLabel("Prosečna ocena:");
 		JLabel summESPB = new JLabel("Ukupno ESPB:");
 		scrollPane.setPreferredSize(new Dimension(500, 500));
 		JPanel ttt = new JPanel();
@@ -135,7 +136,7 @@ public class EditStudent extends JDialog {
 		JButton addExam = new JButton();
 		addExam.setText("Dodaj");
 		JButton deleteExam = new JButton();
-		deleteExam.setText("ObriÅ¡i");
+		deleteExam.setText("Obriši");
 		JButton tryExam = new JButton();
 		tryExam.setText("Polaganje");
 		scrollPane1.setPreferredSize(new Dimension(500, 500));
@@ -186,7 +187,7 @@ public class EditStudent extends JDialog {
 				addSubj.setLayout(new BorderLayout());
 
 				List<String> data = new ArrayList<String>();
-				data.add("Å ifra" + " Naziv");
+				data.add("Šifra" + " Naziv");
 				data.add(" ");
 				for (Subject sbt : SubjectBase.getInstance().getSubjects()) {
 					if (sbt.getStudyYear() <= st.getCurrentStudyYear()) {
@@ -221,7 +222,6 @@ public class EditStudent extends JDialog {
 						subb.add(sbt);
 					}
 				}
-
 				available = new JList(data.toArray());
 				available.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 				addSubj.add(available, BorderLayout.CENTER);
@@ -241,6 +241,7 @@ public class EditStudent extends JDialog {
 						// METODA ZA DODAVANJE PREDMETA U NEPOLOZENE
 						Subject subjc = new Subject();
 						subjc = subb.get(available.getSelectedIndex());
+						subb.remove(available.getSelectedIndex());
 						StudentController.getInstance().addSubjectToNotPassed(st, subjc);
 						refresh();
 						addSubj.dispose();
@@ -266,9 +267,8 @@ public class EditStudent extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				if(available != null) {
-					StudentController.getInstance().deleteExam(available.getSelectedIndex(), (subb.get(available.getSelectedIndex()).getSubjectID()));
-
+			if(available != null) {
+					StudentController.getInstance().deleteExam(notPassedExamsTable.getSelectedRow());
 					refresh();					
 				}
 			}
@@ -276,22 +276,22 @@ public class EditStudent extends JDialog {
 		});
 
 		tp.addTab("Informacije", centerPanel);
-		tp.addTab("PoloÅ¾eni", passedPanel);
-		tp.addTab("NepoloÅ¾eni", notPassedPanel);
+		tp.addTab("Položeni", passedPanel);
+		tp.addTab("Nepoloženi", notPassedPanel);
 
 		JLabel name = new JLabel("Ime*");
 		JLabel surname = new JLabel("Prezime*");
-		JLabel birthday = new JLabel("Datum roÄ‘enja*");
+		JLabel birthday = new JLabel("Datum rođenja*");
 		JLabel adress = new JLabel("Ulica stanovanja* ");
 		JLabel adressNum = new JLabel("Broj ulice*");
 		JLabel adressCity = new JLabel("Mesto*");
-		JLabel adressState = new JLabel("DrÅ¾ava*");
+		JLabel adressState = new JLabel("Država*");
 		JLabel phone = new JLabel("Broj telefona* ");
 		JLabel index = new JLabel("Broj indeksa* ");
 		JLabel currentYear = new JLabel("Trenutna godina studija* ");
 		JLabel mail = new JLabel("Email adresa*");
 		JLabel enrollmentDate = new JLabel("Godina upisa*");
-		JLabel stat = new JLabel("NaÄ�in finansiranja*");
+		JLabel stat = new JLabel("Način finansiranja*");
 
 		JTextField txtName = new JTextField();
 		JTextField txtSurname = new JTextField();
@@ -462,7 +462,7 @@ public class EditStudent extends JDialog {
 		gbcTxtEnrollmentDate.insets = new Insets(20, 20, 0, 20);
 		centerPanel.add(txtEnrollmentDate, gbcTxtEnrollmentDate);
 
-		String currYear[] = { "I (prva)", "II (druga)", "III (treÄ‡a)", "IV (Ä�etvrta)" };
+		String currYear[] = { "I (prva)", "II (druga)", "III (treća)", "IV (četvrta)" };
 		JComboBox<String> cY = new JComboBox<>(currYear);
 
 		GridBagConstraints gbcCY = new GridBagConstraints();
@@ -472,7 +472,7 @@ public class EditStudent extends JDialog {
 		gbcCY.insets = new Insets(20, 20, 0, 20);
 		centerPanel.add(cY, gbcCY);
 
-		String status[] = { "BudÅ¾et", "Samofinansiranje" };
+		String status[] = { "Budžet", "Samofinansiranje" };
 		JComboBox<String> s = new JComboBox<>(status);
 
 		GridBagConstraints gbcS = new GridBagConstraints();
@@ -504,7 +504,7 @@ public class EditStudent extends JDialog {
 		String check = st.getIndex();
 		txtEnrollmentDate.setText(String.valueOf(st.getEnrollmentYear()));
 		if (st.getStatus() == Student.Status.B) {
-			s.setSelectedItem("BudÅ¾et");
+			s.setSelectedItem("Budžet");
 		} else {
 			s.setSelectedItem("Samofinansiranje");
 		}
@@ -527,7 +527,7 @@ public class EditStudent extends JDialog {
 				Matcher m = p.matcher(txtName.getText());
 				boolean b = m.matches();
 
-				Pattern p1 = Pattern.compile("\\b([A-ZÃ€-Ã¿][-,a-z. ']+[ ]*)+");
+				Pattern p1 = Pattern.compile("\\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+");
 				Matcher m1 = p1.matcher(txtSurname.getText());
 				boolean b1 = m1.matches();
 
@@ -592,7 +592,7 @@ public class EditStudent extends JDialog {
 				if (b & b1 & b2 & b3 & b4 & b5 & b6 & b7 & b8 & b9 & b10 & !sameIndex) {
 					double d = 0.0;
 					String status = s.getSelectedItem().toString();
-					if (status.equals("BudÅ¾et")) {
+					if (status.equals("Budžet")) {
 						stats = Student.Status.B;
 					} else {
 						stats = Student.Status.S;
@@ -628,14 +628,14 @@ public class EditStudent extends JDialog {
 				} else {
 					JDialog error = new JDialog();
 					error.setModal(true);
-					error.setTitle("GREÅ KA");
+					error.setTitle("GREŠKA");
 					Dimension frameSize2 = parent.getSize();
 					int frameHeight2 = frameSize2.height / 3;
 					int frameWidth2 = frameSize.width / 3;
 					error.setSize(frameWidth2, frameHeight2);
 					error.setLocationRelativeTo(null);
 					error.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-					JLabel err = new JLabel("Niste uneli odgovarajuÄ‡e vrednosti ili ste uneli veÄ‡ postojeÄ‡i indeks!");
+					JLabel err = new JLabel("Niste uneli odgovarajuće vrednosti ili ste uneli već postojeći indeks!");
 					JPanel up = new JPanel();
 					up.setBorder(new EmptyBorder(20, 0, 0, 0));
 					up.add(err);
