@@ -17,8 +17,11 @@ import model.BazaProfesora;
 import model.Professor;
 import model.Student;
 import model.StudentBase;
+import model.Subject;
+import model.SubjectBase;
 import search.SearchProfessors;
 import search.SearchStudents;
+import search.SearchSubjects;
 
 public class MyToolBar extends JToolBar {
 
@@ -33,9 +36,10 @@ public class MyToolBar extends JToolBar {
 
 	public int counter = 0;
 	public int counter1=0;
+	public int counter2=0;
 	public ArrayList<Student> helpList = new ArrayList<Student>(StudentBase.getInstance().getStudents());
 	public ArrayList<Professor> helpList1 = new ArrayList<Professor>(BazaProfesora.getInstance().getProfessors());
-	
+	public ArrayList<Subject> helpList2 = new ArrayList<Subject>(SubjectBase.getInstance().getSubjects());
 	
 	
 	public MyToolBar() {
@@ -123,7 +127,21 @@ public class MyToolBar extends JToolBar {
 						}
 					}
 				} else if (MainFrame.getInstance().tp.getSelectedIndex() == 1 & MainFrame.getInstance().professorTable.getSelectedRowCount() != 0) {
-					EditProfesor ep = new EditProfesor(MainFrame.getInstance());
+					if(counter==1) {
+						EditProfesor ep=new EditProfesor(MainFrame.getInstance());
+						helpList1=new ArrayList<Professor>(BazaProfesora.getInstance().getProfessors());
+					}
+					else {
+						
+						if(SearchProfessors.getInstance().flag==true) {
+							EditProfesor ep=new EditProfesor(MainFrame.getInstance());
+							helpList1=new ArrayList<Professor>(BazaProfesora.getInstance().getProfessors());
+						}else {
+							return;
+						}
+
+					}	
+				
 				} else if (MainFrame.getInstance().tp.getSelectedIndex() == 2 & MainFrame.getInstance().subjectTable.getSelectedRowCount() != 0) {
 					EditSubject es1 = new EditSubject(MainFrame.getInstance());
 				}
@@ -161,11 +179,24 @@ public class MyToolBar extends JToolBar {
 						}
 					}
 				}else if(MainFrame.getInstance().tp.getSelectedIndex()==1
-						&MainFrame.getInstance().professorTable.getSelectedRowCount()!=1){
-					DeleteProfesor delp = new DeleteProfesor(MainFrame.getInstance());
+						&MainFrame.getInstance().professorTable.getSelectedRowCount()!=0){
+					if(counter==1) {
+					DeleteProfesor ep=new DeleteProfesor(MainFrame.getInstance());
+						helpList1=new ArrayList<Professor>(BazaProfesora.getInstance().getProfessors());
+					}
+					else {
+						
+						if(SearchProfessors.getInstance().flag==true) {
+							DeleteProfesor ep=new DeleteProfesor(MainFrame.getInstance());
+							helpList1=new ArrayList<Professor>(BazaProfesora.getInstance().getProfessors());
+						}else {
+							return;
+						}
+
+					}	
 					
 				}else if(MainFrame.getInstance().tp.getSelectedIndex()==2
-						&MainFrame.getInstance().subjectTable.getSelectedRowCount()!=2){
+						&MainFrame.getInstance().subjectTable.getSelectedRowCount()!=0){
 					DeleteSubject delsp = new DeleteSubject(MainFrame.getInstance());
 				}
 				}
@@ -221,9 +252,21 @@ public class MyToolBar extends JToolBar {
 					
 					SearchProfessors.getInstance().searchProfessors(srch);
 					
+				}else if(MainFrame.getInstance().tp.getSelectedIndex()==2) {
 					
 					
+					String srch = textField.getText();
+					counter2=counter2+1;
+					if(counter2>1 & textField.getText().isEmpty()) {
+						SubjectBase.getInstance().setSubjects(helpList2);
+						MainFrame.getInstance().refresh1();	
+						
+					}else if(counter2>1 & !textField.getText().isEmpty()) {
+						SubjectBase.getInstance().setSubjects(helpList2);
+					}
 					
+					SearchSubjects.getInstance().searchSubjects(srch);
+	
 				}
 			}
 		});

@@ -23,7 +23,7 @@ public class AbstractTableModelSubjects extends AbstractTableModel{
 		return 5;
 	}
 	
-	//Nazivi kolona u zaglavlju
+	//Nazivi kolona u zaglavlje
 	@Override
 	public String getColumnName(int column) {
 		return SubjectBase.getInstance().getColumnName(column);

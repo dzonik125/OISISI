@@ -144,7 +144,7 @@ public class DialogSubject extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				// Ime i sifra predmeta
-				Pattern p = Pattern.compile("\\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
+				Pattern p = Pattern.compile("\\b([A-Zï¿½-ï¿½][-,a-z. ']+[ ]*)+"
 );
 				Matcher m = p.matcher(txtName.getText());
 				boolean b = m.matches();
@@ -166,7 +166,7 @@ public class DialogSubject extends JDialog {
 				// Provera sife predmeta
 				boolean notSameID = true;
 				for (Subject sb : SubjectBase.getInstance().getSubjects()) {
-					if (sb.getSubjectID() == (Integer.parseInt(txtScode.getText()))) {
+					if (sb.getSubjectID().equals( txtScode.getText())) {
 						notSameID = false;
 					}
 				}
@@ -180,7 +180,7 @@ public class DialogSubject extends JDialog {
 						semms = Subject.Semester.Zimski;
 					}
 
-					Subject s = new Subject(Integer.parseInt(txtScode.getText()), txtName.getText(), semms,
+					Subject s = new Subject(txtScode.getText(), txtName.getText(), semms,
 							Integer.parseInt(txtYr.getText()), Integer.parseInt(txtEspb.getText()));
 					SubjectController.getInstance().addSubject(s);
 					dispose();

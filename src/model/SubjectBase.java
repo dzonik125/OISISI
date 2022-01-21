@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import frame.MainFrame;
+
 public class SubjectBase {
 	private static SubjectBase instance = null;
 
@@ -18,14 +20,22 @@ public class SubjectBase {
 	
 	private SubjectBase() {
 		this.columns = new ArrayList<String>();
-		this.columns.add("Šifra predmeta");
+		this.columns.add("ï¿½ifra predmeta");
 		this.columns.add("Naziv predmeta");
 		this.columns.add("Semestar");
-		this.columns.add("Godina studija u kojoj se predmet izvodi");
+		this.columns.add("Godina");
 		this.columns.add("ESPB");
 		this.subjects = new ArrayList<Subject>();
-		subjects.add(new Subject(12, "Algebra", Subject.Semester.Letnji, 1, 8));
+		subjects.add(new Subject("12", "Algebra", Subject.Semester.Letnji, 1, 8));
+		subjects.add(new Subject("20","Analiza",Subject.Semester.Zimski,3,7));
+		subjects.add(new Subject("20","Geodezija",Subject.Semester.Zimski,2,9));
 	}
+	
+	public void setSubjects(List<Subject> subjects) {
+		this.subjects=subjects;
+	}
+	
+	
 
 	public List<Subject> getSubjects() {
 		return subjects;
@@ -35,9 +45,9 @@ public class SubjectBase {
 		subjects.add(s);
 	}
 	
-	public void deleteSubject(int subjectID) {
+	public void deleteSubject(String subjectID) {
 		for(Subject s:subjects) {
-			if(s.getSubjectID()==subjectID) {
+			if(s.getSubjectID().equals(subjectID)) {
 				subjects.remove(s);
 				break;
 				
@@ -48,6 +58,12 @@ public class SubjectBase {
 		
 		
 		
+	}
+	
+	
+	
+	public void deleteProfesorSubject(int id) {
+		SubjectBase.getInstance().getRow(MainFrame.getInstance().getDataFromSelectedRow1()).deleteProfessorFromSubject(id);
 	}
 	
 	public void editSubject(int rowIndex, Subject s) {
@@ -83,6 +99,7 @@ public class SubjectBase {
 			return String.valueOf(s.getSemester());
 		case 3:
 			return String.valueOf(s.getStudyYear());
+		
 		case 4:
 			return String.valueOf(s.getEspb());
 		default:

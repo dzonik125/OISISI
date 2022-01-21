@@ -81,7 +81,7 @@ public class MenuBar extends JMenuBar {
 						}
 					}
 				} else if (MainFrame.getInstance().tp.getSelectedIndex() == 1
-						& MainFrame.getInstance().professorTable.getSelectedRowCount() != 1) {
+						& MainFrame.getInstance().professorTable.getSelectedRowCount() != 0) {
 					EditProfesor ep = new EditProfesor(MainFrame.getInstance());
 				} else if (MainFrame.getInstance().tp.getSelectedIndex() == 2
 						& MainFrame.getInstance().subjectTable.getSelectedRowCount() != 0) {

@@ -48,7 +48,7 @@ public class StudentBase {
 				new Adress("Laze Kostica", "Kovilj", "77", "Srbija"), 3, Student.Status.B, (float) 7.53, "0621016150",
 				"dzonik125@gmail.com", 2019);
 		ArrayList<Subject> subjs = new ArrayList<Subject>();
-		subjs.add(new Subject(12, "Algebra", Subject.Semester.Letnji, 1, 8));
+		subjs.add(new Subject("12", "Algebra", Subject.Semester.Letnji, 1, 8));
 		s.setNotPassed(subjs);
 		students.add(s);
 	}
