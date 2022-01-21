@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class ExamGrade {
+public class ExamGrade implements Serializable{
 	private String studentPassed;
 	private Subject subject;
 	private int grade;

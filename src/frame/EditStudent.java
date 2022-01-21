@@ -52,7 +52,7 @@ public class EditStudent extends JDialog {
 		Dimension frameSize = parent.getSize();
 		int frameHeight = frameSize.height;
 		int frameWidth = frameSize.width;
-		setSize(frameWidth, frameHeight);
+		setSize(frameWidth / 2, frameHeight - 30);
 		setLocationRelativeTo(parent);
 		setTitle("Izmena studenta");
 		setModal(true);
@@ -89,19 +89,18 @@ public class EditStudent extends JDialog {
 		ttt.add(cancelGrade, FlowLayout.LEFT);
 		JPanel bbb = new JPanel();
 		bbb.setLayout(new GridBagLayout());
-		
+
 		GridBagConstraints gbcAverageGrade = new GridBagConstraints();
 		gbcAverageGrade.gridx = 0;
 		gbcAverageGrade.gridy = 0;
 		gbcAverageGrade.insets = new Insets(10, 250, 0, 0);
 		bbb.add(averageGrade, gbcAverageGrade);
-		
+
 		GridBagConstraints gbcSumESPB = new GridBagConstraints();
 		gbcSumESPB.gridx = 0;
 		gbcSumESPB.gridy = 1;
 		gbcSumESPB.insets = new Insets(5, 250, 0, 0);
 		bbb.add(summESPB, gbcSumESPB);
-		
 
 //		GridBagConstraints gbcCancelGrade = new GridBagConstraints();
 //		gbcCancelGrade.gridx = 0;
@@ -163,7 +162,8 @@ public class EditStudent extends JDialog {
 		gbcTable1.insets = new Insets(0, 0, 0, 0);
 		notPassedPanel.add(scrollPane1, gbcTable1);
 
-		Student st = StudentBase.getInstance().getStudents().get(MainFrame.getInstance().studentTable.convertRowIndexToModel(MainFrame.getInstance().getDataFromSelectedRow()));
+		Student st = StudentBase.getInstance().getStudents().get(MainFrame.getInstance().studentTable
+				.convertRowIndexToModel(MainFrame.getInstance().getDataFromSelectedRow()));
 		List<Subject> subb = new ArrayList<Subject>();
 		subb.add(new Subject());
 		subb.add(new Subject());
@@ -178,8 +178,8 @@ public class EditStudent extends JDialog {
 				addSubj.setModal(true);
 				addSubj.setTitle("Dodavanje predmeta");
 				Dimension frameSize3 = parent.getSize();
-				int frameHeight3 = frameSize3.height/3 ;
-				int frameWidth3 = frameSize3.width/3;
+				int frameHeight3 = frameSize3.height / 3;
+				int frameWidth3 = frameSize3.width / 3;
 				addSubj.setSize(frameWidth3, frameHeight3);
 				addSubj.setLocationRelativeTo(null);
 				addSubj.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -190,9 +190,12 @@ public class EditStudent extends JDialog {
 				data.add("Šifra" + " Naziv");
 				data.add(" ");
 				for (Subject sbt : SubjectBase.getInstance().getSubjects()) {
-					if (sbt.getStudyYear() <= st.getCurrentStudyYear()) {
-						for (int i = 0; i < st.getGradeList().size(); i++) {
-							if (sbt.getSubjectID() != st.getGradeList().get(i).getSubject().getSubjectID()) {
+					if (sbt.getStudyYear() <= StudentBase.getInstance().getStudents().get(MainFrame.getInstance().studentTable
+							.convertRowIndexToModel(MainFrame.getInstance().getDataFromSelectedRow())).getCurrentStudyYear()) {
+						for (int i = 0; i < StudentBase.getInstance().getStudents().get(MainFrame.getInstance().studentTable
+								.convertRowIndexToModel(MainFrame.getInstance().getDataFromSelectedRow())).getGradeList().size(); i++) {
+							if (!sbt.getSubjectID().equals(StudentBase.getInstance().getStudents().get(MainFrame.getInstance().studentTable
+									.convertRowIndexToModel(MainFrame.getInstance().getDataFromSelectedRow())).getGradeList().get(i).getSubject().getSubjectID())) {
 								passed = true;
 							} else {
 								passed = false;
@@ -202,7 +205,8 @@ public class EditStudent extends JDialog {
 							}
 						}
 						for (int j = 0; j < st.getNotPassed().size(); j++) {
-							if (sbt.getSubjectID() != st.getNotPassed().get(j).getSubjectID()) {
+							if (!sbt.getSubjectID().equals(StudentBase.getInstance().getStudents().get(MainFrame.getInstance().studentTable
+									.convertRowIndexToModel(MainFrame.getInstance().getDataFromSelectedRow())).getNotPassed().get(j).getSubjectID())) {
 								passed = true;
 							} else {
 								passed = false;
@@ -224,7 +228,8 @@ public class EditStudent extends JDialog {
 				}
 				available = new JList(data.toArray());
 				available.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-				addSubj.add(available, BorderLayout.CENTER);
+				JScrollPane gas = new JScrollPane(available);
+				addSubj.add(gas, BorderLayout.CENTER);
 				JPanel bot = new JPanel();
 				addSubj.add(bot, BorderLayout.SOUTH);
 				bot.setLayout(new FlowLayout());
@@ -242,7 +247,8 @@ public class EditStudent extends JDialog {
 						Subject subjc = new Subject();
 						subjc = subb.get(available.getSelectedIndex());
 						subb.remove(available.getSelectedIndex());
-						StudentController.getInstance().addSubjectToNotPassed(st, subjc);
+						StudentController.getInstance().addSubjectToNotPassed(StudentBase.getInstance().getStudents().get(MainFrame.getInstance().studentTable
+								.convertRowIndexToModel(MainFrame.getInstance().getDataFromSelectedRow())), subjc);
 						refresh();
 						addSubj.dispose();
 					}
@@ -261,18 +267,18 @@ public class EditStudent extends JDialog {
 				addSubj.setVisible(true);
 			}
 		});
-		
+
 		deleteExam.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-			if(available != null) {
+	//			if (available != null) {
 					StudentController.getInstance().deleteExam(notPassedExamsTable.getSelectedRow());
-					refresh();					
-				}
+					refresh();
+	//			}
 			}
-			
+
 		});
 
 		tp.addTab("Informacije", centerPanel);
@@ -603,9 +609,9 @@ public class EditStudent extends JDialog {
 						yr = 1;
 					} else if (year.equals("II (druga)")) {
 						yr = 2;
-					} else if (year.equals("III (treÄ‡a)")) {
+					} else if (year.equals("III (treća)")) {
 						yr = 3;
-					} else if (year.equals("IV (Ä�etvrta)")) {
+					} else if (year.equals("IV (četvrta)")) {
 						yr = 4;
 					}
 					float f = (float) d;
@@ -661,13 +667,13 @@ public class EditStudent extends JDialog {
 
 	public JTable getNotPassedExamsTable() {
 		return notPassedExamsTable;
-	}	
+	}
 
 	public void refresh() {
-		AbstractTableModelNotPassedExams model = (AbstractTableModelNotPassedExams)notPassedExamsTable.getModel();
+		AbstractTableModelNotPassedExams model = (AbstractTableModelNotPassedExams) notPassedExamsTable.getModel();
 		model.fireTableDataChanged();
 		validate();
 		notPassedExamsTable.repaint();
 	}
-	
+
 }
