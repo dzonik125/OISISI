@@ -69,7 +69,7 @@ public class DialogProfesor extends JDialog {
 		JLabel office = new JLabel("Katedra* ");
 		JLabel mail = new JLabel("Email adresa*");
 		JLabel intershipyear = new JLabel("Godine rada*");
-		JLabel id = new JLabel("Broj licne karte");
+		JLabel id = new JLabel("Broj lične karte");
 		JLabel title=new JLabel("Zvanje");
 		
 
