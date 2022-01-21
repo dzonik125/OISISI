@@ -54,7 +54,7 @@ public class EditSubject extends JDialog {
 		add(centerPanel, BorderLayout.NORTH);
 
 		JLabel name = new JLabel("Naziv predmeta*");
-		JLabel scode = new JLabel("Sifra predmeta*");
+		JLabel scode = new JLabel("Å ifra predmeta*");
 		JLabel sem = new JLabel("Semestar*");
 		JLabel yr = new JLabel("Godina studija u kojoj se predmet izvodi* ");
 		JLabel espb = new JLabel("Broj ESPB bodova*");
@@ -154,7 +154,7 @@ public class EditSubject extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				// Ime i sifra predmeta
-				Pattern p = Pattern.compile("\\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
+				Pattern p = Pattern.compile("\\b([A-Zï¿½-ï¿½][-,a-z. ']+[ ]*)+"
 );
 				Matcher m = p.matcher(txtName.getText());
 				boolean b = m.matches();
