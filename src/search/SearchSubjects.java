@@ -21,7 +21,7 @@ public class SearchSubjects {
 		return instance;
 	}
 
-	public List<Subject> searchList;
+	public ArrayList<Subject> searchList;
 	public List<Subject> remove;
 
 	public SearchSubjects() {
