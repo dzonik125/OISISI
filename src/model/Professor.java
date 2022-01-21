@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Professor {
+public class Professor implements Serializable{
 
 	public Professor(String name, String surname, Date dateOfBirth, Adress adress, String phone, String mail,
 			String office, String id, String title, int internshipYear) {

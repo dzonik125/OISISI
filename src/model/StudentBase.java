@@ -44,13 +44,6 @@ public class StudentBase {
 		this.columns2.add("Godina studija");
 		this.columns2.add("Semestar");
 		this.students = new ArrayList<Student>();
-		Student s = new Student("ra-132-2019", "Nikola", "Kolarov", new Date(),
-				new Adress("Laze Kostica", "Kovilj", "77", "Srbija"), 3, Student.Status.B, (float) 7.53, "0621016150",
-				"dzonik125@gmail.com", 2019);
-		ArrayList<Subject> subjs = new ArrayList<Subject>();
-		subjs.add(new Subject(12, "Algebra", Subject.Semester.Letnji, 1, 8));
-		s.setNotPassed(subjs);
-		students.add(s);
 	}
 
 	public void setStudents(List<Student> students) {

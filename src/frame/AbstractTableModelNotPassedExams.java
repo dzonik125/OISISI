@@ -2,7 +2,6 @@ package frame;
 
 import javax.swing.table.AbstractTableModel;
 
-import model.NotPassedExamsBase;
 import model.Student;
 import model.StudentBase;
 

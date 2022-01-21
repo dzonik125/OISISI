@@ -1,12 +1,9 @@
 package controllers;
 
-import frame.EditStudent;
 import frame.MainFrame;
-import model.NotPassedExamsBase;
 import model.Student;
 import model.StudentBase;
 import model.Subject;
-import model.SubjectBase;
 
 public class StudentController {
 	private static StudentController instance = null;

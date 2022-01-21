@@ -70,7 +70,7 @@ public class EditSubject extends JDialog {
 		txtScode.setText(String.valueOf(sb.getSubjectID()));
 		txtYr.setText(String.valueOf(sb.getStudyYear()));
 		txtEspb.setText(String.valueOf(sb.getEspb()));
-		int check = sb.getSubjectID();
+		String check = sb.getSubjectID();
 		
 		GridBagConstraints gbcName = new GridBagConstraints();
 		gbcName.gridx = 0;
@@ -154,12 +154,12 @@ public class EditSubject extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				// Ime i sifra predmeta
-				Pattern p = Pattern.compile("\\b([A-Z�-�][-,a-z. ']+[ ]*)+"
+				Pattern p = Pattern.compile("[A-z]*\\s*[A-z]*\\s*[A-z]*\\s*[A-z]*"
 );
 				Matcher m = p.matcher(txtName.getText());
 				boolean b = m.matches();
 
-				Pattern p1 = Pattern.compile("\\d+");
+				Pattern p1 = Pattern.compile("[A-z]*\\d*");
 				Matcher m1 = p1.matcher(txtScode.getText());
 				boolean b1 = m1.matches();
 
@@ -176,8 +176,8 @@ public class EditSubject extends JDialog {
 				//Provera sifre predmeta
 				boolean sameID = false;
 				for(Subject sb : SubjectBase.getInstance().getSubjects()) {
-					if(sb.getSubjectID() == (Integer.parseInt(txtScode.getText()))) {
-						if(sb.getSubjectID() == (check)) {
+					if(sb.getSubjectID().equals(txtScode.getText())) {
+						if(sb.getSubjectID().equals(check)) {
 							sameID = false;
 						}else {
 							sameID = true;
@@ -194,7 +194,7 @@ public class EditSubject extends JDialog {
 						semms = Subject.Semester.Zimski;
 					}
 					
-					Subject s = new Subject(Integer.parseInt(txtScode.getText()), txtName.getText(), semms, Integer.parseInt(txtYr.getText()), Integer.parseInt(txtEspb.getText()));
+					Subject s = new Subject(txtScode.getText(), txtName.getText(), semms, Integer.parseInt(txtYr.getText()), Integer.parseInt(txtEspb.getText()));
 					SubjectController.getInstance().editSubject(MainFrame.getInstance().subjectTable.getSelectedRow(), s);
 					dispose();
 				} else {

@@ -1,13 +1,14 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Subject {
+public class Subject implements Serializable{
 	public enum Semester {
 		Letnji, Zimski
 	}
 
-	private int subjectID;
+	private String subjectID;
 	private String subjectName;
 	private Semester semester;
 	private int studyYear;
@@ -20,7 +21,7 @@ public class Subject {
 		super();
 	}
 
-	public Subject(int subjectID, String subjectName, Semester semester, int studyYear, int espb) { // DODATI
+	public Subject(String subjectID, String subjectName, Semester semester, int studyYear, int espb) { // DODATI
 																									// PROFESORA!!
 		super();
 		this.subjectID = subjectID;
@@ -43,7 +44,7 @@ public class Subject {
 		this.failed = s.failed;
 	}
 
-	public Subject(int subjectID, String subjectName, Semester semester, int studyYear, Professor subjectProfessor,
+	public Subject(String subjectID, String subjectName, Semester semester, int studyYear, Professor subjectProfessor,
 			int espb, ArrayList<Student> passed, ArrayList<Student> failed) {
 		super();
 		this.subjectID = subjectID;
@@ -56,11 +57,11 @@ public class Subject {
 		this.failed = failed;
 	}
 
-	public int getSubjectID() {
+	public String getSubjectID() {
 		return subjectID;
 	}
 
-	public void setSubjectID(int subjectID) {
+	public void setSubjectID(String subjectID) {
 		this.subjectID = subjectID;
 	}
 
