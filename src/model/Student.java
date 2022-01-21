@@ -69,8 +69,8 @@ public class Student {
 		this.surname = surname;
 	}
 
-	public void deleteSubjectFromNotPassed(Subject s) {
-		notPassed.remove(s);
+	public void deleteSubjectFromNotPassed(int index) {
+		notPassed.remove(index);
 	}
 	
 	public String getName() {

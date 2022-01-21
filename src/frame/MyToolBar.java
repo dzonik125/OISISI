@@ -13,8 +13,11 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
+import model.BazaProfesora;
+import model.Professor;
 import model.Student;
 import model.StudentBase;
+import search.SearchProfessors;
 import search.SearchStudents;
 
 public class MyToolBar extends JToolBar {
@@ -29,8 +32,12 @@ public class MyToolBar extends JToolBar {
 	}
 
 	public int counter = 0;
+	public int counter1=0;
 	public ArrayList<Student> helpList = new ArrayList<Student>(StudentBase.getInstance().getStudents());
-
+	public ArrayList<Professor> helpList1 = new ArrayList<Professor>(BazaProfesora.getInstance().getProfessors());
+	
+	
+	
 	public MyToolBar() {
 
 		super(SwingConstants.HORIZONTAL);
@@ -65,7 +72,20 @@ public class MyToolBar extends JToolBar {
 						}
 					}
 				} else if (MainFrame.getInstance().tp.getSelectedIndex() == 1) {
-					DialogProfesor dp = new DialogProfesor(MainFrame.getInstance());
+					if(counter1==0) {
+						
+						DialogProfesor dp = new DialogProfesor(MainFrame.getInstance());
+						helpList1 = new ArrayList<Professor>(BazaProfesora.getInstance().getProfessors());
+
+					} else {
+						if (SearchProfessors.getInstance().flag == true) {
+							DialogProfesor dp = new DialogProfesor(MainFrame.getInstance());
+							helpList1 = new ArrayList<Professor>(BazaProfesora.getInstance().getProfessors());
+						} else {
+							return;
+						}		
+					}
+						
 
 				} else if (MainFrame.getInstance().tp.getSelectedIndex() == 2) {
 					DialogSubject sd = new DialogSubject(MainFrame.getInstance());
@@ -102,7 +122,7 @@ public class MyToolBar extends JToolBar {
 							return;
 						}
 					}
-				} else if (MainFrame.getInstance().tp.getSelectedIndex() == 1) {
+				} else if (MainFrame.getInstance().tp.getSelectedIndex() == 1 & MainFrame.getInstance().professorTable.getSelectedRowCount() != 0) {
 					EditProfesor ep = new EditProfesor(MainFrame.getInstance());
 				} else if (MainFrame.getInstance().tp.getSelectedIndex() == 2 & MainFrame.getInstance().subjectTable.getSelectedRowCount() != 0) {
 					EditSubject es1 = new EditSubject(MainFrame.getInstance());
@@ -187,6 +207,23 @@ public class MyToolBar extends JToolBar {
 					}
 
 					SearchStudents.getInstance().searchStudents(srch);
+				}else if(MainFrame.getInstance().tp.getSelectedIndex()==1) {
+					String srch = textField.getText();
+					counter1=counter1+1;
+					if(counter1>1 & textField.getText().isEmpty()) {
+						BazaProfesora.getInstance().setProfessors(helpList1);
+						MainFrame.getInstance().refresh2();	
+						
+					}else if(counter>1 & !textField.getText().isEmpty()) {
+						BazaProfesora.getInstance().setProfessors(helpList1);
+						
+					}
+					
+					SearchProfessors.getInstance().searchProfessors(srch);
+					
+					
+					
+					
 				}
 			}
 		});

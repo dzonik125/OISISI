@@ -48,9 +48,10 @@ public class BazaProfesora {
 		return professors;
 	}
 
-	public void setIgraci(List<Professor> professors) {
+	public void setProfessors(List<Professor> professors) {
 		this.professors = professors;
 	}
+	
 
 
 	public int getColumnCount() {
@@ -114,6 +115,9 @@ public class BazaProfesora {
 			return null;
 		}
 	}
+
+
+
 
 	
 	
