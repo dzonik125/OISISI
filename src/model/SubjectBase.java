@@ -98,4 +98,11 @@ public class SubjectBase {
 		}
 	}
 
+
+
+	public void setSubjects(ArrayList<Subject> s) {
+		// TODO Auto-generated method stub
+		this.subjects = s;
+	}
+
 }
