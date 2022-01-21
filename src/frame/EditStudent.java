@@ -52,7 +52,7 @@ public class EditStudent extends JDialog {
 		Dimension frameSize = parent.getSize();
 		int frameHeight = frameSize.height;
 		int frameWidth = frameSize.width;
-		setSize(frameWidth / 2, frameHeight - 30);
+		setSize(frameWidth, frameHeight);
 		setLocationRelativeTo(parent);
 		setTitle("Izmena studenta");
 		setModal(true);
@@ -178,8 +178,8 @@ public class EditStudent extends JDialog {
 				addSubj.setModal(true);
 				addSubj.setTitle("Dodavanje predmeta");
 				Dimension frameSize3 = parent.getSize();
-				int frameHeight3 = frameSize3.height / 3;
-				int frameWidth3 = frameSize3.width / 3;
+				int frameHeight3 = frameSize3.height/3 ;
+				int frameWidth3 = frameSize3.width/3;
 				addSubj.setSize(frameWidth3, frameHeight3);
 				addSubj.setLocationRelativeTo(null);
 				addSubj.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

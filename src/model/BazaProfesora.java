@@ -35,7 +35,7 @@ public class BazaProfesora {
 		this.kolone.add("KATEDRA");
 		this.professors = new ArrayList<Professor>();
 		this.columns = new ArrayList<String>();
-		this.columns.add("Šifra");
+		this.columns.add("Å ifra");
 		this.columns.add("Naziv");
 		this.columns.add("Godina studija");
 		this.columns.add("Semestar");
@@ -51,9 +51,10 @@ public class BazaProfesora {
 		return professors;
 	}
 
-	public void setIgraci(List<Professor> professors) {
+	public void setProfessors(List<Professor> professors) {
 		this.professors = professors;
 	}
+	
 
 	public int getColumnCount() {
 		return 5;
@@ -146,6 +147,7 @@ public class BazaProfesora {
 		default:
 			return null;
 		}
+
 
 	}
 }

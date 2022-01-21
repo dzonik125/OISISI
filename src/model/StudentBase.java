@@ -32,13 +32,13 @@ public class StudentBase {
 		this.columns.add("Status");
 		this.columns.add("Prosek");
 		this.columns1 = new ArrayList<String>();
-		this.columns1.add("Šifra predmeta");
+		this.columns1.add("Å ifra predmeta");
 		this.columns1.add("Naziv predmeta");
 		this.columns1.add("ESPB");
 		this.columns1.add("Ocena");
 		this.columns1.add("Datum");
 		this.columns2 = new ArrayList<String>();
-		this.columns2.add("Šifra predmeta");
+		this.columns2.add("Å ifra predmeta");
 		this.columns2.add("Naziv predmeta");
 		this.columns2.add("ESPB");
 		this.columns2.add("Godina studija");
