@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import frame.MainFrame;
+
 public class SubjectBase {
 	private static SubjectBase instance = null;
 
@@ -21,14 +23,12 @@ public class SubjectBase {
 		this.columns.add("�ifra predmeta");
 		this.columns.add("Naziv predmeta");
 		this.columns.add("Semestar");
-		this.columns.add("Godina studija u kojoj se predmet izvodi");
+		this.columns.add("Godina");
 		this.columns.add("ESPB");
 		this.subjects = new ArrayList<Subject>();
 	}
-
-	public void setSubjects(List<Subject> subjects) {
-		this.subjects = subjects;
-	}
+	
+	
 
 	public List<Subject> getSubjects() {
 		return subjects;
@@ -37,6 +37,7 @@ public class SubjectBase {
 	public void addSubject(Subject s) {
 		subjects.add(s);
 	}
+
 
 	public void deleteSubject(String subjectID) {
 		for (Subject s : subjects) {
@@ -50,6 +51,13 @@ public class SubjectBase {
 
 	}
 
+	
+	
+	
+	public void deleteProfesorSubject(int id) {
+		SubjectBase.getInstance().getRow(MainFrame.getInstance().getDataFromSelectedRow1()).deleteProfessorFromSubject(id);
+	}
+	
 	public void editSubject(int rowIndex, Subject s) {
 		Subject s1 = subjects.get(rowIndex);
 		s1.setSubjectName(s.getSubjectName());
@@ -82,6 +90,7 @@ public class SubjectBase {
 			return String.valueOf(s.getSemester());
 		case 3:
 			return String.valueOf(s.getStudyYear());
+		
 		case 4:
 			return String.valueOf(s.getEspb());
 		default:

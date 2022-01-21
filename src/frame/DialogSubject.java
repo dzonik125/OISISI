@@ -144,8 +144,7 @@ public class DialogSubject extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				// Ime i sifra predmeta
-				Pattern p = Pattern.compile("[A-z]*\\s*[A-z]*\\s*[A-z]*\\s*[A-z]*"
-);
+				Pattern p = Pattern.compile("[A-z]*\\s*[A-z]*\\s*[A-z]*\\s*[A-z]*");
 				Matcher m = p.matcher(txtName.getText());
 				boolean b = m.matches();
 

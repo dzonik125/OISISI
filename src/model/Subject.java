@@ -56,6 +56,11 @@ public class Subject implements Serializable{
 		this.passed = passed;
 		this.failed = failed;
 	}
+	
+	
+	public void deleteProfessorFromSubject(int index) {
+		this.subjectProfessor=null;
+	}
 
 	public String getSubjectID() {
 		return subjectID;

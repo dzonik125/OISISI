@@ -1,6 +1,8 @@
 package controllers;
 
 import frame.MainFrame;
+import model.BazaProfesora;
+import model.Professor;
 import model.Student;
 import model.StudentBase;
 import model.Subject;
@@ -25,6 +27,11 @@ public class SubjectController {
 		MainFrame.getInstance().refresh1();
 	}
 	
+	public void addProfessorToSubject(Subject s,Professor p) {
+		s.setSubjectProfessor(p);
+		
+	}
+	
 	public void editSubject(int rowSelectedIndex, Subject s) {
 		if(rowSelectedIndex < 0) {
 			return;
@@ -45,5 +52,20 @@ public class SubjectController {
 		//azuriranje prikaza
 		MainFrame.getInstance().refresh1();
 	}
+	
+	public void deleteProfesorFromSubject(int rowSelectedIndex) {
+		if (rowSelectedIndex < 0) {
+			return;
+		}
+
+		SubjectBase.getInstance().deleteProfesorSubject(rowSelectedIndex);
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 }

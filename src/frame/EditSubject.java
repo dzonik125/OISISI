@@ -1,36 +1,48 @@
 package frame;
 
 import java.awt.BorderLayout;
+import java.awt.ComponentOrientation;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
+import controllers.ProfessorController;
 import controllers.SubjectController;
+import model.BazaProfesora;
+import model.Professor;
 import model.Student;
 import model.StudentBase;
 import model.Subject;
 import model.SubjectBase;
 
 public class EditSubject extends JDialog {
+	
+	private JList available;
 
 	private Subject.Semester semms;
 	private int yr;
 
 	public EditSubject(MainFrame parent) {
+		Subject sb=SubjectBase.getInstance().getSubjects().get(MainFrame.getInstance().subjectTable.convertRowIndexToModel(MainFrame.getInstance().getDataFromSelectedRow1()));
 		Dimension frameSize = parent.getSize();
 		int frameHeight = frameSize.height;
 		int frameWidth = frameSize.width;
@@ -39,38 +51,226 @@ public class EditSubject extends JDialog {
 		setTitle("Izmena predmeta");
 		setModal(true);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
+		JButton addProfesor=new JButton("+");
+		JButton deleteProfesor= new JButton("-");
+		
 		JPanel bottomPanel = new JPanel();
 		JButton confirm = new JButton("Potvrda");
 		JButton abort = new JButton("Odustanak");
 
 		bottomPanel.add(confirm);
 		bottomPanel.add(abort);
+		bottomPanel.add(addProfesor);
+		bottomPanel.add(deleteProfesor);
 
 		add(bottomPanel, BorderLayout.SOUTH);
 
 		JPanel centerPanel = new JPanel();
 		centerPanel.setLayout(new GridBagLayout());
 		add(centerPanel, BorderLayout.NORTH);
+		List<Professor> subb = new ArrayList<Professor>();
+		subb.add(new Professor());
+		subb.add(new Professor());
+		
+		JTextField txtName = new JTextField();
+		JTextField txtScode = new JTextField();
+		JTextField txtYr = new JTextField();
+		JTextField txtEspb = new JTextField();
+		JTextField txtProfesor= new JTextField();
+		
+
+		
+	addProfesor.addActionListener(new ActionListener() {
+		
+
+	public void actionPerformed(ActionEvent e) {
+		
+		JDialog addProf= new JDialog();
+		addProf.setModal(true);
+		addProf.setTitle("Odaberi profesora");
+		Dimension frameSize3=parent.getSize();
+		int frameHeight3=frameSize.height/3;
+		int frameWidth3 = frameSize3.width / 3;
+		addProf.setSize(frameWidth3, frameHeight3);
+		addProf.setLocationRelativeTo(null);
+		addProf.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		boolean passed = true;
+		addProf.setLayout(new BorderLayout());
+		
+		List<String> data = new ArrayList<String>();
+		data.add("Profesori:");
+		data.add(" ");
+		
+		
+		for (Professor prf : BazaProfesora.getInstance().getProfessors()) {
+			if (SubjectBase.getInstance().getSubjects().get(MainFrame.getInstance().subjectTable.convertRowIndexToModel(MainFrame.getInstance().getDataFromSelectedRow1())).getSubjectProfessor()==prf) {
+				passed = false;
+			} else {
+				passed = true;
+			}
+			if (passed) {
+		
+				String first = prf.getName();
+				String second= prf.getSurname();
+				String fise = first.concat(" ").concat(second);
+				data.add(fise);
+				subb.add(prf);
+			}
+		}
+		
+		available = new JList(data.toArray());
+		available.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		addProf.add(available, BorderLayout.CENTER);
+		JPanel bot = new JPanel();
+		addProf.add(bot, BorderLayout.SOUTH);
+		bot.setLayout(new FlowLayout());
+		bot.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		JButton conf = new JButton("Potvrdi");
+		JButton abor = new JButton("Odustani");
+		bot.add(conf);
+		bot.add(abor);
+		
+		conf.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				Professor prof = new Professor();
+				int index = available.getSelectedIndex();
+				prof = subb.get(available.getSelectedIndex());
+				subb.remove(index);
+				SubjectController.getInstance().addProfessorToSubject(SubjectBase.getInstance().getSubjects().get(MainFrame.getInstance().subjectTable.convertRowIndexToModel(MainFrame.getInstance().getDataFromSelectedRow1())), prof);
+				txtProfesor.setText(String.valueOf(SubjectBase.getInstance().getSubjects().get(MainFrame.getInstance().subjectTable.convertRowIndexToModel(MainFrame.getInstance().getDataFromSelectedRow1())).getSubjectProfessor().getName().concat(" ").concat(sb.getSubjectProfessor().getSurname())));
+				System.out.print(SubjectBase.getInstance().getSubjects().get(MainFrame.getInstance().subjectTable.convertRowIndexToModel(MainFrame.getInstance().getDataFromSelectedRow1())).getSubjectProfessor().getName());
+				addProf.dispose();
+			}
+			
+		});
+		
+		abor.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				addProf.dispose();
+			}
+
+		});
+		
+		addProf.setVisible(true);
+		
+	}
+			
+	});	
+	
+	deleteProfesor.addActionListener(new ActionListener() {
+		
+
+		public void actionPerformed(ActionEvent e) {
+			
+			JDialog addProf= new JDialog();
+			addProf.setModal(true);
+			addProf.setTitle("Odaberi profesora");
+			Dimension frameSize3=parent.getSize();
+			int frameHeight3=frameSize.height/3;
+			int frameWidth3 = frameSize3.width / 3;
+			addProf.setSize(frameWidth3, frameHeight3);
+			addProf.setLocationRelativeTo(null);
+			addProf.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+			boolean passed = true;
+			addProf.setLayout(new BorderLayout());
+			
+			List<String> data = new ArrayList<String>();
+			data.add("Profesori:");
+			data.add(" ");
+			
+			
+			for (Professor prf : BazaProfesora.getInstance().getProfessors()) {
+				if (SubjectBase.getInstance().getSubjects().get(MainFrame.getInstance().subjectTable.convertRowIndexToModel(MainFrame.getInstance().getDataFromSelectedRow1())).getSubjectProfessor()==prf) {
+					passed = false;
+				} else {
+					passed = true;
+				}
+				if (passed) {
+			
+					String first = prf.getName();
+					String second= prf.getSurname();
+					String fise = first.concat(" ").concat(second);
+					data.add(fise);
+					subb.add(prf);
+				}
+			}
+			
+			available = new JList(data.toArray());
+			available.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+			addProf.add(available, BorderLayout.CENTER);
+			JPanel bot = new JPanel();
+			addProf.add(bot, BorderLayout.SOUTH);
+			bot.setLayout(new FlowLayout());
+			bot.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+			JButton conf = new JButton("Potvrdi");
+			JButton abor = new JButton("Odustani");
+			bot.add(conf);
+			bot.add(abor);
+			
+			conf.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					Professor prof = new Professor();
+					int index = available.getSelectedIndex();
+					prof = subb.get(available.getSelectedIndex());
+					subb.remove(index);
+					SubjectController.getInstance().addProfessorToSubject(SubjectBase.getInstance().getSubjects().get(MainFrame.getInstance().subjectTable.convertRowIndexToModel(MainFrame.getInstance().getDataFromSelectedRow1())), prof);
+					txtProfesor.setText(String.valueOf(SubjectBase.getInstance().getSubjects().get(MainFrame.getInstance().subjectTable.convertRowIndexToModel(MainFrame.getInstance().getDataFromSelectedRow1())).getSubjectProfessor().getName().concat(" ").concat(sb.getSubjectProfessor().getSurname())));
+					System.out.print(SubjectBase.getInstance().getSubjects().get(MainFrame.getInstance().subjectTable.convertRowIndexToModel(MainFrame.getInstance().getDataFromSelectedRow1())).getSubjectProfessor().getName());
+					addProf.dispose();
+				}
+				
+			});
+			
+			abor.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					addProf.dispose();
+				}
+
+			});
+			
+			addProf.setVisible(true);
+			
+		}
+				
+		});	
+		
+	
+		
 
 		JLabel name = new JLabel("Naziv predmeta*");
 		JLabel scode = new JLabel("Šifra predmeta*");
 		JLabel sem = new JLabel("Semestar*");
 		JLabel yr = new JLabel("Godina studija u kojoj se predmet izvodi* ");
 		JLabel espb = new JLabel("Broj ESPB bodova*");
+		JLabel profesor=new JLabel("Profesor*");
 
-		JTextField txtName = new JTextField();
-		JTextField txtScode = new JTextField();
-		JTextField txtYr = new JTextField();
-		JTextField txtEspb = new JTextField();
+	
 		
-		Subject sb = new Subject(SubjectBase.getInstance().getRow(MainFrame.getInstance().getDataFromSelectedRow1()));
 		
 		txtName.setText(sb.getSubjectName());
 		txtScode.setText(String.valueOf(sb.getSubjectID()));
 		txtYr.setText(String.valueOf(sb.getStudyYear()));
 		txtEspb.setText(String.valueOf(sb.getEspb()));
-		String check = sb.getSubjectID();
+
+		if(SubjectBase.getInstance().getSubjects().get(MainFrame.getInstance().subjectTable.convertRowIndexToModel(MainFrame.getInstance().getDataFromSelectedRow1())).getSubjectProfessor()==null) {
+			txtProfesor.setText(null);
+		}else {
+			txtProfesor.setText(SubjectBase.getInstance().getSubjects().get(MainFrame.getInstance().subjectTable.convertRowIndexToModel(MainFrame.getInstance().getDataFromSelectedRow1())).getSubjectProfessor().getName().concat(" ").concat(SubjectBase.getInstance().getSubjects().get(MainFrame.getInstance().subjectTable.convertRowIndexToModel(MainFrame.getInstance().getDataFromSelectedRow1())).getSubjectProfessor().getSurname()));
+		}
+		String check = SubjectBase.getInstance().getSubjects().get(MainFrame.getInstance().subjectTable.convertRowIndexToModel(MainFrame.getInstance().getDataFromSelectedRow1())).getSubjectID();
+
 		
 		GridBagConstraints gbcName = new GridBagConstraints();
 		gbcName.gridx = 0;
@@ -101,6 +301,13 @@ public class EditSubject extends JDialog {
 		gbcEspb.gridy = 4;
 		gbcEspb.insets = new Insets(20, 0, 0, 0);
 		centerPanel.add(espb, gbcEspb);
+		
+		
+		GridBagConstraints gbcProfesor = new GridBagConstraints();
+		gbcProfesor.gridx = 0;
+		gbcProfesor.gridy = 5;
+		gbcProfesor.insets = new Insets(20, 0, 0, 0);
+		centerPanel.add(profesor, gbcProfesor);
 
 		GridBagConstraints gbcTxtName = new GridBagConstraints();
 		gbcTxtName.gridx = 1;
@@ -140,6 +347,13 @@ public class EditSubject extends JDialog {
 		gbcTxtEspb.fill = GridBagConstraints.HORIZONTAL;
 		gbcTxtEspb.insets = new Insets(20, 20, 0, 20);
 		centerPanel.add(txtEspb, gbcTxtEspb);
+		
+		GridBagConstraints gbcTxtProfesor = new GridBagConstraints();
+		gbcTxtProfesor.gridx = 1;
+		gbcTxtProfesor.gridy = 5;
+		gbcTxtProfesor.fill = GridBagConstraints.HORIZONTAL;
+		gbcTxtProfesor.insets = new Insets(20, 20, 0, 150);
+		centerPanel.add(txtProfesor, gbcTxtProfesor);
 
 		abort.addActionListener(new ActionListener() {
 			@Override
@@ -154,8 +368,9 @@ public class EditSubject extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				// Ime i sifra predmeta
-				Pattern p = Pattern.compile("[A-z]*\\s*[A-z]*\\s*[A-z]*\\s*[A-z]*"
-);
+
+				Pattern p = Pattern.compile("[A-z]*\\s*[A-z]*\\s*[A-z]*\\s*[A-z]*");
+
 				Matcher m = p.matcher(txtName.getText());
 				boolean b = m.matches();
 
@@ -231,4 +446,8 @@ public class EditSubject extends JDialog {
 		setVisible(true);
 	}
 
+	
+
+
 }
+	

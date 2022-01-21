@@ -6,6 +6,11 @@ import java.util.Date;
 
 public class Professor implements Serializable{
 
+	public Professor() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public Professor(String name, String surname, Date dateOfBirth, Adress adress, String phone, String mail,
 			String office, String id, String title, int internshipYear) {
 		super();
