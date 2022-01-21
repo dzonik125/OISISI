@@ -35,13 +35,14 @@ public class MyToolBar extends JToolBar {
 	}
 
 	public int counter = 0;
+
 	public int counter1=0;
 	public int counter2=0;
 	public ArrayList<Student> helpList = new ArrayList<Student>(StudentBase.getInstance().getStudents());
 	public ArrayList<Professor> helpList1 = new ArrayList<Professor>(BazaProfesora.getInstance().getProfessors());
 	public ArrayList<Subject> helpList2 = new ArrayList<Subject>(SubjectBase.getInstance().getSubjects());
 	
-	
+
 	public MyToolBar() {
 
 		super(SwingConstants.HORIZONTAL);
@@ -76,8 +77,8 @@ public class MyToolBar extends JToolBar {
 						}
 					}
 				} else if (MainFrame.getInstance().tp.getSelectedIndex() == 1) {
-					if(counter1==0) {
-						
+					if (counter1 == 0) {
+
 						DialogProfesor dp = new DialogProfesor(MainFrame.getInstance());
 						helpList1 = new ArrayList<Professor>(BazaProfesora.getInstance().getProfessors());
 
@@ -87,9 +88,8 @@ public class MyToolBar extends JToolBar {
 							helpList1 = new ArrayList<Professor>(BazaProfesora.getInstance().getProfessors());
 						} else {
 							return;
-						}		
+						}
 					}
-						
 
 				} else if (MainFrame.getInstance().tp.getSelectedIndex() == 2) {
 					DialogSubject sd = new DialogSubject(MainFrame.getInstance());
@@ -112,7 +112,8 @@ public class MyToolBar extends JToolBar {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				if (MainFrame.getInstance().tp.getSelectedIndex() == 0 & MainFrame.getInstance().studentTable.getSelectedRowCount() != 0) {
+				if (MainFrame.getInstance().tp.getSelectedIndex() == 0
+						& MainFrame.getInstance().studentTable.getSelectedRowCount() != 0) {
 					if (counter == 0) {
 
 						EditStudent es = new EditStudent(MainFrame.getInstance());
@@ -126,6 +127,7 @@ public class MyToolBar extends JToolBar {
 							return;
 						}
 					}
+
 				} else if (MainFrame.getInstance().tp.getSelectedIndex() == 1 & MainFrame.getInstance().professorTable.getSelectedRowCount() != 0) {
 					if(counter==1) {
 						EditProfesor ep=new EditProfesor(MainFrame.getInstance());
@@ -164,7 +166,8 @@ public class MyToolBar extends JToolBar {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				if (MainFrame.getInstance().tp.getSelectedIndex() == 0 & MainFrame.getInstance().studentTable.getSelectedRowCount() != 0) {
+				if (MainFrame.getInstance().tp.getSelectedIndex() == 0
+						& MainFrame.getInstance().studentTable.getSelectedRowCount() != 0) {
 					if (counter == 0) {
 
 						DeleteStudent dels = new DeleteStudent(MainFrame.getInstance());
@@ -178,6 +181,7 @@ public class MyToolBar extends JToolBar {
 							return;
 						}
 					}
+
 				}else if(MainFrame.getInstance().tp.getSelectedIndex()==1
 						&MainFrame.getInstance().professorTable.getSelectedRowCount()!=0){
 					if(counter==1) {
@@ -197,9 +201,10 @@ public class MyToolBar extends JToolBar {
 					
 				}else if(MainFrame.getInstance().tp.getSelectedIndex()==2
 						&MainFrame.getInstance().subjectTable.getSelectedRowCount()!=0){
+
 					DeleteSubject delsp = new DeleteSubject(MainFrame.getInstance());
 				}
-				}
+			}
 		});
 
 		addSeparator();
@@ -238,19 +243,20 @@ public class MyToolBar extends JToolBar {
 					}
 
 					SearchStudents.getInstance().searchStudents(srch);
-				}else if(MainFrame.getInstance().tp.getSelectedIndex()==1) {
+				} else if (MainFrame.getInstance().tp.getSelectedIndex() == 1) {
 					String srch = textField.getText();
-					counter1=counter1+1;
-					if(counter1>1 & textField.getText().isEmpty()) {
+					counter1 = counter1 + 1;
+					if (counter1 > 1 & textField.getText().isEmpty()) {
 						BazaProfesora.getInstance().setProfessors(helpList1);
-						MainFrame.getInstance().refresh2();	
-						
-					}else if(counter>1 & !textField.getText().isEmpty()) {
+						MainFrame.getInstance().refresh2();
+
+					} else if (counter > 1 & !textField.getText().isEmpty()) {
 						BazaProfesora.getInstance().setProfessors(helpList1);
-						
+
 					}
-					
+
 					SearchProfessors.getInstance().searchProfessors(srch);
+
 					
 				}else if(MainFrame.getInstance().tp.getSelectedIndex()==2) {
 					
@@ -267,6 +273,7 @@ public class MyToolBar extends JToolBar {
 					
 					SearchSubjects.getInstance().searchSubjects(srch);
 	
+
 				}
 			}
 		});
@@ -284,5 +291,3 @@ public class MyToolBar extends JToolBar {
 
 	}
 }
-
-

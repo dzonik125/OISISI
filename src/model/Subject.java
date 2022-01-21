@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Subject {
+public class Subject implements Serializable{
 	public enum Semester {
 		Letnji, Zimski
 	}

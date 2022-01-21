@@ -39,12 +39,6 @@ public class BazaProfesora {
 		this.columns.add("Naziv");
 		this.columns.add("Godina studija");
 		this.columns.add("Semestar");
-
-		Professor p = new Professor("Nikola", "Kolarov", new Date(),
-				new Adress("Laze Kostica", "Kovilj", "77", "Srbija"), "45336", "dzonik125@gmail.com", "algebra", "2343",
-				"doktor", 4);
-
-		professors.add(p);
 	}
 
 	public List<Professor> getProfessors() {

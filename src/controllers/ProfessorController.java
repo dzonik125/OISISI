@@ -1,11 +1,10 @@
 package controllers;
 
-import frame.MainFrame;
+import java.util.ArrayList;
 
+import frame.MainFrame;
 import model.BazaProfesora;
 import model.Professor;
-import model.Student;
-import model.StudentBase;
 import model.Subject;
 
 public class ProfessorController {
@@ -50,7 +49,11 @@ public class ProfessorController {
 	}
 
 	public void addSubjectToProfessor(Professor p, Subject s) {
-		p.getSubjectList().add(s);
+		 ArrayList<Subject> n = new ArrayList<Subject>();
+		 n = p.getSubjectList();
+		 n.add(s);
+		 BazaProfesora.getInstance().getProfessors().get(MainFrame.getInstance().professorTable
+					.convertRowIndexToModel(MainFrame.getInstance().getDataFromSelectedRow2())).setSubjectList(n);
 	}
 
 	public void ddeleteSubjectFromProfessor(int rowSelectedIndex) {

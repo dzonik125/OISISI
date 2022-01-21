@@ -17,6 +17,7 @@ import javax.swing.KeyStroke;
 import model.Student;
 import model.StudentBase;
 import search.SearchStudents;
+import util.Serialization;
 
 public class MenuBar extends JMenuBar {
 
@@ -30,21 +31,21 @@ public class MenuBar extends JMenuBar {
 				// TODO Auto-generated method stub
 				// Dodati if za tab!!!
 				if (MainFrame.getInstance().tp.getSelectedIndex() == 0) {
-					if (MyToolBar.getInstance().counter == 0) {
+//					if (MyToolBar.getInstance().counter == 0) {
 
 						DialogStudent ds = new DialogStudent(MainFrame.getInstance());
-						MyToolBar.getInstance().helpList = new ArrayList<Student>(
-								StudentBase.getInstance().getStudents());
+//						MyToolBar.getInstance().helpList = new ArrayList<Student>(
+//								StudentBase.getInstance().getStudents());
 
-					} else {
-						if (SearchStudents.getInstance().flag == true) {
-							DialogStudent ds = new DialogStudent(MainFrame.getInstance());
-							MyToolBar.getInstance().helpList = new ArrayList<Student>(
-									StudentBase.getInstance().getStudents());
-						} else {
-							return;
-						}
-					}
+//					} else {
+//						if (SearchStudents.getInstance().flag == true) {
+//							DialogStudent ds = new DialogStudent(MainFrame.getInstance());
+//							MyToolBar.getInstance().helpList = new ArrayList<Student>(
+//									StudentBase.getInstance().getStudents());
+//						} else {
+//							return;
+//						}
+//					}
 				}
 
 				else if (MainFrame.getInstance().tp.getSelectedIndex() == 1) {
@@ -55,6 +56,17 @@ public class MenuBar extends JMenuBar {
 			}
 		});
 		JMenuItem miSave = new JMenuItem("Save");
+		miSave.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				Serialization.getInstance().serializeStudent();
+				Serialization.getInstance().serializeProfessor();
+				Serialization.getInstance().serializeSubject();
+			}
+			
+		});
 		JMenu miOpen = new JMenu("Open");
 		JMenuItem miClose = new JMenuItem("Close");
 		JMenu edit = new JMenu("Edit");
@@ -65,21 +77,21 @@ public class MenuBar extends JMenuBar {
 				// TODO Auto-generated method stub
 				if (MainFrame.getInstance().tp.getSelectedIndex() == 0
 						& MainFrame.getInstance().studentTable.getSelectedRowCount() != 0) {
-					if (MyToolBar.getInstance().counter == 0) {
+//					if (MyToolBar.getInstance().counter == 0) {
 
 						EditStudent es = new EditStudent(MainFrame.getInstance());
-						MyToolBar.getInstance().helpList = new ArrayList<Student>(
-								StudentBase.getInstance().getStudents());
-
-					} else {
-						if (SearchStudents.getInstance().flag == true) {
-							EditStudent es = new EditStudent(MainFrame.getInstance());
-							MyToolBar.getInstance().helpList = new ArrayList<Student>(
-									StudentBase.getInstance().getStudents());
-						} else {
-							return;
-						}
-					}
+//						MyToolBar.getInstance().helpList = new ArrayList<Student>(
+//								StudentBase.getInstance().getStudents());
+//
+//					} else {
+//						if (SearchStudents.getInstance().flag == true) {
+//							EditStudent es = new EditStudent(MainFrame.getInstance());
+//							MyToolBar.getInstance().helpList = new ArrayList<Student>(
+//									StudentBase.getInstance().getStudents());
+//						} else {
+//							return;
+//						}
+//					}
 				} else if (MainFrame.getInstance().tp.getSelectedIndex() == 1
 						& MainFrame.getInstance().professorTable.getSelectedRowCount() != 0) {
 					EditProfesor ep = new EditProfesor(MainFrame.getInstance());

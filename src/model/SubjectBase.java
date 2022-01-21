@@ -14,10 +14,10 @@ public class SubjectBase {
 		}
 		return instance;
 	}
-	
+
 	private List<Subject> subjects;
 	private List<String> columns;
-	
+
 	private SubjectBase() {
 		this.columns = new ArrayList<String>();
 		this.columns.add("�ifra predmeta");
@@ -26,13 +26,6 @@ public class SubjectBase {
 		this.columns.add("Godina");
 		this.columns.add("ESPB");
 		this.subjects = new ArrayList<Subject>();
-		subjects.add(new Subject("12", "Algebra", Subject.Semester.Letnji, 1, 8));
-		subjects.add(new Subject("20","Analiza",Subject.Semester.Zimski,3,7));
-		subjects.add(new Subject("20","Geodezija",Subject.Semester.Zimski,2,9));
-	}
-	
-	public void setSubjects(List<Subject> subjects) {
-		this.subjects=subjects;
 	}
 	
 	
@@ -44,21 +37,20 @@ public class SubjectBase {
 	public void addSubject(Subject s) {
 		subjects.add(s);
 	}
-	
+
+
 	public void deleteSubject(String subjectID) {
-		for(Subject s:subjects) {
-			if(s.getSubjectID().equals(subjectID)) {
+		for (Subject s : subjects) {
+			if (s.getSubjectID().equals(subjectID)) {
 				subjects.remove(s);
 				break;
-				
+
 			}
-			
-			
+
 		}
-		
-		
-		
+
 	}
+
 	
 	
 	
@@ -77,16 +69,15 @@ public class SubjectBase {
 		s1.setStudyYear(s.getStudyYear());
 		s1.setSubjectProfessor(s.getSubjectProfessor());
 	}
-	
+
 	public String getColumnName(int index) {
 		return this.columns.get(index);
 	}
-	
+
 	public Subject getRow(int rowIndex) {
 		return this.subjects.get(rowIndex);
 	}
 
-	
 	public String getValueAt(int row, int column) {
 
 		Subject s = this.subjects.get(row);
@@ -106,5 +97,5 @@ public class SubjectBase {
 			return null;
 		}
 	}
-	
+
 }

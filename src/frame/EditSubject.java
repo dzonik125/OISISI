@@ -263,12 +263,14 @@ public class EditSubject extends JDialog {
 		txtScode.setText(String.valueOf(sb.getSubjectID()));
 		txtYr.setText(String.valueOf(sb.getStudyYear()));
 		txtEspb.setText(String.valueOf(sb.getEspb()));
+
 		if(SubjectBase.getInstance().getSubjects().get(MainFrame.getInstance().subjectTable.convertRowIndexToModel(MainFrame.getInstance().getDataFromSelectedRow1())).getSubjectProfessor()==null) {
 			txtProfesor.setText(null);
 		}else {
 			txtProfesor.setText(SubjectBase.getInstance().getSubjects().get(MainFrame.getInstance().subjectTable.convertRowIndexToModel(MainFrame.getInstance().getDataFromSelectedRow1())).getSubjectProfessor().getName().concat(" ").concat(SubjectBase.getInstance().getSubjects().get(MainFrame.getInstance().subjectTable.convertRowIndexToModel(MainFrame.getInstance().getDataFromSelectedRow1())).getSubjectProfessor().getSurname()));
 		}
 		String check = SubjectBase.getInstance().getSubjects().get(MainFrame.getInstance().subjectTable.convertRowIndexToModel(MainFrame.getInstance().getDataFromSelectedRow1())).getSubjectID();
+
 		
 		GridBagConstraints gbcName = new GridBagConstraints();
 		gbcName.gridx = 0;
@@ -366,7 +368,8 @@ public class EditSubject extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				// Ime i sifra predmeta
-				Pattern p = Pattern.compile("[A-z]+");
+
+				Pattern p = Pattern.compile("[A-z]*\\s*[A-z]*\\s*[A-z]*\\s*[A-z]*");
 
 				Matcher m = p.matcher(txtName.getText());
 				boolean b = m.matches();

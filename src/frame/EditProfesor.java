@@ -101,10 +101,13 @@ public class EditProfesor extends JDialog {
 				data.add("Predmeti:");
 				data.add(" ");
 				for (Subject sbt : SubjectBase.getInstance().getSubjects()) {
-					if (pr.getSubjectList().contains(sbt)) {
-						passed = false;
-					} else {
-						passed = true;
+					for(int i = 0; i < pr.getSubjectList().size(); i++) {
+						if (BazaProfesora.getInstance().getProfessors().get(MainFrame.getInstance().professorTable
+								.convertRowIndexToModel(MainFrame.getInstance().getDataFromSelectedRow2())).getSubjectList().get(i).getSubjectID().equals(sbt.getSubjectID())) {
+							passed = false;
+						} else {
+							passed = true;
+						}
 					}
 					if (passed) {
 						String first = String.valueOf(sbt.getSubjectID());
@@ -135,7 +138,8 @@ public class EditProfesor extends JDialog {
 						int index = available.getSelectedIndex();
 						subc = subb.get(available.getSelectedIndex());
 						subb.remove(index);
-						ProfessorController.getInstance().addSubjectToProfessor(pr, subc);
+						ProfessorController.getInstance().addSubjectToProfessor(BazaProfesora.getInstance().getProfessors().get(MainFrame.getInstance().professorTable
+								.convertRowIndexToModel(MainFrame.getInstance().getDataFromSelectedRow2())), subc);
 						refresh();
 						addSubj.dispose();
 					}
@@ -162,10 +166,10 @@ public class EditProfesor extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				if(available != null) {
+//				if(available != null) {
 					ProfessorController.getInstance().ddeleteSubjectFromProfessor(professorSubjectsTable.getSelectedRow());
 					refresh();
-				}
+//				}
 			}
 			
 		});

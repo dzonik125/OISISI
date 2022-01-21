@@ -144,12 +144,11 @@ public class DialogSubject extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				// Ime i sifra predmeta
-				Pattern p = Pattern.compile("\\b([A-Z�-�][-,a-z. ']+[ ]*)+"
-);
+				Pattern p = Pattern.compile("[A-z]*\\s*[A-z]*\\s*[A-z]*\\s*[A-z]*");
 				Matcher m = p.matcher(txtName.getText());
 				boolean b = m.matches();
 
-				Pattern p1 = Pattern.compile("\\d+");
+				Pattern p1 = Pattern.compile("[A-z]*\\d*");
 				Matcher m1 = p1.matcher(txtScode.getText());
 				boolean b1 = m1.matches();
 
@@ -166,7 +165,7 @@ public class DialogSubject extends JDialog {
 				// Provera sife predmeta
 				boolean notSameID = true;
 				for (Subject sb : SubjectBase.getInstance().getSubjects()) {
-					if (sb.getSubjectID().equals( txtScode.getText())) {
+					if (sb.getSubjectID().equals(txtScode.getText())) {
 						notSameID = false;
 					}
 				}

@@ -3,13 +3,23 @@ package frame;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import model.BazaProfesora;
+import model.StudentBase;
+import model.SubjectBase;
+import util.Deserialization;
+
 public class MainFrame extends JFrame {
-	private static MainFrame instance;
+	private static MainFrame instance = null;
 	public JTable studentTable;
 	public JTable professorTable;
 	public JTable subjectTable;
@@ -18,13 +28,16 @@ public class MainFrame extends JFrame {
 	
 	private MainFrame() {
 		super();
+		Deserialization.getInstance().deserializeStudent();
+		Deserialization.getInstance().deserializeProfessor();
+		Deserialization.getInstance().deserializeSubject();
 		Toolkit kit = Toolkit.getDefaultToolkit();
 		Dimension screenSize = kit.getScreenSize();
 		int screenHeight = screenSize.height;
 		int screenWidth = screenSize.width;
 		
 		setSize(3*(screenWidth / 4), 3*(screenHeight / 4));
-		setTitle("Studentska služba");
+		setTitle("Studentska sluï¿½ba");
 		setLocationRelativeTo(null);
 		
 		MenuBar menu = new MenuBar();
@@ -49,8 +62,11 @@ public class MainFrame extends JFrame {
 		tp.addTab("Profesori", scrollPane1);
 		tp.addTab("Predmeti", scrollPane2);
 		
+
+		
 		this.refresh();
 		this.refresh1();
+		this.refresh2();
 	}
 	
 	public int getDataFromSelectedRow() {
